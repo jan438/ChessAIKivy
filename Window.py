@@ -355,7 +355,6 @@ class ChessBoard(RelativeLayout):
     piece_pressed = False
     id_piece_ = None
     available_moves = {"available_moves":(), "pieces_to_capture":[]}
-    turn_ = "White"
     piece_index = None
     check = BooleanProperty(defaultvalue=False)
 
@@ -417,7 +416,7 @@ class ChessBoard(RelativeLayout):
         for id, child in enumerate(self.children):
             old_x, old_y = child.grid_x, child.grid_y
             if not ChessBoard.piece_pressed:
-                if grid_x == child.grid_x and grid_y == child.grid_y and child.id[:5] == ChessBoard.turn_:
+                if grid_x == child.grid_x and grid_y == child.grid_y and child.id[:5] == boardai.human:
                     ChessBoard.piece_pressed = True
                     ChessBoard.piece_index = id
                     ChessBoard.available_moves = child.available_moves(self.children)
@@ -467,7 +466,7 @@ class ChessBoard(RelativeLayout):
                        anim.start(self.children[id])
                        break
                     else:
-                       print("Turn1",ChessBoard.turn_)
+                       print("Turn1", boardai.human)
                        self.turn()
                        break        
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
@@ -495,7 +494,7 @@ class ChessBoard(RelativeLayout):
                                 anim.start(self.children[id])
                                 break
                             else:
-                                print("Turn2",ChessBoard.turn_)
+                                print("Turn2", boardai.human)
                                 self.turn()                    
                                 break
                         elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x):
@@ -552,11 +551,11 @@ class ChessBoard(RelativeLayout):
                              self.children[ChessBoard.piece_index].First_use = True
                              break
                          else:
-                              print("Turn3",ChessBoard.turn_)
+                              print("Turn3", boardai.human)
                               self.turn()
                               self.draw_moves()
                               break
-                         print("Turn4",ChessBoard.turn_)
+                         print("Turn4", boardai.human)
                          self.turn() 
                          self.draw_moves()
                 except Exception as e:
@@ -569,12 +568,12 @@ class ChessBoard(RelativeLayout):
     def check_check(self):
         King = None
         for piece_ in self.children:
-            if piece_.id[:5] == ChessBoard.turn_ and piece_.id[5:] == "King":
+            if piece_.id[:5] == boardai.human and piece_.id[5:] == "King":
                 King = piece_
                 break
 
         for piece in self.children:
-            if piece.id[:5] != ChessBoard.turn_:
+            if piece.id[:5] != boardai.human:
                 piece_available_moves = piece.available_moves(self.children)
                 if (King.grid_x, King.grid_y) in piece_available_moves["available_moves"] or (King.grid_x, King.grid_y) in piece_available_moves["pieces_to_capture"]:
                     print("Checkmate by",piece.id)
@@ -586,7 +585,7 @@ class ChessBoard(RelativeLayout):
         if self.check_check():
             still_check = True
             for child in self.children:
-                if child.id[:5] == ChessBoard.turn_:
+                if child.id[:5] == boardai.human:
                     every_move = []
                     for type_of_moves in child.available_moves(self.children).values():
                         every_move.extend(type_of_moves)
