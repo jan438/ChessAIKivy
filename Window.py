@@ -753,7 +753,7 @@ class ChessApp(App):
 boardai = boardai.Boardai.new()
 hmcolor = piecesai.Piece.WHITE
 aicolor = piecesai.Piece.BLACK
-alg = "M"
+alg = boardai.alg
 print("Human ", boardai.human, "Alg ", boardai.alg)
 print(boardai.to_string())
 
