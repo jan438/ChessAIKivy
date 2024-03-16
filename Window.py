@@ -1,0 +1,760 @@
+from kivy.app import App
+from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.core.window import Window
+from kivy.uix.widget import Widget
+from kivy.config import Config
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.image import Image
+from kivy.animation import Animation
+from kivy.properties import *
+from kivy.graphics.instructions import InstructionGroup
+from kivy.graphics import Rectangle, Color, Ellipse
+from kivy.lang.builder import Builder
+from kivy.utils import get_hex_from_color, get_color_from_hex
+from pathlib import Path
+import boardai, piecesai, ai
+from move import Move
+import os
+import sys
+import platform
+import sysconfig
+import csv
+import time
+
+indent = '    '
+Width, Height = 800, 800
+Window.size = (Width, Height)
+
+def get_user_move(movestr):
+    move_str = movestr
+    move_str = move_str.replace(" ", "")
+    try:
+        xfrom = letter_to_xpos(move_str[0:1])
+        yfrom = 8 - int(move_str[1:2])
+        xto = letter_to_xpos(move_str[2:3])
+        yto = 8 - int(move_str[3:4])
+        return Move(xfrom, yfrom, xto, yto)
+    except ValueError:
+        print("Invalid format. Example: A2 A4")
+        return get_user_move()
+        
+def letter_to_xpos(letter):
+    letter = letter.upper()
+    if letter == 'A':
+        return 0
+    if letter == 'B':
+        return 1
+    if letter == 'C':
+        return 2
+    if letter == 'D':
+        return 3
+    if letter == 'E':
+        return 4
+    if letter == 'F':
+        return 5
+    if letter == 'G':
+        return 6
+    if letter == 'H':
+        return 7
+    raise ValueError("Invalid letter.")
+        
+def xpos_to_letter(digit):
+    if digit >= 0 and digit <= 7:
+        str = "ABCDEFGH"
+        letter = str[digit]
+        return letter
+    raise ValueError("Invalid digit")
+     
+def ypos_to_digit(digit):
+    if digit >= 0 and digit <= 7:
+        letter = chr(ord('0')+digit+1)
+        return letter
+    raise ValueError("Invalid digit")
+    
+def ai_to_hm_x(xpos):
+    return xpos
+    
+def ai_to_hm_y(ypos):
+    return 7 - ypos
+    
+class ChessPiece(ButtonBehavior, Image):
+
+    grid_x = NumericProperty()
+    grid_y = NumericProperty()
+    id = StringProperty()
+    First_use = BooleanProperty()
+    def available_moves(self, pieces):
+        pass
+
+class Pawn(ChessPiece):
+
+    def callback(instance, value):
+        print("Value of First_use changed", value)
+
+    def available_moves(self, pieces):
+        if self.id[:5] == "White":
+            available_moves = {"available_moves":(), "pieces_to_capture":[]}
+            if self.grid_y > 7:
+                return available_moves
+            if self.First_use:
+                available_moves["available_moves"] = {(self.grid_x, self.grid_y+1), (self.grid_x, self.grid_y+2)}
+            else:
+                available_moves["available_moves"] = {(self.grid_x, self.grid_y+1)}
+            pclup = 0
+            pcup = 0
+            pcrup = 0
+            for piece in pieces:
+                if piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
+                    pclup = piece
+                if piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
+                    pcrup = piece
+                if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y + 1:
+                    pcup = piece
+            for piece in pieces:
+                if piece.grid_y == self.grid_y + 1 and piece.grid_x == self.grid_x:
+                    available_moves["available_moves"] = ()
+                if self.First_use and piece.grid_y == self.grid_y + 2 and piece.grid_x == self.grid_x:
+                    if len(available_moves) == 2:
+                        available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 4 and pcrup == 0:
+                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
+                if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 4 and pclup == 0:
+                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
+                if piece.id[:5] == "Black" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
+                if piece.id[:5] == "Black" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
+            print("Available moves",available_moves)
+            return available_moves
+        if self.id[:5] == "Black":
+            available_moves = {"available_moves":(), "pieces_to_capture":[]}
+            if self.First_use:
+                available_moves["available_moves"] = ((self.grid_x, self.grid_y-1), (self.grid_x,self.grid_y-2))
+            else:
+                available_moves["available_moves"] = ((self.grid_x, self.grid_y-1),)
+            for piece in pieces:
+                if piece.grid_y == self.grid_y - 1 and piece.grid_x == self.grid_x:
+                    available_moves["available_moves"] = ()
+                if self.First_use and piece.grid_y == self.grid_y - 2 and piece.grid_x == self.grid_x:
+                    available_moves["available_moves"] = ()
+                if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))
+                if piece.id[:5] == "White" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
+            return available_moves
+
+class Rook(ChessPiece):
+
+    def available_moves(self, pieces):
+        available_moves = {"available_moves":[], "pieces_to_capture":[]}
+        rows = 8
+        cols = 8
+        for x in range(int(self.grid_x) + 1, cols):
+            found = False
+            for piece in pieces:
+                if piece.grid_x == x and piece.grid_y == self.grid_y:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((x, self.grid_y))
+        for y in range(int(self.grid_y) + 1, rows):
+            found = False
+            for piece in pieces:
+                if piece.grid_x == self.grid_x and piece.grid_y == y:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((self.grid_x, y))
+        for x in range(int(self.grid_x) - 1, -1, -1):
+            found = False
+            for piece in pieces:
+                if piece.grid_x == x and piece.grid_y == self.grid_y:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((x, self.grid_y))
+        for y in range(int(self.grid_y) - 1, -1, -1):
+            found = False
+            for piece in pieces:
+                if piece.grid_x == self.grid_x and piece.grid_y == y:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((self.grid_x, y))
+        return available_moves
+
+class Knight(ChessPiece):
+
+    def available_moves(self, pieces):
+        available_moves = {"available_moves":self.create_moves(), "pieces_to_capture":[]}
+        for piece in pieces:
+            if self.id[:5] == "White":
+                if piece.id[:5] == "White" and (piece.grid_x, piece.grid_y) in available_moves["available_moves"]:
+                    available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                if piece.id[:5] == "Black" and (piece.grid_x, piece.grid_y) in available_moves["available_moves"]:
+                    available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                    available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+            if self.id[:5] == "Black":
+                if piece.id[:5] == "Black" and (piece.grid_x, piece.grid_y) in available_moves["available_moves"]:
+                    available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                if piece.id[:5] == "White" and (piece.grid_x, piece.grid_y) in available_moves["available_moves"]:
+                    available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                    available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+        return available_moves
+
+    def create_moves(self):
+        moves = [
+            (self.grid_x + 2, self.grid_y + 1),
+            (self.grid_x + 1, self.grid_y + 2),
+            (self.grid_x - 2, self.grid_y + 1),
+            (self.grid_x - 1, self.grid_y + 2),
+            (self.grid_x + 1, self.grid_y - 2),
+            (self.grid_x + 2, self.grid_y - 1),
+            (self.grid_x - 2, self.grid_y - 1),
+            (self.grid_x - 1, self.grid_y - 2),
+        ]
+        good_moves = []
+        for move in moves:
+            if move[0] <= 7 and move[1] <= 7 and move[0] >= 0 and move[1] >= 0:
+                good_moves.append((move))
+
+        return good_moves
+
+class Bishop(ChessPiece):
+
+    def available_moves(self, pieces):
+        available_moves = {"available_moves":[], "pieces_to_capture":[]}
+        rows = 8
+        cols = 8
+        for i in range(1, rows):
+            if self.grid_x + i >= rows or self.grid_y + i >= cols:
+                break
+            found = False
+            for piece in pieces:
+                if piece.grid_x == self.grid_x + i and piece.grid_y == self.grid_y + i:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((self.grid_x + i, self.grid_y + i))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((self.grid_x + i, self.grid_y + i))
+        for i in range(1, rows):
+            if self.grid_x - i < 0 or self.grid_y + i >= rows:
+                break
+            found = False
+            for piece in pieces:
+                if piece.grid_x == self.grid_x - i and piece.grid_y == self.grid_y + i:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((self.grid_x - i, self.grid_y + i))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((self.grid_x - i, self.grid_y + i))
+        for i in range(1, rows):
+            if self.grid_x - i < 0 or self.grid_y - i < 0:
+                break
+            found = False
+            for piece in pieces:
+                if piece.grid_x == self.grid_x - i and piece.grid_y == self.grid_y - i:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((self.grid_x - i, self.grid_y - i))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((self.grid_x - i, self.grid_y - i))
+        for i in range(1, rows):
+            if self.grid_x + i >= rows or self.grid_y - i < 0:
+                break
+            found = False
+            for piece in pieces:
+                if piece.grid_x == self.grid_x + i and piece.grid_y == self.grid_y - i:
+                    found = True
+                    if piece.id[:5] != self.id[:5]:
+                        available_moves["pieces_to_capture"].append((self.grid_x + i, self.grid_y - i))
+                    break
+            if found:
+                break
+            available_moves["available_moves"].append((self.grid_x + i, self.grid_y - i))
+        return available_moves
+
+class Queen(Rook, Bishop):
+    def available_moves(self, pieces):
+        available_moves1 = Rook.available_moves(self,pieces)
+        available_moves2 = Bishop.available_moves(self,pieces)
+        available_moves = {key: val + available_moves2[key] for key, val in available_moves1.items()}
+        return available_moves
+
+class King(ChessPiece):
+
+    def available_moves(self, pieces):
+        available_moves = self.create_moves()
+        rows, cols = 8,8
+        good_available_moves = []
+        for move in available_moves["available_moves"]:
+            if move[0] <= cols and move[1] <= rows and move[1] >= 0 and move[0] >= 0:
+                good_available_moves.append(move)
+        available_moves["available_moves"] = good_available_moves
+        for piece in pieces:
+            if (piece.grid_x, piece.grid_y) in available_moves["available_moves"]:
+                if piece.id[:5] != self.id[:5]:
+                    available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                    available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
+                available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+        if self.First_use:
+            available_moves["castling"] = self.castling(pieces)
+        return available_moves
+
+    def create_moves(self):
+        available_moves = {"available_moves":[], "pieces_to_capture":[]}
+        available_moves["available_moves"].append((self.grid_x, self.grid_y+1))
+        available_moves["available_moves"].append((self.grid_x-1, self.grid_y+1))
+        available_moves["available_moves"].append((self.grid_x+1, self.grid_y+1))
+        available_moves["available_moves"].append((self.grid_x-1, self.grid_y))
+        available_moves["available_moves"].append((self.grid_x-1, self.grid_y-1))
+        available_moves["available_moves"].append((self.grid_x+1, self.grid_y))
+        available_moves["available_moves"].append((self.grid_x+1, self.grid_y-1))
+        available_moves["available_moves"].append((self.grid_x, self.grid_y-1))
+        return available_moves
+
+    def castling(self, pieces):
+        if self.First_use:
+            no_piece_left = True
+            no_piece_right = True
+            for piece in pieces:
+                if piece.grid_y == self.grid_y and piece.grid_x > self.grid_x and (piece.id[5:9] != "Rook" or self.id[:5] != piece.id[:5]):
+                    no_piece_right = False
+                elif piece.grid_y == self.grid_y and piece.grid_x < self.grid_x and (piece.id[5:9] != "Rook" or self.id[:5] != piece.id[:5]):
+                    no_piece_left = False
+            if no_piece_right and no_piece_left:
+                return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
+            if no_piece_right:
+                return [(self.grid_x+2, self.grid_y)]
+            if no_piece_left:
+                return [(self.grid_x-2, self.grid_y)]
+        return []
+
+class ChessBoard(RelativeLayout):
+    piece_pressed = False
+    id_piece_ = None
+    available_moves = {"available_moves":(), "pieces_to_capture":[]}
+    turn_ = "White"
+    piece_index = None
+    check = BooleanProperty(defaultvalue=False)
+
+    def close_application(self): 
+        App.get_running_app().stop() 
+        Window.close()
+    
+    def listpieces(self):
+        for child in self.children:
+            print("Human board",child.id,child.grid_x,child.grid_y,child.First_use)
+            
+    def findpiece(self,id):
+        for child in self.children:
+            if child.id == id:
+                return child
+                
+    def WhiteCapture(self):
+        capture = False
+        hmsyn = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+        for child in self.children:
+            hm_x_grid = round(child.grid_x)
+            hm_y_grid = round(child.grid_y)
+            hmsyn[hm_x_grid][hm_y_grid] += 1
+            if hmsyn[hm_x_grid][hm_y_grid] > 1:
+                capture = True
+                break
+        if capture:
+            for child in self.children:
+                if child.id[0:5] == "White":
+                    if [round(child.grid_x),round(child.grid_y)] == [hm_x_grid,hm_y_grid]:
+                        piece = self.findpiece(child.id)
+                        self.remove_widget(piece)
+        
+                        
+    def pieceindex_at_board(self,xpos,ypos):
+        ypos = ai_to_hm_y(ypos)
+        index = -1
+        for child in self.children:
+            index += 1
+            if child.grid_x == xpos and child.grid_y == ypos:
+                return index
+                
+                
+    def piece_at_board(self,xpos,ypos):
+        for child in self.children:
+            if child.grid_x == xpos and child.grid_y == ypos:
+                return child
+        print("No piece_at_board Piece 0 oordinaten", xpos, ypos)
+        return 0
+
+
+    def on_touch_down(self, touch):
+        #boardai.listpieces()
+        #self.listpieces()
+        self.WhiteCapture()
+        rows, cols = 8,8
+        grid_x = int(touch.pos[0] / self.width * rows)
+        grid_y = int(touch.pos[1] / self.height * cols)
+        for id, child in enumerate(self.children):
+            old_x, old_y = child.grid_x, child.grid_y
+            if not ChessBoard.piece_pressed:
+                if grid_x == child.grid_x and grid_y == child.grid_y and child.id[:5] == ChessBoard.turn_:
+                    ChessBoard.piece_pressed = True
+                    ChessBoard.piece_index = id
+                    ChessBoard.available_moves = child.available_moves(self.children)
+                    self.draw_moves()
+                    ChessBoard.id_piece_ = child.id
+                    break
+            elif ChessBoard.piece_pressed and grid_x == child.grid_x and grid_y == child.grid_y and ChessBoard.id_piece_[:5] == child.id[:5]:
+                ChessBoard.available_moves = child.available_moves(self.children)
+                self.draw_moves()
+                ChessBoard.id_piece_ = child.id
+                ChessBoard.piece_index = id
+                break
+            elif ChessBoard.piece_pressed and child.id == ChessBoard.id_piece_:
+                if (grid_x, grid_y) in ChessBoard.available_moves["available_moves"]:
+                    print("Normal zet", self.children[id].id, old_x, old_y, grid_x, grid_y)
+                    anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_quad', duration=0.5)
+                    anim.start(self.children[id])
+                    ChessBoard.piece_pressed = False
+                    ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                    hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)
+                    move = get_user_move(hmmove)
+                    boardai.perform_move(move)
+                    if grid_y == 7 and child.id[0:9] == "WhitePawn":
+                        self.remove_widget(child)
+                        self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=grid_x, grid_y=grid_y))
+                    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, "M")
+                    if type(ai_move) is int:
+                        print("Check mate")
+                        time.sleep(10)
+                        self.close_application()
+                        time.sleep(60)
+                    boardai.perform_move(ai_move)
+                    if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen":
+                        propawn = self.piece_at_board(ai_move.xto, 1)
+                        self.remove_widget(propawn)
+                        self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=ai_move.xto, grid_y=0))
+                    else:
+                        anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
+                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
+                        anim.start(self.children[ChessBoard.piece_index])
+                    if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
+                       child.First_use = False
+                    self.draw_moves()
+                    if self.check_check():
+                       print("Check_check normal zet", self.children[id].id, old_x, old_y)
+                       anim = Animation(grid_x=old_x, grid_y=old_y, t='in_quad', duration=0.5)
+                       anim.start(self.children[id])
+                       break
+                    else:
+                       print("Turn1",ChessBoard.turn_)
+                       self.turn()
+                       break        
+                elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
+                    for enemy in self.children:
+                        if enemy.grid_x == grid_x and enemy.grid_y == grid_y:
+                            anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                            anim.start(self.children[id])
+                            self.remove_widget(enemy)
+                            ChessBoard.piece_pressed = False
+                            ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                            hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)                          
+                            move = get_user_move(hmmove)
+                            boardai.perform_move(move)
+                            ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, "M")
+                            boardai.perform_move(ai_move)
+                            anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
+                            ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
+                            anim.start(self.children[ChessBoard.piece_index])
+                            if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
+                                child.First_use = False
+                            self.draw_moves()     
+                            if self.check_check():
+                                print("Check_check capture", self.children[id])
+                                anim = Animation(grid_x=old_x, grid_y=old_y, t='in_quad', duration=0.5)
+                                anim.start(self.children[id])
+                                break
+                            else:
+                                print("Turn2",ChessBoard.turn_)
+                                self.turn()                    
+                                break
+                        elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x):
+                            print("En passant", child.id, enemy.id, child.grid_x, child.grid_y, enemy.grid_x, enemy.grid_y)
+                            anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                            anim.start(child)
+                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1:
+                                self.remove_widget(enemy)
+                            ChessBoard.piece_pressed = False
+                            ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                            hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)
+                            move = get_user_move(hmmove)
+                            print("hmmove:",hmmove,"move:",move.xfrom,move.yfrom,move.xto,move.yto)
+                            boardai.perform_move(move)
+                            self.draw_moves()
+            else:
+                try:
+                    if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
+                         anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                         anim.start(self.children[ChessBoard.piece_index])
+                         if grid_x == 2 and grid_y == 0:
+                             piece = self.findpiece("WhiteRook_0")
+                             anim = Animation(grid_x=grid_x+1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                             anim.start(piece)
+                             piece.First_use = False
+                             hmmove = ""+xpos_to_letter(4)+ypos_to_digit(0)+" "+xpos_to_letter(2)+ypos_to_digit(0)
+                             move = get_user_move(hmmove)
+                             boardai.perform_move(move)
+                         if grid_x == 6 and grid_y == 0:
+                             piece = self.findpiece("WhiteRook_1")
+                             anim = Animation(grid_x=grid_x-1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                             anim.start(piece)
+                             piece.First_use = False
+                             hmmove = ""+xpos_to_letter(4)+ypos_to_digit(0)+" "+xpos_to_letter(6)+ypos_to_digit(0)
+                             move = get_user_move(hmmove)
+                             boardai.perform_move(move)
+                         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, "M")
+                         boardai.perform_move(ai_move)
+                         anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
+                         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
+                         anim.start(self.children[ChessBoard.piece_index])
+                         ChessBoard.piece_pressed = False
+                         child.First_use = False
+                         self.children[ChessBoard.piece_index].First_use = False
+                         ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}             
+                         if self.check_check():
+                             print("Check_check castling", self.children[id])
+                             anim = Animation(grid_x=old_x, grid_y=old_y, t='in_quad', duration=0.5)
+                             anim.start(self.children[id])
+                             if ChessBoard.id_piece_ == "White":
+                                  anim = Animation(grid_x=4, grid_y=0, t='in_quad', duration=0.5)
+                                  anim.start(self.children[ChessBoard.piece_index])
+                             child.First_use = True
+                             self.children[ChessBoard.piece_index].First_use = True
+                             break
+                         else:
+                              print("Turn3",ChessBoard.turn_)
+                              self.turn()
+                              self.draw_moves()
+                              break
+                         print("Turn4",ChessBoard.turn_)
+                         self.turn() 
+                         self.draw_moves()
+                except Exception as e:
+                    print(repr(e))
+
+    def turn(self):
+        print(boardai.to_string())
+        #boardai.listpieces()
+
+    def check_check(self):
+        King = None
+        for piece_ in self.children:
+            if piece_.id[:5] == ChessBoard.turn_ and piece_.id[5:] == "King":
+                King = piece_
+                break
+
+        for piece in self.children:
+            if piece.id[:5] != ChessBoard.turn_:
+                piece_available_moves = piece.available_moves(self.children)
+                if (King.grid_x, King.grid_y) in piece_available_moves["available_moves"] or (King.grid_x, King.grid_y) in piece_available_moves["pieces_to_capture"]:
+                    print("Checkmate by",piece.id)
+                    self.close_application()
+                    return True
+        return False
+                
+    def checkmate(self):
+        if self.check_check():
+            still_check = True
+            for child in self.children:
+                if child.id[:5] == ChessBoard.turn_:
+                    every_move = []
+                    for type_of_moves in child.available_moves(self.children).values():
+                        every_move.extend(type_of_moves)
+                    for move in every_move:
+                        if child.id[5:9] == "Pawn":
+                            self.add_widget(Pawn(id=child.id[:5]+"InvPawn",source=None,grid_x=move[0], grid_y=move[1]))
+                        elif child.id[5:9] == "Rook":
+                            self.add_widget(Rook(id=child.id[:5]+"InvRook",source=None,grid_x=move[0], grid_y=move[1]))
+                        elif child.id[5:11] == "Knight":
+                            self.add_widget(Knight(id=child.id[:5]+"InvKnight",source=None,grid_x=move[0], grid_y=move[1]))
+                        elif child.id[5:11] == "Bishop":
+                            self.add_widget(Bishop(id=child.id[:5]+"InvBishop",source=None,grid_x=move[0], grid_y=move[1]))
+                        elif child.id[5:10] == "Queen":
+                            self.add_widget(Queen(id=child.id[:5]+"InvQueen",source=None,grid_x=move[0], grid_y=move[1]))
+                        elif child.id[5:9] == "King":
+                            self.add_widget(King(id=child.id[:5]+"InvKing",source=None,grid_x=move[0], grid_y=move[1]))
+                        if not self.check_check():
+                            still_check = False
+                        for child2 in self.children:
+                            if "Inv" in child2.id:
+                                self.remove_widget(child2)
+                        if not still_check:
+                            return False
+        return True
+
+    def draw_moves(self):
+        grid_size_x = self.width / 8
+        grid_size_y = self.height / 8
+        Blue = (0, 0, 1)
+        Green = (0, 1, 0)
+
+        with self.canvas:
+            self.canvas.remove_group("moves")
+            size = (0.2*grid_size_x, 0.2*grid_size_y)
+
+            for idx, moves in enumerate(ChessBoard.available_moves.values()):
+                if idx == 0:
+                    Color(rgb=Blue)
+                    for move in moves:
+                        Ellipse(pos=(grid_size_x * move[0]+grid_size_x/2 - size[0]/2, grid_size_y * move[1] + grid_size_y/2 - size[1]/2), size=size, group="moves")
+                elif idx == 1:
+                    Color(rgb=Green)
+                    for move in moves:
+                        Ellipse(pos=(grid_size_x * move[0]+grid_size_x/2 - size[0]/2, grid_size_y * move[1] + grid_size_y/2 - size[1]/2), size=size, group="moves")
+
+    def on_size(self, *_):
+        self.draw_board()
+        self.draw_moves()
+
+    def update(self):
+        pass
+
+    def on_pos(self, *_):
+        self.draw_board()
+        self.draw_moves()
+
+    def draw_board(self):
+        is_white = False
+        grid_size_x = self.width / 8
+        grid_size_y = self.height / 8
+        with self.canvas.before:
+            for y in range(8):
+                for x in range(8):
+                    if is_white:
+                        Color(rgb=get_color_from_hex('#ECDFCB'))
+                    else:
+                        Color(rgb=get_color_from_hex('#A18E6E'))
+                    Rectangle(pos=(grid_size_x * x, grid_size_y * y), size=(grid_size_x, grid_size_y))
+                    is_white = not is_white
+                is_white = not is_white
+
+class ChessBoardScreen(Screen):
+    def __init__(self, **kwargs):
+        super(ChessBoardScreen, self).__init__(**kwargs)
+        self.game = ChessGame()
+        self.add_widget(self.game)
+
+class ChessApp(App):
+    def build(self):
+        board = ChessBoard()
+        #print("os.name                  ", os.name)
+        #print("sys.platform             ", sys.platform)
+        #print("platform.system()        ", platform.system())
+        #print("sysconfig.get_platform() ", sysconfig.get_platform())
+        #print("platform.machine()       ", platform.machine())
+        #print("platform.architecture()  ", platform.architecture())
+        #print("getcwd                   ", os.getcwd())
+        if sys.platform[0] == 'l':
+            path = '/home/jan/git/ChessAIKivy'
+        if sys.platform[0] == 'w':
+            path = "C:/Users/janbo/OneDrive/Documents/GitHub/ChessAIKivy"
+        try:
+            os.chdir(path)
+            #print("Current working directory: {0}".format(os.getcwd()))
+            data_folder = Path("./CSV/")
+            file_to_open = data_folder / "begin.csv"
+            try:
+                with open(file_to_open, 'r') as file:
+                    csvreader = csv.reader(file)
+                    for row in csvreader:
+                        sid = row[1]
+                        x = ord(row[2]) - 48
+                        y = ord(row[3]) - 48
+                        fu = (row[4] == 'T')
+                        if row[0] == 'W':
+                            if sid[0] == 'P':
+                                board.add_widget(Pawn(id="WhitePawn_"+sid[1],source="Assets/PNG/WhitePawn.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'R':
+                                board.add_widget(Rook(id="WhiteRook_"+sid[1],source="Assets/PNG/WhiteRook.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'N':
+                                board.add_widget(Knight(id="WhiteKnight_"+sid[1],source="Assets/PNG/WhiteKnight.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'B':
+                                board.add_widget(Bishop(id="WhiteBishop_"+sid[1],source="Assets/PNG/WhiteBishop.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'Q':
+                                board.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png",grid_x=x, grid_y=y))
+                            if sid[0] == 'K':
+                                board.add_widget(King(id="WhiteKing",source="Assets/PNG/WhiteKing.png",grid_x=x,grid_y=y,First_use=fu))                        
+                        if row[0] == 'B':
+                            if sid[0] == 'P':
+                                board.add_widget(Pawn(id="BlackPawn_"+sid[1],source="Assets/PNG/BlackPawn.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'R':
+                                board.add_widget(Rook(id="BlackRook_"+sid[1],source="Assets/PNG/BlackRook.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'N':
+                                board.add_widget(Knight(id="BlackKnight_"+sid[1],source="Assets/PNG/BlackKnight.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'B':
+                                board.add_widget(Bishop(id="BlackBishop_"+sid[1],source="Assets/PNG/BlackBishop.png",grid_x=x, grid_y=y,First_use=fu))
+                            if sid[0] == 'Q':
+                                board.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png",grid_x=x,grid_y=y,First_use=fu))
+                            if sid[0] == 'K':
+                                board.add_widget(King(id="BlackKing",source="Assets/PNG/BlackKing.png",grid_x=x, grid_y=y,First_use=fu))
+                        #print(row[0],row[1],row[2],row[3])
+                    return board
+            except IOError: 
+                print("Error: File does not appear to exist.")
+            except Exception as err:
+                print("Unexpected error",repr(err))
+        except FileNotFoundError:
+            print("Directory: {0} does not exist".format(path))
+        except NotADirectoryError:
+            print("{0} is not a directory".format(path))
+        except PermissionError:
+            print("You do not have permissions to change to {0}".format(path))
+        for col in range(8):
+            board.add_widget(Pawn(id="WhitePawn_"+str(col),source="Assets/PNG/WhitePawn.png",grid_x=col, grid_y=1))
+            board.add_widget(Pawn(id="BlackPawn_"+str(col),source="Assets/PNG/BlackPawn.png",grid_x=col, grid_y=6))
+        board.add_widget(Rook(id="WhiteRook_"+str(0),source="Assets/PNG/WhiteRook.png",grid_x=0, grid_y=0))
+        board.add_widget(Rook(id="WhiteRook_"+str(1),source="Assets/PNG/WhiteRook.png",grid_x=7, grid_y=0))
+        board.add_widget(Knight(id="WhiteKnight_"+str(0),source="Assets/PNG/WhiteKnight.png",grid_x=1, grid_y=0))
+        board.add_widget(Knight(id="WhiteKnight_"+str(1),source="Assets/PNG/WhiteKnight.png",grid_x=6, grid_y=0))
+        board.add_widget(Bishop(id="WhiteBishop_"+str(0),source="Assets/PNG/WhiteBishop.png",grid_x=2, grid_y=0))
+        board.add_widget(Bishop(id="WhiteBishop_"+str(1),source="Assets/PNG/WhiteBishop.png",grid_x=5, grid_y=0))
+        board.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png",grid_x=3, grid_y=0))
+        board.add_widget(King(id="WhiteKing",source="Assets/PNG/WhiteKing.png",grid_x=4, grid_y=0))
+        board.add_widget(Rook(id="BlackRook_"+str(0),source="Assets/PNG/BlackRook.png",grid_x=0, grid_y=7))
+        board.add_widget(Rook(id="BlackRook_"+str(1),source="Assets/PNG/BlackRook.png",grid_x=7, grid_y=7))
+        board.add_widget(Knight(id="BlackKnight_"+str(0),source="Assets/PNG/BlackKnight.png",grid_x=1, grid_y=7))
+        board.add_widget(Knight(id="BlackKnight_"+str(1),source="Assets/PNG/BlackKnight.png",grid_x=6, grid_y=7))
+        board.add_widget(Bishop(id="BlackBishop_"+str(0),source="Assets/PNG/BlackBishop.png",grid_x=2, grid_y=7))
+        board.add_widget(Bishop(id="BlackBishop_"+str(1),source="Assets/PNG/BlackBishop.png",grid_x=5, grid_y=7))
+        board.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png",grid_x=3, grid_y=7))
+        board.add_widget(King(id="BlackKing",source="Assets/PNG/BlackKing.png",grid_x=4, grid_y=7))
+        return board
+
+boardai = boardai.Boardai.new()
+hmcolor = piecesai.Piece.WHITE
+aicolor = piecesai.Piece.BLACK
+print("Human ", boardai.human, "Alg ", boardai.alg)
+print(boardai.to_string())
+
+if __name__ == '__main__':
+    ChessApp().run()
