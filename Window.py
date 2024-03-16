@@ -443,7 +443,7 @@ class ChessBoard(RelativeLayout):
                     if grid_y == 7 and child.id[0:9] == "WhitePawn":
                         self.remove_widget(child)
                         self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=grid_x, grid_y=grid_y))
-                    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, "M")
+                    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
                     if type(ai_move) is int:
                         print("Check mate")
                         time.sleep(10)
@@ -481,7 +481,7 @@ class ChessBoard(RelativeLayout):
                             hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)                          
                             move = get_user_move(hmmove)
                             boardai.perform_move(move)
-                            ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, "M")
+                            ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
                             boardai.perform_move(ai_move)
                             anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
                             ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
@@ -532,7 +532,7 @@ class ChessBoard(RelativeLayout):
                              hmmove = ""+xpos_to_letter(4)+ypos_to_digit(0)+" "+xpos_to_letter(6)+ypos_to_digit(0)
                              move = get_user_move(hmmove)
                              boardai.perform_move(move)
-                         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, "M")
+                         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
                          boardai.perform_move(ai_move)
                          anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
                          ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
@@ -753,6 +753,7 @@ class ChessApp(App):
 boardai = boardai.Boardai.new()
 hmcolor = piecesai.Piece.WHITE
 aicolor = piecesai.Piece.BLACK
+alg = "M"
 print("Human ", boardai.human, "Alg ", boardai.alg)
 print(boardai.to_string())
 
