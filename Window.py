@@ -750,8 +750,12 @@ class ChessApp(App):
         return board
 
 boardai = boardai.Boardai.new()
-hmcolor = piecesai.Piece.WHITE
-aicolor = piecesai.Piece.BLACK
+if boardai.human == "Black":
+    hmcolor = piecesai.Piece.BLACK
+    aicolor = piecesai.Piece.WHITE
+else:
+    hmcolor = piecesai.Piece.WHITE
+    aicolor = piecesai.Piece.BLACK
 alg = boardai.alg
 print("Human ", boardai.human, "Alg ", boardai.alg)
 print(boardai.to_string())
