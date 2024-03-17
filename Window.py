@@ -750,13 +750,15 @@ class ChessApp(App):
         return board
 
 boardai = boardai.Boardai.new()
+alg = boardai.alg
 if boardai.human == "Black":
     hmcolor = piecesai.Piece.BLACK
     aicolor = piecesai.Piece.WHITE
+    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
+    boardai.perform_move(ai_move)
 else:
     hmcolor = piecesai.Piece.WHITE
     aicolor = piecesai.Piece.BLACK
-alg = boardai.alg
 print("Human ", boardai.human, "Alg ", boardai.alg)
 print(boardai.to_string())
 
