@@ -716,8 +716,14 @@ class ChessApp(App):
                                 board.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png",grid_x=x,grid_y=y,First_use=fu))
                             if sid[0] == 'K':
                                 board.add_widget(King(id="BlackKing",source="Assets/PNG/BlackKing.png",grid_x=x, grid_y=y,First_use=fu))
-                        #print(row[0],row[1],row[2],row[3])
-                    return board
+                if boardai.human == "Black":                
+                    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
+                    boardai.perform_move(ai_move)
+                    anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
+                    board.piece_index = board.pieceindex_at_board(ai_move.xfrom,ai_move.yfrom)
+                    anim.start(board.children[board.piece_index])
+                    print(boardai.to_string()) 
+                return board
             except IOError: 
                 print("Error: File does not appear to exist.")
             except Exception as err:
@@ -747,6 +753,13 @@ class ChessApp(App):
         board.add_widget(Bishop(id="BlackBishop_"+str(1),source="Assets/PNG/BlackBishop.png",grid_x=5, grid_y=7))
         board.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png",grid_x=3, grid_y=7))
         board.add_widget(King(id="BlackKing",source="Assets/PNG/BlackKing.png",grid_x=4, grid_y=7))
+        if boardai.human == "Black":
+            ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
+            boardai.perform_move(ai_move)
+            anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
+            board.piece_index = board.pieceindex_at_board(ai_move.xfrom,ai_move.yfrom)
+            anim.start(board.children[board.piece_index])
+            print(boardai.to_string())
         return board
 
 boardai = boardai.Boardai.new()
@@ -754,8 +767,6 @@ alg = boardai.alg
 if boardai.human == "Black":
     hmcolor = piecesai.Piece.BLACK
     aicolor = piecesai.Piece.WHITE
-    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
-    boardai.perform_move(ai_move)
 else:
     hmcolor = piecesai.Piece.WHITE
     aicolor = piecesai.Piece.BLACK
