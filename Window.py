@@ -669,13 +669,6 @@ class ChessBoardScreen(Screen):
 class ChessApp(App):
     def build(self):
         board = ChessBoard()
-        #print("os.name                  ", os.name)
-        #print("sys.platform             ", sys.platform)
-        #print("platform.system()        ", platform.system())
-        #print("sysconfig.get_platform() ", sysconfig.get_platform())
-        #print("platform.machine()       ", platform.machine())
-        #print("platform.architecture()  ", platform.architecture())
-        #print("getcwd                   ", os.getcwd())
         if sys.platform[0] == 'l':
             path = '/home/jan/git/ChessAIKivy'
         if sys.platform[0] == 'w':
