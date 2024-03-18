@@ -442,6 +442,9 @@ class ChessBoard(RelativeLayout):
                     if grid_y == 7 and child.id[0:9] == "WhitePawn":
                         self.remove_widget(child)
                         self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=grid_x, grid_y=grid_y))
+                    if grid_y == 0 and child.id[0:9] == "BlackPawn":
+                        self.remove_widget(child)
+                        self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))  
                     ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
                     if type(ai_move) is int:
                         print("Check mate")
