@@ -675,7 +675,6 @@ class ChessApp(App):
             path = "C:/Users/janbo/OneDrive/Documents/GitHub/ChessAIKivy"
         try:
             os.chdir(path)
-            #print("Current working directory: {0}".format(os.getcwd()))
             data_folder = Path("./CSV/")
             file_to_open = data_folder / "begin.csv"
             try:
