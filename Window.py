@@ -715,12 +715,8 @@ class ChessApp(App):
                                 board.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png",grid_x=x,grid_y=y,First_use=fu))
                             if sid[0] == 'K':
                                 board.add_widget(King(id="BlackKing",source="Assets/PNG/BlackKing.png",grid_x=x, grid_y=y,First_use=fu))
-                if boardai.human == "Black":                
-                    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
-                    boardai.perform_move(ai_move)
-                    anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
-                    board.piece_index = board.pieceindex_at_board(ai_move.xfrom,ai_move.yfrom)
-                    anim.start(board.children[board.piece_index])
+                if boardai.human == "Black":
+                    ai_move = board.let_ai_move()                
                     print(boardai.to_string()) 
                 return board
             except IOError: 
