@@ -368,6 +368,12 @@ class ChessBoard(RelativeLayout):
             
     def let_ai_move(self):
         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
+        if type(ai_move) is int:
+            print("Check mate")
+            time.sleep(10)
+            self.close_application()
+            time.sleep(60)
+        boardai.perform_move(ai_move)
         return ai_move
             
     def findpiece(self,id):
@@ -447,12 +453,6 @@ class ChessBoard(RelativeLayout):
                         self.remove_widget(child)
                         self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))
                     ai_move = self.let_ai_move() 
-                    if type(ai_move) is int:
-                        print("Check mate")
-                        time.sleep(10)
-                        self.close_application()
-                        time.sleep(60)
-                    boardai.perform_move(ai_move)
                     if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen":
                         propawn = self.piece_at_board(ai_move.xto, 1)
                         self.remove_widget(propawn)
