@@ -374,6 +374,17 @@ class ChessBoard(RelativeLayout):
             self.close_application()
             time.sleep(60)
         boardai.perform_move(ai_move)
+        propawn = self.piece_at_board(ai_move.xfrom, ai_move.yfrom)
+        if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen" and propawn.id[:9] == "BlackPawn":
+            self.remove_widget(propawn)
+            self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=ai_move.xto, grid_y=0))
+        elif ai_move.yfrom == 1 and ai_move.yto == 0 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "WhiteQueen" and propawn.id[:9] == "WhitePawn":
+            self.remove_widget(propawn)
+            self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=ai_move.xto, grid_y=0))
+        else:
+            anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
+            ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
+            anim.start(self.children[ChessBoard.piece_index])
         return ai_move
             
     def findpiece(self,id):
@@ -453,14 +464,6 @@ class ChessBoard(RelativeLayout):
                         self.remove_widget(child)
                         self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))
                     ai_move = self.let_ai_move() 
-                    if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen":
-                        propawn = self.piece_at_board(ai_move.xto, 1)
-                        self.remove_widget(propawn)
-                        self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=ai_move.xto, grid_y=0))
-                    else:
-                        anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
-                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
-                        anim.start(self.children[ChessBoard.piece_index])
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                        child.First_use = False
                     self.draw_moves()
