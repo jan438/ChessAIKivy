@@ -487,11 +487,7 @@ class ChessBoard(RelativeLayout):
                             hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)                          
                             move = get_user_move(hmmove)
                             boardai.perform_move(move)
-                            ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
-                            boardai.perform_move(ai_move)
-                            anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
-                            ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
-                            anim.start(self.children[ChessBoard.piece_index])
+                            ai_move = self.let_ai_move() 
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
                             self.draw_moves()     
