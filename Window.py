@@ -387,8 +387,7 @@ class ChessBoard(RelativeLayout):
                     if [round(child.grid_x),round(child.grid_y)] == [hm_x_grid,hm_y_grid]:
                         piece = self.findpiece(child.id)
                         self.remove_widget(piece)
-        
-                        
+            
     def pieceindex_at_board(self,xpos,ypos):
         ypos = ai_to_hm_y(ypos)
         index = -1
@@ -397,14 +396,12 @@ class ChessBoard(RelativeLayout):
             if child.grid_x == xpos and child.grid_y == ypos:
                 return index
                 
-                
     def piece_at_board(self,xpos,ypos):
         for child in self.children:
             if child.grid_x == xpos and child.grid_y == ypos:
                 return child
         print("No piece_at_board Piece 0 oordinaten", xpos, ypos)
         return 0
-
 
     def on_touch_down(self, touch):
         #boardai.listpieces()
