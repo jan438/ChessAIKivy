@@ -380,7 +380,7 @@ class ChessBoard(RelativeLayout):
             self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=ai_move.xto, grid_y=0))
         elif ai_move.yfrom == 1 and ai_move.yto == 0 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "WhiteQueen" and propawn.id[:9] == "WhitePawn":
             self.remove_widget(propawn)
-            self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=ai_move.xto, grid_y=0))
+            self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=ai_move.xto, grid_y=7))
         else:
             anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
             ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
