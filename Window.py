@@ -366,6 +366,10 @@ class ChessBoard(RelativeLayout):
         for child in self.children:
             print("Human board",child.id,child.grid_x,child.grid_y,child.First_use)
             
+    def let_ai_move(self):
+        ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
+        return ai_move
+            
     def findpiece(self,id):
         for child in self.children:
             if child.id == id:
@@ -441,8 +445,8 @@ class ChessBoard(RelativeLayout):
                         self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=grid_x, grid_y=grid_y))
                     if grid_y == 0 and child.id[0:9] == "BlackPawn":
                         self.remove_widget(child)
-                        self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))  
-                    ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
+                        self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))
+                    ai_move = self.let_ai_move() 
                     if type(ai_move) is int:
                         print("Check mate")
                         time.sleep(10)
