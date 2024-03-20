@@ -656,12 +656,6 @@ class ChessBoard(RelativeLayout):
                     is_white = not is_white
                 is_white = not is_white
 
-class ChessBoardScreen(Screen):
-    def __init__(self, **kwargs):
-        super(ChessBoardScreen, self).__init__(**kwargs)
-        self.game = ChessGame()
-        self.add_widget(self.game)
-
 class ChessApp(App):
     def build(self):
         board = ChessBoard()
