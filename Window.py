@@ -717,7 +717,7 @@ class ChessApp(App):
             print("You do not have permissions to change to {0}".format(path))
     
     def key_action(self, key1, key2, key3, key4, key5):
-        print("got a key event", key1, key2, key3, key4, key5)
+        print("got a key event: ", key4)
 
 boardai = boardai.Boardai.new()
 alg = boardai.alg
