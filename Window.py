@@ -657,6 +657,7 @@ class ChessBoard(RelativeLayout):
 
 class ChessApp(App):
     def build(self):
+        Window.bind(on_key_down=self.key_action)
         board = ChessBoard()
         if sys.platform[0] == 'l':
             path = '/home/jan/git/ChessAIKivy'
@@ -714,6 +715,9 @@ class ChessApp(App):
             print("{0} is not a directory".format(path))
         except PermissionError:
             print("You do not have permissions to change to {0}".format(path))
+    
+    def key_action(self, *args):
+        print("got a key event")
 
 boardai = boardai.Boardai.new()
 alg = boardai.alg
