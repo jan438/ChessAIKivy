@@ -657,7 +657,7 @@ class ChessBoard(RelativeLayout):
 
 class ChessApp(App):
     def build(self):
-        Window.bind(on_key_down=self.key_action)
+        Window.bind(on_key_down = self.key_action)
         board = ChessBoard()
         if sys.platform[0] == 'l':
             path = '/home/jan/git/ChessAIKivy'
