@@ -7,6 +7,8 @@ from kivy.config import Config
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.image import Image
+from kivy.uix.popup import Popup
+from kivy.uix.textinput import TextInput
 from kivy.animation import Animation
 from kivy.properties import *
 from kivy.graphics.instructions import InstructionGroup
