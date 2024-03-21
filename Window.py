@@ -371,6 +371,9 @@ class ChessBoard(RelativeLayout):
             hmmove = "C2 C3"
             move = get_user_move(hmmove)
             boardai.perform_move(move)
+            anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
+            ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
+            anim.start(self.children[ChessBoard.piece_index])
             print("got a key event: ", hmmove, move.xfrom, move.yfrom, move.xto, move.yto)
             print(boardai.to_string())
         return True
