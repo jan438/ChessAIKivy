@@ -404,7 +404,8 @@ class ChessBoard(RelativeLayout):
         else:
             anim = Animation(grid_x=ai_move.xto, grid_y=ai_to_hm_y(ai_move.yto), t='in_out_expo', duration=0.5)
             ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self,ai_move.xfrom,ai_move.yfrom)
-            anim.start(self.children[ChessBoard.piece_index])
+            if ChessBoard.piece_index > -1:
+                anim.start(self.children[ChessBoard.piece_index])
         return ai_move
             
     def findpiece(self,id):
@@ -436,6 +437,7 @@ class ChessBoard(RelativeLayout):
             index += 1
             if child.grid_x == xpos and child.grid_y == ypos:
                 return index
+        return -1
                 
     def piece_at_board(self,xpos,ypos):
         for child in self.children:
