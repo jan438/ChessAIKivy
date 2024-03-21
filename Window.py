@@ -359,7 +359,18 @@ class ChessBoard(RelativeLayout):
     
     def __init__(self, **kwargs):
         super(ChessBoard, self).__init__(**kwargs)
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        self._keyboard.bind(on_key_down = self._on_keyboard_down)
         print("Init ==============")
+        
+    def _keyboard_closed(self):
+        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard = None
+        
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        if keycode[1] == 'n':
+            print("nnnnnnnnnn")
+        return True
 
     def close_application(self): 
         App.get_running_app().stop() 
