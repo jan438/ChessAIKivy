@@ -356,6 +356,10 @@ class ChessBoard(RelativeLayout):
     available_moves = {"available_moves":(), "pieces_to_capture":[]}
     piece_index = None
     check = BooleanProperty(defaultvalue=False)
+    
+    def __init__(self, **kwargs):
+        super(ChessBoard, self).__init__(**kwargs)
+        print("Init ==============")
 
     def close_application(self): 
         App.get_running_app().stop() 
