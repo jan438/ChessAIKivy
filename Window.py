@@ -361,15 +361,18 @@ class ChessBoard(RelativeLayout):
         super(ChessBoard, self).__init__(**kwargs)
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down = self._on_keyboard_down)
-        print("Init ==============")
         
     def _keyboard_closed(self):
-        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard.unbind(on_key_down = self._on_keyboard_down)
         self._keyboard = None
         
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        if keycode[1] == 'n':
-            print("nnnnnnnnnn")
+        if keycode[1] == 'm':
+            hmmove = "C2 C3"
+            move = get_user_move(hmmove)
+            boardai.perform_move(move)
+            print("got a key event: ", hmmove, move.xfrom, move.yfrom, move.xto, move.yto)
+            print(boardai.to_string())
         return True
 
     def close_application(self): 
@@ -672,7 +675,6 @@ class ChessBoard(RelativeLayout):
 
 class ChessApp(App):
     def build(self):
-        Window.bind(on_key_down = self.key_action)
         board = ChessBoard()
         if sys.platform[0] == 'l':
             path = '/home/jan/git/ChessAIKivy'
@@ -731,13 +733,6 @@ class ChessApp(App):
         except PermissionError:
             print("You do not have permissions to change to {0}".format(path))
     
-    def key_action(self, key1, key2, key3, key4, key5):
-        hmmove = "C2 C3"
-        move = get_user_move(hmmove)
-        boardai.perform_move(move)
-        print("got a key event: ", key4, hmmove, move.xfrom, move.yfrom, move.xto, move.yto)
-        print(boardai.to_string())
-
 boardai = boardai.Boardai.new()
 alg = boardai.alg
 if boardai.human == "Black":
