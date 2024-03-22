@@ -8,6 +8,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.image import Image
 from kivy.uix.popup import Popup
+from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.animation import Animation
 from kivy.properties import *
@@ -370,7 +371,10 @@ class ChessBoard(RelativeLayout):
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         if keycode[1] == 'm':
+            popup = Popup(title='Test popup', content = Label(text='Hello world'), auto_dismiss=False)
+            popup.open()
             hmmove = "C2 C3"
+            popup.dismiss()
             move = get_user_move(hmmove)
             boardai.perform_move(move)
             anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
