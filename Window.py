@@ -384,7 +384,7 @@ class ChessBoard(RelativeLayout):
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
         if l == 'm':
-            print("m", l)
+            self.index = 0
         elif (l >= 'a' and l <= 'h') or (l >= '1' and l <= '8'):
             string_list = list(self.hmmove)
             string_list[self.index] = l
@@ -398,7 +398,6 @@ class ChessBoard(RelativeLayout):
                 self.hmmove = new_string
                 self.index += 1
         elif l == '.':
-            print(".", l)
             self.check_ai_move()
         return True
 
