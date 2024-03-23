@@ -384,6 +384,7 @@ class ChessBoard(RelativeLayout):
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
         if l == 'm':
+            self.hmmove = "     "
             self.index = 0
         elif (l >= 'a' and l <= 'h') or (l >= '1' and l <= '8'):
             if self.index < 5:
@@ -394,6 +395,8 @@ class ChessBoard(RelativeLayout):
                 self.index = 3
         elif l == '.':
             self.check_ai_move()
+            self.hmmove = "     "
+            self.index = 0
         return True
 
     def close_application(self): 
