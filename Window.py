@@ -387,7 +387,7 @@ class ChessBoard(RelativeLayout):
             print("ah18", l)
         elif l == '.':
             print(".", l)
-        self.check_ai_move()
+            self.check_ai_move()
             #hmmove = "C2 C3"
             #move = get_user_move(hmmove)
             #boardai.perform_move(move)
