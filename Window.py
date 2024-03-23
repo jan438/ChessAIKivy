@@ -386,10 +386,7 @@ class ChessBoard(RelativeLayout):
         if l == 'm':
             self.index = 0
         elif (l >= 'a' and l <= 'h') or (l >= '1' and l <= '8'):
-            string_list = list(self.hmmove)
-            string_list[self.index] = l
-            new_string = "".join(string_list)
-            self.hmmove = new_string
+            self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
             self.index += 1
             if self.index == 2:
                 string_list = list(self.hmmove)
