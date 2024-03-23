@@ -389,11 +389,8 @@ class ChessBoard(RelativeLayout):
             self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
             self.index += 1
             if self.index == 2:
-                string_list = list(self.hmmove)
-                string_list[self.index] = ' '
-                new_string = "".join(string_list)
-                self.hmmove = new_string
-                self.index += 1
+                self.hmmove = self.hmmove[: self.index] + ' ' + self.hmmove[self.index + 1:]
+                self.index = 3
         elif l == '.':
             self.check_ai_move()
         return True
