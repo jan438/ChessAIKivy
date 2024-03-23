@@ -359,6 +359,8 @@ class ChessBoard(RelativeLayout):
     available_moves = {"available_moves":(), "pieces_to_capture":[]}
     piece_index = None
     check = BooleanProperty(defaultvalue=False)
+    hmmove = "C2 C3"
+    index = 0
     
     def __init__(self, **kwargs):
         super(ChessBoard, self).__init__(**kwargs)
@@ -369,20 +371,35 @@ class ChessBoard(RelativeLayout):
         self._keyboard.unbind(on_key_down = self.make_ai_move)
         self._keyboard = None
         
+    def check_ai_move(self):
+        print("check", self.hmmove)
+        
     def make_ai_move(self, keyboard, keycode, text, modifiers):
-        if keycode[1] == 'm':
-            popup = Popup(title='Test popup', content = Label(text='Hello world'), auto_dismiss=False)
-            popup.open()
-            hmmove = "C2 C3"
-            popup.dismiss()
-            move = get_user_move(hmmove)
-            boardai.perform_move(move)
-            anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
-            ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
-            if ChessBoard.piece_index > -1:
-                anim.start(self.children[ChessBoard.piece_index])
-            print("got a key event: ", hmmove, move.xfrom, move.yfrom, move.xto, move.yto)
-            print(boardai.to_string())
+        l = keycode[1]
+        if l == 'm':
+            print("m", l)
+        elif (l >= 'a' and l <= 'h') or (l >= '1' and l <= '8'):
+            string_list = list(self.hmmove)
+            string_list[self.index] = l
+            new_string = "".join(string_list)
+            self.hmmove = new_string
+            self.index = self.index + 1
+            print("ah18", l)
+        elif l == '.':
+            print(".", l)
+        self.check_ai_move()
+            #popup = Popup(title='Test popup', content = Label(text='Hello world'), auto_dismiss=False)
+            #popup.open()
+            #hmmove = "C2 C3"
+            #popup.dismiss()
+            #move = get_user_move(hmmove)
+            #boardai.perform_move(move)
+            #anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
+            #ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
+            #if ChessBoard.piece_index > -1:
+                #anim.start(self.children[ChessBoard.piece_index])
+            #print("got a key event: ", hmmove, move.xfrom, move.yfrom, move.xto, move.yto)
+            #print(boardai.to_string())
         return True
 
     def close_application(self): 
