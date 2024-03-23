@@ -373,6 +373,13 @@ class ChessBoard(RelativeLayout):
         
     def check_ai_move(self):
         print("check", self.hmmove)
+        move = get_user_move(self.hmmove)
+        boardai.perform_move(move)
+        anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
+        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
+        if ChessBoard.piece_index > -1:
+            anim.start(self.children[ChessBoard.piece_index])
+            print(boardai.to_string())
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
@@ -384,19 +391,15 @@ class ChessBoard(RelativeLayout):
             new_string = "".join(string_list)
             self.hmmove = new_string
             self.index = self.index + 1
+            if self.index == 2:
+                string_list = list(self.hmmove)
+                string_list[self.index] = ' '
+                new_string = "".join(string_list)
+                self.hmmove = new_string
             print("ah18", l)
         elif l == '.':
             print(".", l)
             self.check_ai_move()
-            #hmmove = "C2 C3"
-            #move = get_user_move(hmmove)
-            #boardai.perform_move(move)
-            #anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
-            #ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
-            #if ChessBoard.piece_index > -1:
-                #anim.start(self.children[ChessBoard.piece_index])
-            #print("got a key event: ", hmmove, move.xfrom, move.yfrom, move.xto, move.yto)
-            #print(boardai.to_string())
         return True
 
     def close_application(self): 
