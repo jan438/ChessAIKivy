@@ -388,10 +388,7 @@ class ChessBoard(RelativeLayout):
         elif l == '.':
             print(".", l)
         self.check_ai_move()
-            #popup = Popup(title='Test popup', content = Label(text='Hello world'), auto_dismiss=False)
-            #popup.open()
             #hmmove = "C2 C3"
-            #popup.dismiss()
             #move = get_user_move(hmmove)
             #boardai.perform_move(move)
             #anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
