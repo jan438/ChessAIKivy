@@ -379,6 +379,7 @@ class ChessBoard(RelativeLayout):
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
         if ChessBoard.piece_index > -1:
             anim.start(self.children[ChessBoard.piece_index])
+            ai_move = self.let_ai_move()
             print(boardai.to_string())
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
