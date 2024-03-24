@@ -381,7 +381,8 @@ class ChessBoard(RelativeLayout):
             child = self.children[ChessBoard.piece_index]
             print("Kleur:", child.id[0:5], boardai.human)
             anim.start(child)
-            #ai_move = self.let_ai_move()
+            if (child.id[0:5] == boardai.human):
+                ai_move = self.let_ai_move()
             print(boardai.to_string())
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
