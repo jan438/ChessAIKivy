@@ -379,7 +379,6 @@ class ChessBoard(RelativeLayout):
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
         if ChessBoard.piece_index > -1:
             child = self.children[ChessBoard.piece_index]
-            print("Kleur:", child.id[0:5], boardai.human)
             anim.start(child)
             if (child.id[0:5] == boardai.human):
                 ai_move = self.let_ai_move()
