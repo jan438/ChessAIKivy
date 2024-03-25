@@ -382,6 +382,11 @@ class ChessBoard(RelativeLayout):
             if (child.id[0:5] == boardai.human):
                 ai_move = self.let_ai_move()
             print(boardai.to_string())
+            
+    def perform_ai_move(self, xfrom, yfrom, xto, yto):
+        hmmove = ""+xpos_to_letter(xfrom)+ypos_to_digit(yfrom)+" "+xpos_to_letter(xto)+ypos_to_digit(yto)
+        move = get_user_move(hmmove)
+        boardai.perform_move(move)
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
@@ -499,9 +504,7 @@ class ChessBoard(RelativeLayout):
                     anim.start(self.children[id])
                     ChessBoard.piece_pressed = False
                     ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
-                    hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)
-                    move = get_user_move(hmmove)
-                    boardai.perform_move(move)
+                    self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                     if grid_y == 7 and child.id[0:9] == "WhitePawn":
                         self.remove_widget(child)
                         self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=grid_x, grid_y=grid_y))
