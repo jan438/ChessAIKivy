@@ -532,9 +532,7 @@ class ChessBoard(RelativeLayout):
                             self.remove_widget(enemy)
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
-                            hmmove = ""+xpos_to_letter(round(old_x))+ypos_to_digit(round(old_y))+" "+xpos_to_letter(grid_x)+ypos_to_digit(grid_y)                          
-                            move = get_user_move(hmmove)
-                            boardai.perform_move(move)
+                            self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             ai_move = self.let_ai_move() 
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
