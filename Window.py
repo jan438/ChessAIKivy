@@ -412,7 +412,7 @@ class ChessBoard(RelativeLayout):
     def let_ai_move(self):
         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
         if type(ai_move) is int:
-            print("Check mate")
+            print("Check mate 0 returned by ai")
             time.sleep(10)
             self.close_application()
             time.sleep(60)
