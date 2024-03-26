@@ -573,6 +573,18 @@ class ChessBoard(RelativeLayout):
                              anim.start(piece)
                              piece.First_use = False
                              self.perform_ai_move(4, 0, 6, 0)
+                         if grid_x == 2 and grid_y == 7:
+                             piece = self.findpiece("BlackRook_0")
+                             anim = Animation(grid_x=grid_x+1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                             anim.start(piece)
+                             piece.First_use = False
+                             self.perform_ai_move(4, 7, 2, 7)
+                         if grid_x == 6 and grid_y == 7:
+                             piece = self.findpiece("BlackRook_1")
+                             anim = Animation(grid_x=grid_x-1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                             anim.start(piece)
+                             piece.First_use = False
+                             self.perform_ai_move(4, 7, 6, 7)
                          ai_move = self.let_ai_move() 
                          ChessBoard.piece_pressed = False
                          child.First_use = False
