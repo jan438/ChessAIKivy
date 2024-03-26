@@ -618,36 +618,6 @@ class ChessBoard(RelativeLayout):
                     self.close_application()
                     return True
         return False
-                
-    def checkmate(self):
-        if self.check_check():
-            still_check = True
-            for child in self.children:
-                if child.id[:5] == boardai.human:
-                    every_move = []
-                    for type_of_moves in child.available_moves(self.children).values():
-                        every_move.extend(type_of_moves)
-                    for move in every_move:
-                        if child.id[5:9] == "Pawn":
-                            self.add_widget(Pawn(id=child.id[:5]+"InvPawn",source=None,grid_x=move[0], grid_y=move[1]))
-                        elif child.id[5:9] == "Rook":
-                            self.add_widget(Rook(id=child.id[:5]+"InvRook",source=None,grid_x=move[0], grid_y=move[1]))
-                        elif child.id[5:11] == "Knight":
-                            self.add_widget(Knight(id=child.id[:5]+"InvKnight",source=None,grid_x=move[0], grid_y=move[1]))
-                        elif child.id[5:11] == "Bishop":
-                            self.add_widget(Bishop(id=child.id[:5]+"InvBishop",source=None,grid_x=move[0], grid_y=move[1]))
-                        elif child.id[5:10] == "Queen":
-                            self.add_widget(Queen(id=child.id[:5]+"InvQueen",source=None,grid_x=move[0], grid_y=move[1]))
-                        elif child.id[5:9] == "King":
-                            self.add_widget(King(id=child.id[:5]+"InvKing",source=None,grid_x=move[0], grid_y=move[1]))
-                        if not self.check_check():
-                            still_check = False
-                        for child2 in self.children:
-                            if "Inv" in child2.id:
-                                self.remove_widget(child2)
-                        if not still_check:
-                            return False
-        return True
 
     def draw_moves(self):
         grid_size_x = self.width / 8
