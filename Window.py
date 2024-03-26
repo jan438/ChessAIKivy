@@ -516,9 +516,6 @@ class ChessBoard(RelativeLayout):
                        child.First_use = False
                     self.draw_moves()
                     if self.check_check():
-                       print("Check_check normal zet", self.children[id].id, old_x, old_y)
-                       anim = Animation(grid_x=old_x, grid_y=old_y, t='in_quad', duration=0.5)
-                       anim.start(self.children[id])
                        break
                     else:
                        print("Turn1", boardai.human)
@@ -538,9 +535,6 @@ class ChessBoard(RelativeLayout):
                                 child.First_use = False
                             self.draw_moves()     
                             if self.check_check():
-                                print("Check_check capture", self.children[id])
-                                anim = Animation(grid_x=old_x, grid_y=old_y, t='in_quad', duration=0.5)
-                                anim.start(self.children[id])
                                 break
                             else:
                                 print("Turn2", boardai.human)
@@ -591,14 +585,6 @@ class ChessBoard(RelativeLayout):
                          self.children[ChessBoard.piece_index].First_use = False
                          ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}             
                          if self.check_check():
-                             print("Check_check castling", self.children[id])
-                             anim = Animation(grid_x=old_x, grid_y=old_y, t='in_quad', duration=0.5)
-                             anim.start(self.children[id])
-                             if ChessBoard.id_piece_ == "White":
-                                  anim = Animation(grid_x=4, grid_y=0, t='in_quad', duration=0.5)
-                                  anim.start(self.children[ChessBoard.piece_index])
-                             child.First_use = True
-                             self.children[ChessBoard.piece_index].First_use = True
                              break
                          else:
                               print("Turn3", boardai.human)
@@ -626,7 +612,7 @@ class ChessBoard(RelativeLayout):
             if piece.id[:5] != boardai.human:
                 piece_available_moves = piece.available_moves(self.children)
                 if (King.grid_x, King.grid_y) in piece_available_moves["available_moves"] or (King.grid_x, King.grid_y) in piece_available_moves["pieces_to_capture"]:
-                    print("Checkmate by",piece.id)
+                    print("Checkmate", piece.id)
                     self.close_application()
                     return True
         return False
