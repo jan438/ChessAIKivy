@@ -99,8 +99,6 @@ class Pawn(ChessPiece):
     def available_moves(self, pieces):
         if self.id[:5] == "White":
             available_moves = {"available_moves":(), "pieces_to_capture":[]}
-            if self.grid_y > 7:
-                return available_moves
             if self.First_use:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y+1), (self.grid_x, self.grid_y+2)}
             else:
@@ -132,8 +130,6 @@ class Pawn(ChessPiece):
             return available_moves
         if self.id[:5] == "Black":
             available_moves = {"available_moves":(), "pieces_to_capture":[]}
-            if self.grid_y > 7:
-                return available_moves
             if self.First_use:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y-1), (self.grid_x, self.grid_y-2)}
             else:
