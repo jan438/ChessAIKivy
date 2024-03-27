@@ -156,8 +156,8 @@ class Pawn(ChessPiece):
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))
                 if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
-                if piece.id[:5] == "White" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
-                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
+                if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))
             return available_moves
 
 class Rook(ChessPiece):
