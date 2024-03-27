@@ -562,7 +562,9 @@ class ChessBoard(RelativeLayout):
                             print("En passant", child.id, enemy.id, child.grid_x, child.grid_y, enemy.grid_x, enemy.grid_y)
                             anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
                             anim.start(child)
-                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1:
+                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1 and enemy.id[:5] == "Black":
+                                self.remove_widget(enemy)
+                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y + 1 and enemy.id[:5] == "White":
                                 self.remove_widget(enemy)
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
