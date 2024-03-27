@@ -132,19 +132,36 @@ class Pawn(ChessPiece):
             return available_moves
         if self.id[:5] == "Black":
             available_moves = {"available_moves":(), "pieces_to_capture":[]}
+            if self.grid_y > 7:
+                return available_moves
             if self.First_use:
-                available_moves["available_moves"] = ((self.grid_x, self.grid_y-1), (self.grid_x,self.grid_y-2))
+                available_moves["available_moves"] = {(self.grid_x, self.grid_y-1), (self.grid_x, self.grid_y-2)}
             else:
-                available_moves["available_moves"] = ((self.grid_x, self.grid_y-1),)
+                available_moves["available_moves"] = {(self.grid_x, self.grid_y-1)}
+            pclup = 0
+            pcup = 0
+            pcrup = 0
+            for piece in pieces:
+                if piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
+                    pclup = piece
+                if piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
+                    pcrup = piece
+                if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y - 1:
+                    pcup = piece
             for piece in pieces:
                 if piece.grid_y == self.grid_y - 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
-                if self.First_use and piece.grid_y == self.grid_y - 2 and piece.grid_x == self.grid_x:
-                    available_moves["available_moves"] = ()
-                if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
-                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))
-                if piece.id[:5] == "White" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
-                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
+                if self.First_use and piece.grid_y == self.grid_y + 2 and piece.grid_x == self.grid_x:
+                    if len(available_moves) == 2:
+                        available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 4 and pcrup == 0:
+                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
+                if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 4 and pclup == 0:
+                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
+                if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
+                if piece.id[:5] == "White" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
             return available_moves
 
 class Rook(ChessPiece):
