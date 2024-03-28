@@ -572,6 +572,11 @@ class ChessBoard(RelativeLayout):
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             self.draw_moves()
                             print("Turn after en passant", boardai.human)
+                            if alg == '-':
+                                if boardai.human == "White":
+                                    boardai.human = "Black"
+                                else:
+                                    boardai.human = "White"
             else:
                 try:
                     if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
