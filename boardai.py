@@ -158,6 +158,10 @@ class Boardai:
             if move.xto == move.xfrom - 1 or move.xto == move.xfrom + 1:
                 self.chesspiecesai[move.xto][3] = 0
                 self.chesspiecesai[move.xfrom][3] = 0
+        if (piece.piece_type == piecesai.Pawn.PIECE_TYPE) and (move.yfrom == 4 and move.yto == 5):
+            if move.xto == move.xfrom - 1 or move.xto == move.xfrom + 1:
+                self.chesspiecesai[move.xto][4] = 0
+                self.chesspiecesai[move.xfrom][4] = 0
         self.move_piece(piece, move.xto, move.yto)
         
         if (piece.piece_type == piecesai.Pawn.PIECE_TYPE):
