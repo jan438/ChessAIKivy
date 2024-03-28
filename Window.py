@@ -618,7 +618,12 @@ class ChessBoard(RelativeLayout):
                               self.turn()
                               self.draw_moves()
                               break
-                         print("Turn4", boardai.human)
+                         print("Turn after castling", boardai.human)
+                         if alg == '-':
+                             if boardai.human == "White":
+                                boardai.human = "Black"
+                             else:
+                                boardai.human = "White"
                          self.turn() 
                          self.draw_moves()
                 except Exception as e:
