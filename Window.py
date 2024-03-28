@@ -538,7 +538,7 @@ class ChessBoard(RelativeLayout):
                     if self.check_check():
                        break
                     else:
-                       print("Turn1", boardai.human)
+                       print("Turn after normal move", boardai.human)
                        self.turn()
                        break        
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
@@ -557,7 +557,7 @@ class ChessBoard(RelativeLayout):
                             if self.check_check():
                                 break
                             else:
-                                print("Turn2", boardai.human)
+                                print("Turn after capture", boardai.human)
                                 self.turn()                    
                                 break
                         elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x):
@@ -571,6 +571,7 @@ class ChessBoard(RelativeLayout):
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             self.draw_moves()
+                            print("Turn after en passant", boardai.human)
             else:
                 try:
                     if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
