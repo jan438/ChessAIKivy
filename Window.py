@@ -113,6 +113,7 @@ class Pawn(ChessPiece):
                     pcrup = piece
                 if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y + 1:
                     pcup = piece
+            print("White captures pc  l r u", pclup, pcrup, pcup)
             for piece in pieces:
                 if piece.grid_y == self.grid_y + 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
@@ -144,6 +145,7 @@ class Pawn(ChessPiece):
                     pcrup = piece
                 if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y - 1:
                     pcup = piece
+            print("Black captures pc  l r u", pclup, pcrup, pcup)
             for piece in pieces:
                 if piece.grid_y == self.grid_y - 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
@@ -559,7 +561,6 @@ class ChessBoard(RelativeLayout):
                                 self.turn()                    
                                 break
                         elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x):
-                            print("En passant", child.id, enemy.id, child.grid_x, child.grid_y, enemy.grid_x, enemy.grid_y)
                             anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
                             anim.start(child)
                             if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1 and enemy.id[:5] == "Black":
