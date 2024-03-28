@@ -429,11 +429,7 @@ class ChessBoard(RelativeLayout):
             print("Human board",child.id,child.grid_x,child.grid_y,child.First_use)
             
     def let_ai_move(self):
-        if alg == '-':
-            if boardai.human == "White":
-                boardai.human = "Black"
-            else:
-                boardai.human = "White"
+        if self.twoplayer_turn():
             return 0
         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
         if type(ai_move) is int:
@@ -493,6 +489,16 @@ class ChessBoard(RelativeLayout):
                 return child
         print("No piece_at_board Piece 0 oordinaten", xpos, ypos)
         return 0
+        
+    def twoplayer_turn(self):
+        if alg == '-':
+            if boardai.human == "White":
+                boardai.human = "Black"
+            else:
+                boardai.human = "White"
+            return True
+        else:
+            return False
 
     def on_touch_down(self, touch):
         #boardai.listpieces()
