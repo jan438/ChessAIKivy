@@ -564,10 +564,8 @@ class ChessBoard(RelativeLayout):
                             anim.start(child)
                             if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1 and enemy.id[:5] == "Black":
                                 self.remove_widget(enemy)
-                                self.perform_ai_move(round(enemy.grid_x), round(enemy.grid_y), round(enemy.grid_y), round(enemy.grid_y))
                             if enemy.grid_x == grid_x and enemy.grid_y == grid_y + 1 and enemy.id[:5] == "White":
                                 self.remove_widget(enemy)
-                                self.perform_ai_move(round(enemy.grid_x), round(enemy.grid_y), round(enemy.grid_x), round(enemy.grid_y))
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
