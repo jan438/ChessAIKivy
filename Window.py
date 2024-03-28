@@ -104,15 +104,12 @@ class Pawn(ChessPiece):
             else:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y+1)}
             pclup = 0
-            pcup = 0
             pcrup = 0
             for piece in pieces:
                 if piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
                     pclup = piece
                 if piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
                     pcrup = piece
-                if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y + 1:
-                    pcup = piece
             for piece in pieces:
                 if piece.grid_y == self.grid_y + 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
@@ -139,15 +136,12 @@ class Pawn(ChessPiece):
             else:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y-1)}
             pclup = 0
-            pcup = 0
             pcrup = 0
             for piece in pieces:
                 if piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
                     pclup = piece
                 if piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
                     pcrup = piece
-                if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y - 1:
-                    pcup = piece
             for piece in pieces:
                 if piece.grid_y == self.grid_y - 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
