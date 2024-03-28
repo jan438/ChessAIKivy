@@ -113,7 +113,6 @@ class Pawn(ChessPiece):
                     pcrup = piece
                 if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y + 1:
                     pcup = piece
-            print("White captures pc  l r u", pclup, pcrup, pcup)
             for piece in pieces:
                 if piece.grid_y == self.grid_y + 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
@@ -149,7 +148,6 @@ class Pawn(ChessPiece):
                     pcrup = piece
                 if piece.grid_x == self.grid_x and piece.grid_y == self.grid_y - 1:
                     pcup = piece
-            print("Black captures pc  l r u", pclup, pcrup, pcup)
             for piece in pieces:
                 if piece.grid_y == self.grid_y - 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
