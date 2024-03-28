@@ -163,11 +163,11 @@ class Pawn(ChessPiece):
                 if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 3 and pclup == 0:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
                 ### 3
-                if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
-                    available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
-                ### 4
                 if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))
+                ### 4
+                if piece.id[:5] == "White" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
+                    available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
             return available_moves
 
 class Rook(ChessPiece):
