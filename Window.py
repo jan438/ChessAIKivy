@@ -642,7 +642,8 @@ class ChessBoard(RelativeLayout):
             if piece.id[:5] != boardai.human:
                 piece_available_moves = piece.available_moves(self.children)
                 if (King.grid_x, King.grid_y) in piece_available_moves["available_moves"] or (King.grid_x, King.grid_y) in piece_available_moves["pieces_to_capture"]:
-                    print("Checkmate", piece.id)
+                    pcs = []
+                    print("Checkmate", piece.id, "Available moves for", King.id, King.available_moves(pcs))
                     self.close_application()
                     return True
         return False
