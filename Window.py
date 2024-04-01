@@ -632,25 +632,31 @@ class ChessBoard(RelativeLayout):
         #boardai.listpieces()
 
     def check_check(self, prm):
-        King = None
+        WHKing = None
+        BHKing = None
         for piece_ in self.children:
-            if piece_.id[:5] == boardai.human and piece_.id[5:] == "King":
-                King = piece_
+            if piece_.id[:5] == "White" and piece_.id[5:] == "King":
+                WHKing = piece_
                 break
-        print("Check_check", prm, "King", King.id)
-
+        for piece_ in self.children:
+            if piece_.id[:5] == "Black" and piece_.id[5:] == "King":
+                BHKing = piece_
+                break
         for piece in self.children:
-            if piece.id[:5] != boardai.human:
-                for child in self.children:
-                    mvs = []
-                    mvs = child.available_moves(mvs)
-                    for move in mvs:
-                        print("Child move", child.id, len(mvs), mvs)
-                piece_available_moves = piece.available_moves(self.children)
-                if (King.grid_x, King.grid_y) in piece_available_moves["available_moves"] or (King.grid_x, King.grid_y) in piece_available_moves["pieces_to_capture"]:
-                    mvs = []
-                    print("Checkmate", piece.id, "Available moves for", King.id, King.available_moves(mvs))
-                    return True
+            for child in self.children:
+                mvs = []
+                mvs = child.available_moves(mvs)
+                for move in mvs:
+                    print("Child move", child.id, len(mvs), mvs)
+            piece_available_moves = piece.available_moves(self.children)
+            if (WHKing.grid_x, WHKing.grid_y) in piece_available_moves["available_moves"] or (WHKing.grid_x, WHKing.grid_y) in piece_available_moves["pieces_to_capture"]:
+                mvs = []
+                print("Checkmate white king", piece.id, "Available moves for", WHKing.id, WHKing.available_moves(mvs))
+                return True
+            if (BHKing.grid_x, BHKing.grid_y) in piece_available_moves["available_moves"] or (BHKing.grid_x, BHKing.grid_y) in piece_available_moves["pieces_to_capture"]:
+                mvs = []
+                print("Checkmate black king", piece.id, "Available moves for", BHKing.id, BHKing.available_moves(mvs))
+                return True
         return False
 
     def draw_moves(self):
