@@ -541,7 +541,7 @@ class ChessBoard(RelativeLayout):
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                        child.First_use = False
                     self.draw_moves()
-                    if self.check_check():
+                    if self.check_check(1):
                        break
                     else:
                        print("Turn after normal move", boardai.human)
@@ -560,7 +560,7 @@ class ChessBoard(RelativeLayout):
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
                             self.draw_moves()     
-                            if self.check_check():
+                            if self.check_check(2):
                                 break
                             else:
                                 print("Turn after capture", boardai.human)
@@ -613,7 +613,7 @@ class ChessBoard(RelativeLayout):
                          child.First_use = False
                          self.children[ChessBoard.piece_index].First_use = False
                          ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}             
-                         if self.check_check():
+                         if self.check_check(3):
                              break
                          else:
                               print("Turn3", boardai.human)
@@ -631,12 +631,13 @@ class ChessBoard(RelativeLayout):
         print(boardai.to_string())
         #boardai.listpieces()
 
-    def check_check(self):
+    def check_check(self, prm):
         King = None
         for piece_ in self.children:
             if piece_.id[:5] == boardai.human and piece_.id[5:] == "King":
                 King = piece_
                 break
+        print("Check_check", prm, "King", King.id)
 
         for piece in self.children:
             if piece.id[:5] != boardai.human:
