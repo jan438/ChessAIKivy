@@ -385,7 +385,7 @@ class ChessBoard(RelativeLayout):
         self._keyboard = None
         
     def check_ai_move(self):
-        print("Check move:", self.hmmove)
+        print("Check ai move:", self.hmmove)
         move = get_user_move(self.hmmove)
         boardai.perform_move(move)
         anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
