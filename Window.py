@@ -528,6 +528,8 @@ class ChessBoard(RelativeLayout):
                     print("Normal zet", self.children[id].id, old_x, old_y, grid_x, grid_y)
                     anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_quad', duration=0.5)
                     anim.start(self.children[id])
+                    self.children[id].grid_x = grid_x
+                    self.children[id].grid_y = grid_y
                     ChessBoard.piece_pressed = False
                     ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                     self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
