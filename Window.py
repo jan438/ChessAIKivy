@@ -643,7 +643,8 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
                 break
         for piece in self.children:
-            piece_available_moves = piece.available_moves(self.children)
+            mvs = []
+            piece_available_moves = piece.available_moves(mvs)
             if (WHKing.grid_x, WHKing.grid_y) in piece_available_moves["available_moves"] or (WHKing.grid_x, WHKing.grid_y) in piece_available_moves["pieces_to_capture"]:
                 mvs = []
                 print("Checkmate white king", piece.id, "Available moves for", WHKing.id, WHKing.available_moves(mvs), piece_available_moves)
