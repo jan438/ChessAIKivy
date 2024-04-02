@@ -645,11 +645,11 @@ class ChessBoard(RelativeLayout):
         for piece in self.children:
             mvs = []
             piece_available_moves = piece.available_moves(mvs)
-            if ((WHKing.grid_x, WHKing.grid_y) in piece_available_moves["available_moves"] or (WHKing.grid_x, WHKing.grid_y) in piece_available_moves["pieces_to_capture"]) and piece.id[:5] == "Black":
+            if ((WHKing.grid_x, WHKing.grid_y) in piece_available_moves["available_moves"] or (WHKing.grid_x, WHKing.grid_y) in piece_available_moves["pieces_to_capture"]) and piece.id[:5] == "Black" and boardai.human == "Black":
                 mvs = []
                 print("Checkmate", prm, "\n", WHKing.id, WHKing.available_moves(mvs), "\n", piece.id, piece_available_moves)
                 return True
-            if ((BHKing.grid_x, BHKing.grid_y) in piece_available_moves["available_moves"] or (BHKing.grid_x, BHKing.grid_y) in piece_available_moves["pieces_to_capture"]) and piece.id[:5] == "White":
+            if ((BHKing.grid_x, BHKing.grid_y) in piece_available_moves["available_moves"] or (BHKing.grid_x, BHKing.grid_y) in piece_available_moves["pieces_to_capture"]) and piece.id[:5] == "White" and boardai.human == "White":
                 mvs = []
                 print("Checkmate", prm, "\n", BHKing.id, BHKing.available_moves(mvs), "\n", piece.id, piece_available_moves)
                 return True
