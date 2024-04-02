@@ -637,11 +637,8 @@ class ChessBoard(RelativeLayout):
         for piece_ in self.children:
             if piece_.id[:5] == "White" and piece_.id[5:] == "King":
                 WHKing = piece_
-                break
-        for piece_ in self.children:
             if piece_.id[:5] == "Black" and piece_.id[5:] == "King":
                 BHKing = piece_
-                break
         for piece in self.children:
             mvs = []
             piece_available_moves = piece.available_moves(mvs)
