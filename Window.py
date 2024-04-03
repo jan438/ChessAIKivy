@@ -554,6 +554,8 @@ class ChessBoard(RelativeLayout):
                         if enemy.grid_x == grid_x and enemy.grid_y == grid_y:
                             anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
                             anim.start(self.children[id])
+                            self.children[id].grid_x = grid_x
+                            self.children[id].grid_y = grid_y
                             self.remove_widget(enemy)
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
