@@ -109,16 +109,12 @@ class Pawn(ChessPiece):
                 if self.First_use and piece.grid_y == self.grid_y + 2 and piece.grid_x == self.grid_x:
                     if len(available_moves) == 2:
                         available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
-                ### 1
                 if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 4:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
-                ### 2
                 if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 4:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
-                ### 3
                 if piece.id[:5] == "Black" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
-                ### 4
                 if piece.id[:5] == "Black" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
             return available_moves
@@ -134,16 +130,12 @@ class Pawn(ChessPiece):
                 if self.First_use and piece.grid_y == self.grid_y - 2 and piece.grid_x == self.grid_x:
                     if len(available_moves) == 2:
                         available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
-                ### 1
                 if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 3:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))          
-                ### 2
                 if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 3:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
-                ### 3
                 if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))
-                ### 4
                 if piece.id[:5] == "White" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
             return available_moves
