@@ -528,6 +528,7 @@ class ChessBoard(RelativeLayout):
                        self.turn()
                        break        
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
+                    enpassant = False
                     for enemy in self.children:
                         if enemy.grid_x == grid_x and enemy.grid_y == grid_y:
                             anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
@@ -559,8 +560,10 @@ class ChessBoard(RelativeLayout):
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             self.draw_moves()
-                            print("Turn after en passant", boardai.human)
-                            rc = self.twoplayer_turn()
+                            enpassant = True
+                    if enpassant:
+                        print("Turn after en passant", boardai.human)
+                        rc = self.twoplayer_turn()
             else:
                 try:
                     if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
