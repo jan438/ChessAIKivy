@@ -103,13 +103,6 @@ class Pawn(ChessPiece):
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y+1), (self.grid_x, self.grid_y+2)}
             else:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y+1)}
-            pclup = 0
-            pcrup = 0
-            for piece in pieces:
-                if piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y + 1:
-                    pclup = piece
-                if piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
-                    pcrup = piece
             for piece in pieces:
                 if piece.grid_y == self.grid_y + 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
@@ -117,10 +110,10 @@ class Pawn(ChessPiece):
                     if len(available_moves) == 2:
                         available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
                 ### 1
-                if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 4 and pcrup == 0:
+                if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 4:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y + 1))
                 ### 2
-                if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 4 and pclup == 0:
+                if piece.id[:9] == "BlackPawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 4:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y + 1))
                 ### 3
                 if piece.id[:5] == "Black" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y + 1:
@@ -135,13 +128,6 @@ class Pawn(ChessPiece):
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y-1), (self.grid_x, self.grid_y-2)}
             else:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y-1)}
-            pclup = 0
-            pcrup = 0
-            for piece in pieces:
-                if piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
-                    pclup = piece
-                if piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y - 1:
-                    pcrup = piece
             for piece in pieces:
                 if piece.grid_y == self.grid_y - 1 and piece.grid_x == self.grid_x:
                     available_moves["available_moves"] = ()
@@ -149,10 +135,10 @@ class Pawn(ChessPiece):
                     if len(available_moves) == 2:
                         available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
                 ### 1
-                if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 3 and pcrup == 0:
+                if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y and self.grid_y == 3:
                     available_moves["pieces_to_capture"].append((self.grid_x + 1,self.grid_y - 1))          
                 ### 2
-                if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 3 and pclup == 0:
+                if piece.id[:9] == "WhitePawn" and piece.grid_x == self.grid_x - 1 and piece.grid_y == self.grid_y and self.grid_y == 3:
                     available_moves["pieces_to_capture"].append((self.grid_x - 1,self.grid_y - 1))
                 ### 3
                 if piece.id[:5] == "White" and piece.grid_x == self.grid_x + 1 and piece.grid_y == self.grid_y - 1:
