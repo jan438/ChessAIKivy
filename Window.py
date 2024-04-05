@@ -477,11 +477,14 @@ class ChessBoard(RelativeLayout):
             return True
         else:
             return False
+            
+    def mark_en_passant(self, c, x):
+        print("Mark en passant",c,x)
+        boardai.wep[x] = True
 
     def on_touch_down(self, touch):
         #boardai.listpieces()
         #self.listpieces()
-        print("wep bep", boardai.wep[0], boardai.bep[7])
         self.WhiteCapture()
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
@@ -563,6 +566,7 @@ class ChessBoard(RelativeLayout):
                             self.draw_moves()
                             enpassant = True
                     if enpassant:
+                        self.mark_en_passant("White", grid_x)
                         print("Turn after en passant", boardai.human)
                         rc = self.twoplayer_turn()
             else:
