@@ -481,6 +481,10 @@ class ChessBoard(RelativeLayout):
     def mark_en_passant(self, c, x):
         print("Mark en passant",c,x)
         boardai.wep[x] = True
+        
+    def clear_en_passant(self, c):
+        print("Clear en passant",c)
+        boardai.wep = [False,False,False,False,False,False,False,False]
 
     def on_touch_down(self, touch):
         #boardai.listpieces()
@@ -567,6 +571,7 @@ class ChessBoard(RelativeLayout):
                             enpassant = True
                     if enpassant:
                         self.mark_en_passant("White", grid_x)
+                        self.clear_en_passant("White")
                         print("Turn after en passant", boardai.human)
                         rc = self.twoplayer_turn()
             else:
