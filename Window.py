@@ -479,14 +479,12 @@ class ChessBoard(RelativeLayout):
             return False
             
     def mark_en_passant(self, c, x):
-        print("Mark en passant",c,x)
         if c == "White":
             boardai.wep[x] = True
         elif c == "Black":
             boardai.bep[x] = True
   
     def clear_en_passant(self, c):
-        print("Clear en passant",c)
         if c == "White":
             boardai.wep = [False,False,False,False,False,False,False,False]
         elif c == "Black":
@@ -534,7 +532,6 @@ class ChessBoard(RelativeLayout):
                     ai_move = self.let_ai_move()
                     if child.id[5:9] == "Pawn" and abs(grid_y - old_y) == 2:
                         self.mark_en_passant(child.id[:5], grid_x)
-                        print("After mark", child.id[:5], boardai.wep, boardai.bep)
                     else:
                         self.clear_en_passant(child.id[:5]) 
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
