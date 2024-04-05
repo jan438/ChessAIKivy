@@ -570,8 +570,6 @@ class ChessBoard(RelativeLayout):
                             self.draw_moves()
                             enpassant = True
                     if enpassant:
-                        self.mark_en_passant("White", grid_x)
-                        self.clear_en_passant("White")
                         print("Turn after en passant", boardai.human)
                         rc = self.twoplayer_turn()
             else:
