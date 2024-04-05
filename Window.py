@@ -481,6 +481,7 @@ class ChessBoard(RelativeLayout):
     def on_touch_down(self, touch):
         #boardai.listpieces()
         #self.listpieces()
+        print("wep bep", boardai.wep[0], boardai.bep[7])
         self.WhiteCapture()
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)

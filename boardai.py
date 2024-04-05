@@ -48,6 +48,8 @@ class Boardai:
     @classmethod
     def new(cls):
         chess_piecesai = [[0 for x in range(Boardai.WIDTH)] for y in range(Boardai.HEIGHT)]
+        cls.wep = [False,False,False,False,False,False,False,False]
+        cls.bep = [False,False,False,False,False,False,False,False]
         if sys.platform[0] == 'l':
             path = '/home/jan/git/ChessAIKivy'
         if sys.platform[0] == 'w':
