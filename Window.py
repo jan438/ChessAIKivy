@@ -480,8 +480,11 @@ class ChessBoard(RelativeLayout):
             
     def mark_en_passant(self, c, x):
         print("Mark en passant",c,x)
-        boardai.wep[x] = True
-        
+        if c == "White":
+            boardai.wep[x] = True
+        elif c == "Black":
+            boardai.bep[x] = True
+  
     def clear_en_passant(self, c):
         print("Clear en passant",c)
         boardai.wep = [False,False,False,False,False,False,False,False]
@@ -525,7 +528,10 @@ class ChessBoard(RelativeLayout):
                     if grid_y == 0 and child.id[0:9] == "BlackPawn":
                         self.remove_widget(child)
                         self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))
-                    ai_move = self.let_ai_move() 
+                    ai_move = self.let_ai_move()
+                    if child.id[5:9] == "Pawn" and abs(grid_y - old_y) == 2:
+                        self.mark_en_passant(child.id[:5], grid_x)
+                        print("After mark", child.id[:5], boardai.wep, boardai.bep)   
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                        child.First_use = False
                     self.draw_moves()
