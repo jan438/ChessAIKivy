@@ -487,7 +487,10 @@ class ChessBoard(RelativeLayout):
   
     def clear_en_passant(self, c):
         print("Clear en passant",c)
-        boardai.wep = [False,False,False,False,False,False,False,False]
+        if c == "White":
+            boardai.wep = [False,False,False,False,False,False,False,False]
+        elif c == "Black":
+            boardai.wep = [False,False,False,False,False,False,False,False]
 
     def on_touch_down(self, touch):
         #boardai.listpieces()
@@ -531,7 +534,9 @@ class ChessBoard(RelativeLayout):
                     ai_move = self.let_ai_move()
                     if child.id[5:9] == "Pawn" and abs(grid_y - old_y) == 2:
                         self.mark_en_passant(child.id[:5], grid_x)
-                        print("After mark", child.id[:5], boardai.wep, boardai.bep)   
+                        print("After mark", child.id[:5], boardai.wep, boardai.bep)
+                    else:
+                        self.clear_en_passant(child.id[:5]) 
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                        child.First_use = False
                     self.draw_moves()
