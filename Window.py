@@ -533,7 +533,7 @@ class ChessBoard(RelativeLayout):
                     if child.id[5:9] == "Pawn" and abs(grid_y - old_y) == 2:
                         self.mark_en_passant(child.id[:5], grid_x)
                     else:
-                        self.clear_en_passant(child.id[:5]) 
+                        self.clear_en_passant(boardai.human) 
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                        child.First_use = False
                     self.draw_moves()
@@ -577,6 +577,7 @@ class ChessBoard(RelativeLayout):
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             self.draw_moves()
                             enpassant = True
+                    self.clear_en_passant(boardai.human) 
                     if enpassant:
                         print("Turn after en passant", boardai.human)
                         rc = self.twoplayer_turn()
