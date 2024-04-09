@@ -377,7 +377,9 @@ class King(ChessPiece):
             
     def check_place(self, place, pieces):
         print("check_place", place, len(pieces))
-
+        for piece in pieces:
+            if self.id[:5] != piece.id[:5]:
+                print("Attackking piece", piece.id)
 
 class ChessBoard(RelativeLayout):
     piece_pressed = False
