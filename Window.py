@@ -358,12 +358,16 @@ class King(ChessPiece):
         print("check first moves and no attack", self.id, side)
         if self.id == "WhiteKing" and side == "Queen side":
             print("xxxxxx")
+            self.check_place([2,2])
         if self.id == "WhiteKing" and side == "King side":
             print("xxxxxx")
         if self.id == "BlackKing" and side == "Queen side":
             print("xxxxxx")
         if self.id == "BlackKing" and side == "King side":
             print("xxxxxx")
+            
+    def check_place(self, place):
+        print("check_place", place)
 
 
 class ChessBoard(RelativeLayout):
