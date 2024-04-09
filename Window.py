@@ -356,6 +356,15 @@ class King(ChessPiece):
         
     def check_castling(self, side):
         print("check first moves and no attack", self.id, side)
+        if self.id == "WhiteKing" and side == "Queen side":
+            print("xxxxxx")
+        if self.id == "WhiteKing" and side == "King side":
+            print("xxxxxx")
+        if self.id == "BlackKing" and side == "Queen side":
+            print("xxxxxx")
+        if self.id == "BlackKing" and side == "King side":
+            print("xxxxxx")
+
 
 class ChessBoard(RelativeLayout):
     piece_pressed = False
