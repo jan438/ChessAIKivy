@@ -329,7 +329,11 @@ class King(ChessPiece):
         return available_moves
 
     def castling(self, pieces):
-        if self.First_use:
+        if self.First_use:              
+            if ChessBoard.piece_pressed:
+                print("Castling", self.id)
+            else:
+                return
             no_piece_left = True
             no_piece_right = True
             for piece in pieces:
