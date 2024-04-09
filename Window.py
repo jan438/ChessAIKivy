@@ -343,18 +343,18 @@ class King(ChessPiece):
                     no_piece_left = False
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_right and no_piece_left:
-                self.check_castling("Queen side")                
-                self.check_castling("King side")
+                self.check_castling("Queen side", pieces)                
+                self.check_castling("King side", pieces)
                 return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
             if no_piece_right:
-                self.check_castling("King side")
+                self.check_castling("King side", pieces)
                 return [(self.grid_x+2, self.grid_y)]
             if no_piece_left:
-                self.check_castling("Queen side")
+                self.check_castling("Queen side", pieces)
                 return [(self.grid_x-2, self.grid_y)]
         return []
         
-    def check_castling(self, side):
+    def check_castling(self, side, pieces):
         print("check first moves and no attack", self.id, side)
         if self.id == "WhiteKing" and side == "Queen side":
             self.check_place([1,0])
