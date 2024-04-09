@@ -339,12 +339,18 @@ class King(ChessPiece):
                     no_piece_left = False
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_right and no_piece_left:
+                self.check_castling()
                 return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
             if no_piece_right:
+                self.check_castling()
                 return [(self.grid_x+2, self.grid_y)]
             if no_piece_left:
+                self.check_castling()
                 return [(self.grid_x-2, self.grid_y)]
         return []
+        
+    def check_castling(self):
+        print("check first moves and no attack")
 
 class ChessBoard(RelativeLayout):
     piece_pressed = False
