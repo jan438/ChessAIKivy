@@ -357,14 +357,23 @@ class King(ChessPiece):
     def check_castling(self, side):
         print("check first moves and no attack", self.id, side)
         if self.id == "WhiteKing" and side == "Queen side":
-            print("xxxxxx")
-            self.check_place([2,2])
+            self.check_place([1,0])
+            self.check_place([2,0])
+            self.check_place([3,0])
+            self.check_place([4,0])
         if self.id == "WhiteKing" and side == "King side":
-            print("xxxxxx")
+            self.check_place([4,0])
+            self.check_place([5,0])
+            self.check_place([6,0])
         if self.id == "BlackKing" and side == "Queen side":
-            print("xxxxxx")
+            self.check_place([1,7])
+            self.check_place([2,7])
+            self.check_place([3,7])
+            self.check_place([4,7])
         if self.id == "BlackKing" and side == "King side":
-            print("xxxxxx")
+            self.check_place([4,7])
+            self.check_place([5,7])
+            self.check_place([6,7])
             
     def check_place(self, place):
         print("check_place", place)
