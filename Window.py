@@ -357,26 +357,26 @@ class King(ChessPiece):
     def check_castling(self, side, pieces):
         print("check first moves and no attack", self.id, side)
         if self.id == "WhiteKing" and side == "Queen side":
-            self.check_place([1,0])
-            self.check_place([2,0])
-            self.check_place([3,0])
-            self.check_place([4,0])
+            self.check_place([1,0], pieces)
+            self.check_place([2,0], pieces)
+            self.check_place([3,0], pieces)
+            self.check_place([4,0], pieces)
         if self.id == "WhiteKing" and side == "King side":
-            self.check_place([4,0])
-            self.check_place([5,0])
-            self.check_place([6,0])
+            self.check_place([4,0], pieces)
+            self.check_place([5,0], pieces)
+            self.check_place([6,0], pieces)
         if self.id == "BlackKing" and side == "Queen side":
-            self.check_place([1,7])
-            self.check_place([2,7])
-            self.check_place([3,7])
-            self.check_place([4,7])
+            self.check_place([1,7], pieces)
+            self.check_place([2,7], pieces)
+            self.check_place([3,7], pieces)
+            self.check_place([4,7], pieces)
         if self.id == "BlackKing" and side == "King side":
-            self.check_place([4,7])
-            self.check_place([5,7])
-            self.check_place([6,7])
+            self.check_place([4,7], pieces)
+            self.check_place([5,7], pieces)
+            self.check_place([6,7], pieces)
             
-    def check_place(self, place):
-        print("check_place", place)
+    def check_place(self, place, pieces):
+        print("check_place", place, len(pieces))
 
 
 class ChessBoard(RelativeLayout):
