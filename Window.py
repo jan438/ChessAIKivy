@@ -343,14 +343,17 @@ class King(ChessPiece):
                     no_piece_left = False
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_right and no_piece_left:
-                self.check_castling("Queen side", pieces)                
-                self.check_castling("King side", pieces)
-                return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
+                if self.check_castling("Queen side", pieces) and self.check_castling("King side", pieces):
+                    return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
+                elif self.check_castling("Queen side", pieces):
+                    return [(self.grid_x-2, self.grid_y)]
+                elif self.check_castling("King side", pieces):
+                    return [(self.grid_x+2, self.grid_y)]
+                else:
+                    return []
             if no_piece_right:
-                self.check_castling("King side", pieces)
                 return [(self.grid_x+2, self.grid_y)]
             if no_piece_left:
-                self.check_castling("Queen side", pieces)
                 return [(self.grid_x-2, self.grid_y)]
         return []
         
@@ -361,19 +364,6 @@ class King(ChessPiece):
             self.check_place([2,0], pieces)
             self.check_place([3,0], pieces)
             self.check_place([4,0], pieces)
-        if self.id == "WhiteKing" and side == "King side":
-            self.check_place([4,0], pieces)
-            self.check_place([5,0], pieces)
-            self.check_place([6,0], pieces)
-        if self.id == "BlackKing" and side == "Queen side":
-            self.check_place([1,7], pieces)
-            self.check_place([2,7], pieces)
-            self.check_place([3,7], pieces)
-            self.check_place([4,7], pieces)
-        if self.id == "BlackKing" and side == "King side":
-            self.check_place([4,7], pieces)
-            self.check_place([5,7], pieces)
-            self.check_place([6,7], pieces)
             
     def check_place(self, place, pieces):
         print("check_place", place, len(pieces))
