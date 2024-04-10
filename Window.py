@@ -329,6 +329,8 @@ class King(ChessPiece):
         return available_moves
 
     def castling(self, pieces):
+        no_attack_left = True
+        no_attack_right = True
         if self.First_use:              
             if ChessBoard.piece_pressed:
                 print("Castling", self.id)
@@ -343,33 +345,30 @@ class King(ChessPiece):
                     no_piece_left = False
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_right and no_piece_left:
-                if self.check_castling("Queen side", pieces) and self.check_castling("King side", pieces):
+                no_attack_left = self.no_attack_side("Queen side", pieces) 
+                if no_attack_left:
                     return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
-                elif self.check_castling("Queen side", pieces):
-                    return [(self.grid_x-2, self.grid_y)]
-                elif self.check_castling("King side", pieces):
+                else:
+                    return []
+            if no_piece_left:
+                no_attack_left = self.no_attack_side("Queen side", pieces)
+                if no_attack_left:
                     return [(self.grid_x+2, self.grid_y)]
                 else:
                     return []
-            if no_piece_right:
-                return [(self.grid_x+2, self.grid_y)]
-            if no_piece_left:
-                return [(self.grid_x-2, self.grid_y)]
         return []
         
-    def check_castling(self, side, pieces):
-        print("check first moves and no attack", self.id, side)
-        if self.id == "WhiteKing" and side == "Queen side":
-            self.check_place([1,0], pieces)
-            self.check_place([2,0], pieces)
-            self.check_place([3,0], pieces)
-            self.check_place([4,0], pieces)
+    def no_attack_side(self, side, pieces):
+        print("no attack left", self.id, side)
+        no_attack = True
+        if side == "Queen side" and self.id == "WhiteKing":
+            print("wwwwwwwwwwwwww")
+            ypos = 0
+            no_attack = self.no_attack_place([4,ypos], pieces)
+            return no_attack
             
-    def check_place(self, place, pieces):
-        print("check_place", place, len(pieces))
-        for piece in pieces:
-            if self.id[:5] != piece.id[:5]:
-                print("Attackking piece", piece.id)
+    def no_attack_place(self, side, pieces):
+        return True
 
 class ChessBoard(RelativeLayout):
     piece_pressed = False
