@@ -393,7 +393,9 @@ class King(ChessPiece):
         return True
         
     def safe_place(self, plc, pieces):
-        print("Safe place", plc)
+        for piece in pieces:
+            if plc[1] == 0 and piece.id[:5] == "Black":
+                print("Safe place", plc[0], plc[1], piece.id)
         return True  
        
 class ChessBoard(RelativeLayout):
