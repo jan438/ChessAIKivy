@@ -345,8 +345,8 @@ class King(ChessPiece):
                     no_piece_left = False
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_left and no_piece_right and self.id == "WhiteKing":
-                no_attack_left = True 
-                no_attack_right = True  
+                no_attack_left = self.safe_left(pieces)
+                no_attack_right = self.safe_right(pieces)
                 if no_attack_left and no_attack_right:
                     return [(self.grid_x-2, 0),(self.grid_x+2, 0)]      
                 if no_attack_left:
@@ -354,7 +354,7 @@ class King(ChessPiece):
                 if no_attack_right:  
                     return [(self.grid_x+2, 0)]       
             elif no_piece_left and self.id == "WhiteKing":
-                no_attack_left = True  
+                no_attack_left = self.safe_left(pieces) 
                 if no_attack_left:
                     return [(self.grid_x-2, 0)]                      
             elif no_piece_right and self.id == "WhiteKing":
@@ -379,6 +379,16 @@ class King(ChessPiece):
                  if no_attack_right:
                      return [(self.grid_x+2, 7)]        
             return []
+            
+    def safe_left(self, pieces):
+        print("Safe left", len(pieces))
+        return True
+        
+    def safe_right(self, pieces):
+        print("Safe right", len(pieces))
+        return True
+
+       
        
 class ChessBoard(RelativeLayout):
     piece_pressed = False
