@@ -344,32 +344,42 @@ class King(ChessPiece):
                 elif piece.grid_y == self.grid_y and piece.grid_x < self.grid_x and (piece.id[5:9] != "Rook" or self.id[:5] != piece.id[:5]):
                     no_piece_left = False
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
-            if no_piece_right and no_piece_left:
-                no_attack_left = self.no_attack_side("Queen side", pieces) 
+            if no_piece_left and no_piece_right and self.id == "WhiteKing":
+                no_attack_left = True 
+                no_attack_right = True  
+                if no_attack_left and no_attack_right:
+                    return [(self.grid_x-2, 0),(self.grid_x+2, 0)]      
                 if no_attack_left:
-                    return [(self.grid_x-2, self.grid_y),(self.grid_x+2, self.grid_y)]
-                else:
-                    return []
-            if no_piece_left:
-                no_attack_left = self.no_attack_side("Queen side", pieces)
+                    return [(self.grid_x-2, 0)]
+                if no_attack_right:  
+                    return [(self.grid_x+2, 0)]       
+            elif no_piece_left and self.id == "WhiteKing":
+                no_attack_left = True  
                 if no_attack_left:
-                    return [(self.grid_x+2, self.grid_y)]
-                else:
-                    return []
-        return []
-        
-    def no_attack_side(self, side, pieces):
-        print("no attack left", self.id, side)
-        no_attack = True
-        if side == "Queen side" and self.id == "WhiteKing":
-            print("wwwwwwwwwwwwww")
-            ypos = 0
-            no_attack = self.no_attack_place([4,ypos], pieces)
-            return no_attack
-            
-    def no_attack_place(self, side, pieces):
-        return True
-
+                    return [(self.grid_x-2, 0)]                      
+            elif no_piece_right and self.id == "WhiteKing":
+                 no_attack_right = True
+                 if no_attack_right:
+                     return [(self.grid_x+2, 0)]               
+            elif no_piece_left and no_piece_right and self.id == "BlackKing":
+                 no_attack_left = True   
+                 no_attack_right = True  
+                 if no_attack_left and no_attack_right:
+                     return [(self.grid_x-2, 7),(self.grid_x+2, 7)]     
+                 if no_attack_left:
+                     return [(self.grid_x-2, 7)]
+                 if no_attack_right:
+                     return [(self.grid_x+2, 7)]      
+            elif no_piece_left and self.id == "BlackKing":
+                 no_attack_left = True   
+                 if no_attack_left:
+                     return [(self.grid_x-2, 7)]               
+            elif no_piece_right and self.id == "BlackKing":
+                 no_attack_right = True  
+                 if no_attack_right:
+                     return [(self.grid_x+2, 7)]        
+            return []
+       
 class ChessBoard(RelativeLayout):
     piece_pressed = False
     id_piece_ = None
