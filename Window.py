@@ -382,13 +382,19 @@ class King(ChessPiece):
             
     def safe_left(self, pieces):
         print("Safe left", len(pieces))
+        if self.id == "WhiteKing":
+            places = [[4,0],[3,0],[2,0],[1,0]]
+            for plc in places:
+                self.safe_place(plc, pieces)
         return True
         
     def safe_right(self, pieces):
         print("Safe right", len(pieces))
         return True
-
-       
+        
+    def safe_place(self, plc, pieces):
+        print("Safe place", plc)
+        return True  
        
 class ChessBoard(RelativeLayout):
     piece_pressed = False
