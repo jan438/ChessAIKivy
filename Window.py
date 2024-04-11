@@ -371,7 +371,7 @@ class King(ChessPiece):
                  if no_attack_right:
                      return [(self.grid_x+2, 7)]      
             elif no_piece_left and self.id == "BlackKing":
-                 no_attack_left = True   
+                 no_attack_left = self.safe_left(pieces)  
                  if no_attack_left:
                      return [(self.grid_x-2, 7)]               
             elif no_piece_right and self.id == "BlackKing":
@@ -386,6 +386,10 @@ class King(ChessPiece):
             places = [[4,0],[3,0],[2,0],[1,0]]
             for plc in places:
                 self.safe_place(plc, pieces)
+        if self.id == "BlackKing":
+            places = [[4,7],[3,7],[2,7],[1,7]]
+            for plc in places:
+                self.safe_place(plc, pieces)
         return True
         
     def safe_right(self, pieces):
@@ -395,6 +399,8 @@ class King(ChessPiece):
     def safe_place(self, plc, pieces):
         for piece in pieces:
             if plc[1] == 0 and piece.id[:5] == "Black":
+                print("Safe place", plc[0], plc[1], piece.id)
+            if plc[1] == 7 and piece.id[:5] == "White":
                 print("Safe place", plc[0], plc[1], piece.id)
         return True  
        
