@@ -381,7 +381,7 @@ class King(ChessPiece):
             return []
             
     def safe_left(self, pieces):
-        print("Safe left", len(pieces))
+        safe = True
         if self.id == "WhiteKing":
             places = [[4,0],[3,0],[2,0],[1,0]]
             for plc in places:
@@ -397,7 +397,7 @@ class King(ChessPiece):
         return True
         
     def safe_right(self, pieces):
-        print("Safe right", len(pieces))
+        safe = True
         if self.id == "WhiteKing":
             places = [[4,0],[5,0],[6,0]]
             for plc in places:
@@ -413,6 +413,7 @@ class King(ChessPiece):
         return True
         
     def safe_place(self, plc, pieces):
+        attack = False 
         for piece in pieces:
             if plc[1] == 0 and piece.id[:5] == "Black":
                 attack = self.attacked(plc, piece)
