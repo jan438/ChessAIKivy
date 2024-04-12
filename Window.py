@@ -416,10 +416,8 @@ class King(ChessPiece):
         for piece in pieces:
             if plc[1] == 0 and piece.id[:5] == "Black":
                 attack = self.attacked(plc, piece)
-                #print("Safe place on white side", plc[0], plc[1], piece.id)
             if plc[1] == 7 and piece.id[:5] == "White":
                 attack = self.attacked(plc, piece)
-                #print("Safe place on black side", plc[0], plc[1], piece.id)
             if attack:
                 return False
         return True
