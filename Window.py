@@ -408,18 +408,17 @@ class King(ChessPiece):
         for piece in pieces:
             if plc[1] == 0 and piece.id[:5] == "Black":
                 attack = self.attacked(plc, piece)
-                print("Safe place on white side", plc[0], plc[1], piece.id)
+                #print("Safe place on white side", plc[0], plc[1], piece.id)
             if plc[1] == 7 and piece.id[:5] == "White":
                 attack = self.attacked(plc, piece)
-                print("Safe place on black side", plc[0], plc[1], piece.id)
+                #print("Safe place on black side", plc[0], plc[1], piece.id)
         return True
         
     def attacked(self, plc, piece):
         piecekind = piece.id[5:9]
         if piecekind == "Knig":
-            print("attacked", plc[0], plc[1], piece.id)
             if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
-               print("attacked ===========", plc[0], plc[1], piece.id)
+               print("attack", plc[0], plc[1], piece.id, self.castling(pieces))
                return True
         return False    
        
