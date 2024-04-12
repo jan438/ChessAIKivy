@@ -427,6 +427,11 @@ class King(ChessPiece):
                return True
         if piecekind == "Bish":
             print("Bish", piecekind, piece.id)
+            for y in range(8):
+                for x in range(8):
+                    if boardai.chesspiecesai[x][y] == 0:
+                        print("AI board", x, y, boardai.chesspiecesai[x][y])
+            return True
         return False    
        
 class ChessBoard(RelativeLayout):
