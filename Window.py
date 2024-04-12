@@ -415,9 +415,9 @@ class King(ChessPiece):
         return True
         
     def attacked(self, plc, piece):
-        piecekind = piece.id[5:11]
+        piecekind = piece.id[5:9]
         print("piecekind", piecekind)
-        if piecekind == "Knight":
+        if piecekind == "Knig":
             print("attacked", plc[0], plc[1], piece.id)
             if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
                print("attacked", plc[0], plc[1], piece.id)
