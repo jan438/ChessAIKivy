@@ -413,14 +413,10 @@ class King(ChessPiece):
         return True
         
     def safe_place(self, plc, pieces):
-        attack = False 
         for piece in pieces:
-            if plc[1] == 0 and piece.id[:5] == "Black":
-                attack = self.attacked(plc, piece)
-            if plc[1] == 7 and piece.id[:5] == "White":
-                attack = self.attacked(plc, piece)
-            if attack:
-                return False
+            if (plc[1] == 0 and piece.id[:5] == "Black") or (plc[1] == 7 and piece.id[:5] == "White"):
+                if self.attacked(plc, piece):
+                    return False
         return True
         
     def attacked(self, plc, piece):
