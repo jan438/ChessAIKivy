@@ -431,6 +431,7 @@ class King(ChessPiece):
                 for x in range(8):
                     if boardai.chesspiecesai[x][y] == 0:
                         print("AI board", x, y, boardai.chesspiecesai[x][y])
+            print("Pos", piece.grid_x, piece.grid_y, piece.id, boardai.chesspiecesai[piece.grid_x][piece.grid_y])
             return True
         return False    
        
