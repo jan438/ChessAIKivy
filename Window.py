@@ -406,11 +406,20 @@ class King(ChessPiece):
         
     def safe_place(self, plc, pieces):
         for piece in pieces:
+            self.attacked(plc, piece)
             if plc[1] == 0 and piece.id[:5] == "Black":
-                print("Safe place", plc[0], plc[1], piece.id)
+                a = 0
+                #print("Safe place", plc[0], plc[1], piece.id)
             if plc[1] == 7 and piece.id[:5] == "White":
-                print("Safe place", plc[0], plc[1], piece.id)
-        return True  
+                a = 0
+                #print("Safe place", plc[0], plc[1], piece.id)
+        return True
+        
+    def attacked(self, plc, piece):
+        if piece.id[5:10] == "Knight":
+            if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
+               return True
+        return False    
        
 class ChessBoard(RelativeLayout):
     piece_pressed = False
