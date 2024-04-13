@@ -434,7 +434,8 @@ class King(ChessPiece):
             print("Pos", piece.grid_x, piece.grid_y, piece.id, boardai.chesspiecesai[round(piece.grid_x)][round(piece.grid_y)])
             deltax = abs(round(piece.grid_x) - round(self.grid_x))
             deltay = abs(round(piece.grid_y) - round(self.grid_y))
-            print("Delta", deltax, deltay)
+            if deltax == deltay:
+                print("Delta", deltax, deltay)
             return True
         return False    
        
