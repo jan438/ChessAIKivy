@@ -434,10 +434,18 @@ class King(ChessPiece):
                 if piece.grid_x > self.grid_x and piece.grid_y > self.grid_y:
                     print("Bishop right above to king", deltax)
                     for i in range(deltax):
-                        aiposx = round(piece.grid_x) - i -1
+                        aiposx = round(piece.grid_x) - i - 1
                         aiposy = round(piece.grid_y) - i - 1
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                            print("Pieces diagonaal", aiposx, aiposy, boardai.chesspiecesai[aiposx][aiposy])
+                            break
+                if piece.grid_x < self.grid_x and piece.grid_y < self.grid_y:
+                     print("Bishop left under to king", deltax)
+                     for i in range(deltax):
+                        aiposx = round(piece.grid_x) + i + 1
+                        aiposy = round(piece.grid_y) + i + 1
+                        if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                            break
+
         return False    
        
 class ChessBoard(RelativeLayout):
