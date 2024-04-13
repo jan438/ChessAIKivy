@@ -427,16 +427,11 @@ class King(ChessPiece):
                return True
         if piecekind == "Bish":
             print("Bish", piecekind, piece.id)
-            #for y in range(8):
-                #for x in range(8):
-                    #if boardai.chesspiecesai[x][y] == 0:
-                        #print("AI board", x, y, boardai.chesspiecesai[x][y])
             print("Pos", piece.grid_x, piece.grid_y, piece.id, boardai.chesspiecesai[round(piece.grid_x)][round(piece.grid_y)])
             deltax = abs(round(piece.grid_x) - round(self.grid_x))
             deltay = abs(round(piece.grid_y) - round(self.grid_y))
             if deltax == deltay:
                 print("Delta", deltax, deltay)
-            return True
         return False    
        
 class ChessBoard(RelativeLayout):
