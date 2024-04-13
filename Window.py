@@ -432,28 +432,31 @@ class King(ChessPiece):
                 if piece.grid_x > self.grid_x and piece.grid_y > self.grid_y:
                     for i in range(deltax):
                         aiposx = round(piece.grid_x) - i - 1
-                        aiposy = round(piece.grid_y) - i - 1
+                        aiposy = ai_to_hm_y(round(piece.grid_y) - i - 1)
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
                 if piece.grid_x < self.grid_x and piece.grid_y < self.grid_y:
                      for i in range(deltax):
                         aiposx = round(piece.grid_x) + i + 1
-                        aiposy = round(piece.grid_y) + i + 1
+                        aiposy = ai_to_hm_y(round(piece.grid_y) + i + 1)
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
                 if piece.grid_x < self.grid_x and piece.grid_y > self.grid_y:
                     for i in range(deltax):
                         aiposx = round(piece.grid_x) + i + 1
-                        aiposy = round(piece.grid_y) - i - 1
+                        aiposy = ai_to_hm_y(round(piece.grid_y) - i - 1)
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
                 if piece.grid_x > self.grid_x and piece.grid_y < self.grid_y:
                     for i in range(deltax):
                         aiposx = round(piece.grid_x) - i - 1
-                        aiposy = round(piece.grid_y) + i + 1
+                        aiposy = ai_to_hm_y(round(piece.grid_y) + i + 1)
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
-                print("End check", plc[0], plc[1], "King line?", aiposx, aiposy)
+                if boardai.chesspiecesai[aiposx][aiposy] == 0:
+                    return True
+                else:
+                    print("End check", plc[0], plc[1], boardai.chesspiecesai[aiposx][aiposy].x, boardai.chesspiecesai[aiposx][aiposy].y)
         return False    
        
 class ChessBoard(RelativeLayout):
