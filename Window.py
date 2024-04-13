@@ -426,37 +426,34 @@ class King(ChessPiece):
                print("attack", plc[0], plc[1], piece.id)
                return True
         if piecekind == "Bish":
-            deltax = abs(round(piece.grid_x) - round(self.grid_x))
-            deltay = abs(round(piece.grid_y) - round(self.grid_y))
+            deltax = abs(round(piece.grid_x) - plc[0])
+            deltay = abs(round(piece.grid_y) - plc[1])
             if deltax == deltay:
                 if piece.grid_x > self.grid_x and piece.grid_y > self.grid_y:
-                    print("Bishop right above to king", deltax)
                     for i in range(deltax):
                         aiposx = round(piece.grid_x) - i - 1
                         aiposy = round(piece.grid_y) - i - 1
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
                 if piece.grid_x < self.grid_x and piece.grid_y < self.grid_y:
-                     print("Bishop left under to king", deltax)
                      for i in range(deltax):
                         aiposx = round(piece.grid_x) + i + 1
                         aiposy = round(piece.grid_y) + i + 1
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
                 if piece.grid_x < self.grid_x and piece.grid_y > self.grid_y:
-                    print("Bishop left above to king", deltax)
                     for i in range(deltax):
                         aiposx = round(piece.grid_x) + i + 1
                         aiposy = round(piece.grid_y) - i - 1
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
                 if piece.grid_x > self.grid_x and piece.grid_y < self.grid_y:
-                    print("Bishop right under to king", deltax)
                     for i in range(deltax):
                         aiposx = round(piece.grid_x) - i - 1
                         aiposy = round(piece.grid_y) + i + 1
                         if boardai.chesspiecesai[aiposx][aiposy] != 0:
                             break
+                print("End check", plc[0], plc[1], "King line?", aiposx, aiposy)
         return False    
        
 class ChessBoard(RelativeLayout):
