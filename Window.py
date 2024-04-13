@@ -426,12 +426,18 @@ class King(ChessPiece):
                print("attack", plc[0], plc[1], piece.id)
                return True
         if piecekind == "Bish":
-            print("Bish", piecekind, piece.id)
-            print("Pos", piece.grid_x, piece.grid_y, piece.id, boardai.chesspiecesai[round(piece.grid_x)][round(piece.grid_y)])
+            #print("Bish", piecekind, piece.id)
+            #print("Pos", piece.grid_x, piece.grid_y, piece.id, boardai.chesspiecesai[round(piece.grid_x)][round(piece.grid_y)])
             deltax = abs(round(piece.grid_x) - round(self.grid_x))
             deltay = abs(round(piece.grid_y) - round(self.grid_y))
             if deltax == deltay:
-                print("Delta", deltax, deltay)
+                if piece.grid_x > self.grid_x and piece.grid_y > self.grid_y:
+                    print("Bishop right above to king", deltax)
+                    for i in range(deltax):
+                        aiposx = round(piece.grid_x) - i -1
+                        aiposy = round(piece.grid_y) - i - 1
+                        if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                            print("Pieces diagonaal", aiposx, aiposy, boardai.chesspiecesai[aiposx][aiposy])
         return False    
        
 class ChessBoard(RelativeLayout):
