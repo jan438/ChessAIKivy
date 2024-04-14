@@ -443,6 +443,11 @@ class King(ChessPiece):
                         break
                 if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                     return True
+        if piecekind == "Rook":
+            deltax = abs(round(piece.grid_x) - plc[0])
+            deltay = abs(round(piece.grid_y) - plc[1])
+            if deltax == 0 or deltay == 0:
+                print("Rook", piece.id)
         return False    
        
 class ChessBoard(RelativeLayout):
