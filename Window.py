@@ -429,30 +429,19 @@ class King(ChessPiece):
             deltax = abs(round(piece.grid_x) - plc[0])
             deltay = abs(round(piece.grid_y) - plc[1])
             if deltax == deltay:
-                if piece.grid_x > self.grid_x and piece.grid_y > self.grid_y:
-                    for i in range(deltax):
-                        aiposx = round(piece.grid_x) - i - 1
-                        aiposy = ai_to_hm_y(round(piece.grid_y) - i - 1)
-                        if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                            break
-                if piece.grid_x < self.grid_x and piece.grid_y < self.grid_y:
-                     for i in range(deltax):
-                        aiposx = round(piece.grid_x) + i + 1
-                        aiposy = ai_to_hm_y(round(piece.grid_y) + i + 1)
-                        if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                            break
-                if piece.grid_x < self.grid_x and piece.grid_y > self.grid_y:
-                    for i in range(deltax):
-                        aiposx = round(piece.grid_x) + i + 1
-                        aiposy = ai_to_hm_y(round(piece.grid_y) - i - 1)
-                        if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                            break
-                if piece.grid_x > self.grid_x and piece.grid_y < self.grid_y:
-                    for i in range(deltax):
-                        aiposx = round(piece.grid_x) - i - 1
-                        aiposy = ai_to_hm_y(round(piece.grid_y) + i + 1)
-                        if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                            break
+                if piece.grid_x < self.grid_x:
+                    stepx = +1
+                else:
+                    stepx = -1
+                if piece.grid_y < self.grid_y:
+                    stepy = +1
+                else:
+                    stepy = -1
+                for i in range(deltax):
+                    aiposx = round(piece.grid_x) + i * stepx + stepx
+                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                        break
                 if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                     return True
                 else:
