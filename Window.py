@@ -443,8 +443,6 @@ class King(ChessPiece):
                         break
                 if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                     return True
-                else:
-                    print("End check", plc[0], plc[1], boardai.chesspiecesai[aiposx][aiposy].id)
         return False    
        
 class ChessBoard(RelativeLayout):
