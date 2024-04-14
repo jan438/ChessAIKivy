@@ -343,6 +343,20 @@ class King(ChessPiece):
                     no_piece_right = False
                 elif piece.grid_y == self.grid_y and piece.grid_x < self.grid_x and (piece.id[5:9] != "Rook" or self.id[:5] != piece.id[:5]):
                     no_piece_left = False
+            if no_piece_right:
+                aiposx = 7
+                if self.id == "WhiteKing":
+                     aiposy = 7
+                if self.id == "BlackKing":
+                     aiposy = 0
+                print("Check rook right", boardai.chesspiecesai[aiposx][aiposy].id)
+            if no_piece_left:
+                aiposx = 0
+                if self.id == "WhiteKing":
+                     aiposy = 7
+                if self.id == "BlackKing":
+                     aiposy = 0
+                print("Check rook left ", boardai.chesspiecesai[aiposx][aiposy].id)
             print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_left and no_piece_right and self.id == "WhiteKing":
                 no_attack_left = self.safe_left(pieces)
