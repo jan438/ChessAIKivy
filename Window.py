@@ -743,9 +743,9 @@ class ChessBoard(RelativeLayout):
         WHKing = None
         BHKing = None
         for piece_ in self.children:
-            if piece_.id[:5] == "White" and piece_.id[5:] == "King":
+            if piece_.id == "WhiteKing":
                 WHKing = piece_
-            if piece_.id[:5] == "Black" and piece_.id[5:] == "King":
+            if piece_.id == "BlackKing":
                 BHKing = piece_
         for piece in self.children:
             mvs = []
