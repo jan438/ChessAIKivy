@@ -447,6 +447,18 @@ class King(ChessPiece):
             deltax = abs(round(piece.grid_x) - plc[0])
             deltay = abs(round(piece.grid_y) - plc[1])
             if deltax == 0 or deltay == 0:
+                if piece.grid_x < self.grid_x:
+                    delta = deltax
+                    stepx = +1
+                else:
+                    delta = deltax
+                    stepx = -1
+                if piece.grid_y < self.grid_y:
+                    delta = deltay
+                    stepy = +1
+                else:
+                    delta = deltay
+                    stepy = -1
                 print("Rook", piece.id)
         return False    
        
