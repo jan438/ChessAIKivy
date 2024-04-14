@@ -459,7 +459,13 @@ class King(ChessPiece):
                 else:
                     delta = deltay
                     stepy = -1
-                print("Rook", piece.id)
+                for i in range(delta):
+                    aiposx = round(piece.grid_x) + i * stepx + stepx
+                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                        break
+                if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                    return True
         return False    
        
 class ChessBoard(RelativeLayout):
