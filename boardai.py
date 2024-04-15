@@ -156,6 +156,7 @@ class Boardai:
         piece = self.chesspiecesai[move.xfrom][move.yfrom]
         if piece == 0:
             return
+        print("Id piece ai perform move", self.chesspiecesai[move.xfrom][move.yfrom].id)
         if (piece.piece_type == piecesai.Pawn.PIECE_TYPE) and (move.yfrom == 3 and move.yto == 2):
             if move.xto == move.xfrom - 1 or move.xto == move.xfrom + 1:
                 self.chesspiecesai[move.xto][3] = 0
