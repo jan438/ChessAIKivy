@@ -110,36 +110,6 @@ class Boardai:
             print("{0} is not a directory".format(path))
         except PermissionError:
             print("You do not have permissions to change to {0}".format(path))
-        # Create pawns.
-        for x in range(Boardai.WIDTH):
-            chess_piecesai[x][Boardai.HEIGHT-2] = piecesai.Pawn(x, Boardai.HEIGHT-2, piecesai.Piece.WHITE, id="WhitePawn_"+str(x))
-            chess_piecesai[x][1] = piecesai.Pawn(x, 1, piecesai.Piece.BLACK, id="BlackPawn_"+str(x))
-
-        # Create rooks.
-        chess_piecesai[0][Boardai.HEIGHT-1] = piecesai.Rook(0, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteRook_0")
-        chess_piecesai[Boardai.WIDTH-1][Boardai.HEIGHT-1] = piecesai.Rook(Boardai.WIDTH-1, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteRook_1")
-        chess_piecesai[0][0] = piecesai.Rook(0, 0, piecesai.Piece.BLACK, id="BlackRook_0")
-        chess_piecesai[Boardai.WIDTH-1][0] = piecesai.Rook(Boardai.WIDTH-1, 0, piecesai.Piece.BLACK, id="BlackRook_1")
-
-        # Create Knights.
-        chess_piecesai[1][Boardai.HEIGHT-1] = piecesai.Knight(1, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteKnight_0")
-        chess_piecesai[Boardai.WIDTH-2][Boardai.HEIGHT-1] = piecesai.Knight(Boardai.WIDTH-2, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteKnight_1")
-        chess_piecesai[1][0] = piecesai.Knight(1, 0, piecesai.Piece.BLACK, id="BlackKnight_0")
-        chess_piecesai[Boardai.WIDTH-2][0] = piecesai.Knight(Boardai.WIDTH-2, 0, piecesai.Piece.BLACK, id="BlackKnight_1")
-
-        # Create Bishops.
-        chess_piecesai[2][Boardai.HEIGHT-1] = piecesai.Bishop(2, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteBishop_0")
-        chess_piecesai[Boardai.WIDTH-3][Boardai.HEIGHT-1] = piecesai.Bishop(Boardai.WIDTH-3, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteBishop_1")
-        chess_piecesai[2][0] = piecesai.Bishop(2, 0, piecesai.Piece.BLACK, id="BlackBishop_0")
-        chess_piecesai[Boardai.WIDTH-3][0] = piecesai.Bishop(Boardai.WIDTH-3, 0, piecesai.Piece.BLACK, id="BlackBishop_1")
-
-        # Create King & Queen.
-        chess_piecesai[4][Boardai.HEIGHT-1] = piecesai.King(4, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteKing")
-        chess_piecesai[3][Boardai.HEIGHT-1] = piecesai.Queen(3, Boardai.HEIGHT-1, piecesai.Piece.WHITE, id="WhiteQueen")
-        chess_piecesai[4][0] = piecesai.King(4, 0, piecesai.Piece.BLACK, id="BlackKing")
-        chess_piecesai[3][0] = piecesai.Queen(3, 0, piecesai.Piece.BLACK, id="BlackQueen")
-
-        return cls(chess_piecesai, False, False, cls.human, cls.alg)
 
     def get_possible_moves(self, color):
         moves = []
