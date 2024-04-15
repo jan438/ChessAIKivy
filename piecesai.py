@@ -6,12 +6,13 @@ class Piece():
     WHITE = "W"
     BLACK = "B"
 
-    def __init__(self, x, y, color, piece_type, value, id):
+    def __init__(self, x, y, color, piece_type, value, f, id):
         self.x = x
         self.y = y
         self.color = color
         self.piece_type = piece_type
         self.value = value
+        self.f = f
         self.id = id
 
     def get_possible_diagonal_moves(self, boardai):
@@ -107,14 +108,14 @@ class Rook(Piece):
     PIECE_TYPE = "R"
     VALUE = 500
 
-    def __init__(self, x, y, color, id):
-        super(Rook, self).__init__(x, y, color, Rook.PIECE_TYPE, Rook.VALUE, id)
+    def __init__(self, x, y, color, f, id):
+        super(Rook, self).__init__(x, y, color, Rook.PIECE_TYPE, Rook.VALUE, f, id)
 
     def get_possible_moves(self, boardai):
         return self.get_possible_horizontal_moves(boardai)
 
     def clone(self):
-        return Rook(self.x, self.y, self.color, id)
+        return Rook(self.x, self.y, self.color, f, id)
 
 
 class Knight(Piece):
@@ -122,8 +123,8 @@ class Knight(Piece):
     PIECE_TYPE = "N"
     VALUE = 320
 
-    def __init__(self, x, y, color, id):
-        super(Knight, self).__init__(x, y, color, Knight.PIECE_TYPE, Knight.VALUE, id)
+    def __init__(self, x, y, color, f, id):
+        super(Knight, self).__init__(x, y, color, Knight.PIECE_TYPE, Knight.VALUE, f, id)
 
     def get_possible_moves(self, boardai):
         moves = []
@@ -138,7 +139,7 @@ class Knight(Piece):
         return self.remove_null_from_list(moves)
 
     def clone(self):
-        return Knight(self.x, self.y, self.color, id)
+        return Knight(self.x, self.y, self.color, f, id)
 
 
 class Bishop(Piece):
@@ -146,14 +147,14 @@ class Bishop(Piece):
     PIECE_TYPE = "B"
     VALUE = 330
 
-    def __init__(self, x, y, color, id):
-        super(Bishop, self).__init__(x, y, color, Bishop.PIECE_TYPE, Bishop.VALUE, id)
+    def __init__(self, x, y, color, f, id):
+        super(Bishop, self).__init__(x, y, color, Bishop.PIECE_TYPE, Bishop.VALUE, f, id)
 
     def get_possible_moves(self, boardai):
         return self.get_possible_diagonal_moves(boardai)
 
     def clone(self):
-        return Bishop(self.x, self.y, self.color, id)
+        return Bishop(self.x, self.y, self.color, f, id)
 
 
 class Queen(Piece):
@@ -161,8 +162,8 @@ class Queen(Piece):
     PIECE_TYPE = "Q"
     VALUE = 900
 
-    def __init__(self, x, y, color, id):
-        super(Queen, self).__init__(x, y, color, Queen.PIECE_TYPE, Queen.VALUE, id)
+    def __init__(self, x, y, color, f, id):
+        super(Queen, self).__init__(x, y, color, Queen.PIECE_TYPE, Queen.VALUE, f, id)
 
     def get_possible_moves(self, boardai):
         diagonal = self.get_possible_diagonal_moves(boardai)
@@ -170,7 +171,7 @@ class Queen(Piece):
         return horizontal + diagonal
 
     def clone(self):
-        return Queen(self.x, self.y, self.color, id)
+        return Queen(self.x, self.y, self.color, f, id)
 
 
 class King(Piece):
@@ -178,8 +179,8 @@ class King(Piece):
     PIECE_TYPE = "K"
     VALUE = 20000
 
-    def __init__(self, x, y, color, id):
-        super(King, self).__init__(x, y, color, King.PIECE_TYPE, King.VALUE, id)
+    def __init__(self, x, y, color, f, id):
+        super(King, self).__init__(x, y, color, King.PIECE_TYPE, King.VALUE, f, id)
 
     def get_possible_moves(self, boardai):
         moves = []
@@ -225,7 +226,7 @@ class King(Piece):
 
 
     def clone(self):
-        return King(self.x, self.y, self.color, id)
+        return King(self.x, self.y, self.color, f, id)
 
 
 class Pawn(Piece):
@@ -233,8 +234,8 @@ class Pawn(Piece):
     PIECE_TYPE = "P"
     VALUE = 100
 
-    def __init__(self, x, y, color, id):
-        super(Pawn, self).__init__(x, y, color, Pawn.PIECE_TYPE, Pawn.VALUE, id)
+    def __init__(self, x, y, color, f, id):
+        super(Pawn, self).__init__(x, y, color, Pawn.PIECE_TYPE, Pawn.VALUE, f, id)
 
     def is_starting_position(self):
         if (self.color == Piece.BLACK):
@@ -270,4 +271,4 @@ class Pawn(Piece):
         return self.remove_null_from_list(moves)
 
     def clone(self):
-        return Pawn(self.x, self.y, self.color, id)
+        return Pawn(self.x, self.y, self.color, f, id)

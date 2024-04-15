@@ -72,31 +72,31 @@ class Boardai:
                             cls.alg = f
                         if row[0] == 'W':
                             if sid[0] == 'P':
-                                chess_piecesai[x][y] = piecesai.Pawn(x, y, piecesai.Piece.WHITE, id="WhitePawn_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Pawn(x, y, piecesai.Piece.WHITE, f, id="WhitePawn_"+sid[1])
                             if sid[0] == 'R':
-                                chess_piecesai[x][y] = piecesai.Rook(x, y, piecesai.Piece.WHITE, id="WhiteRook_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Rook(x, y, piecesai.Piece.WHITE, f, id="WhiteRook_"+sid[1])
                             if sid[0] == 'N':
-                                chess_piecesai[x][y] = piecesai.Knight(x, y, piecesai.Piece.WHITE, id="WhiteKnight_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Knight(x, y, piecesai.Piece.WHITE, f, id="WhiteKnight_"+sid[1])
                             if sid[0] == 'B':
-                                chess_piecesai[x][y] = piecesai.Bishop(x, y, piecesai.Piece.WHITE, id="WhiteBishop_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Bishop(x, y, piecesai.Piece.WHITE, f, id="WhiteBishop_"+sid[1])
                             if sid[0] == 'Q':
-                                chess_piecesai[x][y] = piecesai.Queen(x, y, piecesai.Piece.WHITE, id="WhiteQueen")
+                                chess_piecesai[x][y] = piecesai.Queen(x, y, piecesai.Piece.WHITE, f, id="WhiteQueen")
                             if sid[0] == 'K':
-                                chess_piecesai[x][y] = piecesai.King(x, y, piecesai.Piece.WHITE, id="WhiteKing")
+                                chess_piecesai[x][y] = piecesai.King(x, y, piecesai.Piece.WHITE, f, id="WhiteKing")
                                 cls.white_king_moved = f
                         if row[0] == 'B':
                             if sid[0] == 'P':
-                                chess_piecesai[x][y] = piecesai.Pawn(x, y, piecesai.Piece.BLACK, id="BlackPawn_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Pawn(x, y, piecesai.Piece.BLACK, f, id="BlackPawn_"+sid[1])
                             if sid[0] == 'R':
-                                chess_piecesai[x][y] = piecesai.Rook(x, y, piecesai.Piece.BLACK, id="BlackRook_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Rook(x, y, piecesai.Piece.BLACK, f, id="BlackRook_"+sid[1])
                             if sid[0] == 'N':
-                                chess_piecesai[x][y] = piecesai.Knight(x, y, piecesai.Piece.BLACK, id="BlackKnight_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Knight(x, y, piecesai.Piece.BLACK, f, id="BlackKnight_"+sid[1])
                             if sid[0] == 'B':
-                                chess_piecesai[x][y] = piecesai.Bishop(x, y, piecesai.Piece.BLACK, id="BlackBishop_"+sid[1])
+                                chess_piecesai[x][y] = piecesai.Bishop(x, y, piecesai.Piece.BLACK, f, id="BlackBishop_"+sid[1])
                             if sid[0] == 'Q':
-                                chess_piecesai[x][y] = piecesai.Queen(x, y, piecesai.Piece.BLACK, id="BlackQueen")
+                                chess_piecesai[x][y] = piecesai.Queen(x, y, piecesai.Piece.BLACK, f, id="BlackQueen")
                             if sid[0] == 'K':
-                                chess_piecesai[x][y] = piecesai.King(x, y, piecesai.Piece.BLACK, id="BlackKing")
+                                chess_piecesai[x][y] = piecesai.King(x, y, piecesai.Piece.BLACK, f, id="BlackKing")
                                 cls.black_king_moved = f
                     file.close()
                     return cls(chess_piecesai, False, False, cls.human, cls.alg)
