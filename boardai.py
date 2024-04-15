@@ -154,13 +154,7 @@ class Boardai:
                     promoqueen = "BlackQueen"    
                 self.chesspiecesai[piece.x][piece.y] = piecesai.Queen(piece.x, piece.y, piece.color, promoqueen)
                 
-        if (piece.piece_type == piecesai.King.PIECE_TYPE):
-            # Mark the king as having moved.
-            if (piece.color == piecesai.Piece.WHITE):
-                self.white_king_moved = True
-            else:
-                self.black_king_moved = True
-            
+        if (piece.piece_type == piecesai.King.PIECE_TYPE):            
             # Check if king-side castling
             if (move.xto - move.xfrom == 2):
                 rook = self.chesspiecesai[piece.x+1][piece.y]
