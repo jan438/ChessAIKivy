@@ -71,6 +71,10 @@ class Boardai:
                             cls.human = sid
                             cls.alg = f
                         if row[0] == 'W':
+                            if f == 'T':
+                                f = True
+                            else:
+                                f = False
                             if sid[0] == 'P':
                                 chess_piecesai[x][y] = piecesai.Pawn(x, y, piecesai.Piece.WHITE, f, id="WhitePawn_"+sid[1])
                             if sid[0] == 'R':
@@ -85,6 +89,10 @@ class Boardai:
                                 chess_piecesai[x][y] = piecesai.King(x, y, piecesai.Piece.WHITE, f, id="WhiteKing")
                                 cls.white_king_moved = f
                         if row[0] == 'B':
+                            if f == 'T':
+                                f = True
+                            else:
+                                f = False
                             if sid[0] == 'P':
                                 chess_piecesai[x][y] = piecesai.Pawn(x, y, piecesai.Piece.BLACK, f, id="BlackPawn_"+sid[1])
                             if sid[0] == 'R':
@@ -126,7 +134,7 @@ class Boardai:
         piece = self.chesspiecesai[move.xfrom][move.yfrom]
         if piece == 0:
             return
-        print("Id piece ai perform move", self.chesspiecesai[move.xfrom][move.yfrom].id)
+        print("Id piece ai perform move", self.chesspiecesai[move.xfrom][move.yfrom].id, self.chesspiecesai[move.xfrom][move.yfrom].f)
         if (piece.piece_type == piecesai.Pawn.PIECE_TYPE) and (move.yfrom == 3 and move.yto == 2):
             if move.xto == move.xfrom - 1 or move.xto == move.xfrom + 1:
                 self.chesspiecesai[move.xto][3] = 0
@@ -136,6 +144,7 @@ class Boardai:
                 self.chesspiecesai[move.xto][4] = 0
                 self.chesspiecesai[move.xfrom][4] = 0
         self.move_piece(piece, move.xto, move.yto)
+        piece.f = False
         
         if (piece.piece_type == piecesai.Pawn.PIECE_TYPE):
         
