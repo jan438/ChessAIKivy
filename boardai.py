@@ -12,10 +12,8 @@ class Boardai:
     WIDTH = 8
     HEIGHT = 8
 
-    def __init__(self, chesspiecesai, white_king_moved, black_king_moved, human, alg):
+    def __init__(self, chesspiecesai, human, alg):
         self.chesspiecesai = chesspiecesai
-        self.white_king_moved = white_king_moved
-        self.black_king_moved = black_king_moved
         self.human = human
         self.alg = alg
         
@@ -43,7 +41,7 @@ class Boardai:
                 piece = chessboardai.chesspiecesai[x][y]
                 if (piece != 0):
                     chesspiecesai[x][y] = piece.clone()
-        return cls(chesspiecesai, chessboardai.white_king_moved, chessboardai.black_king_moved, chessboardai.human, chessboardai.alg)
+        return cls(chesspiecesai, chessboardai.human, chessboardai.alg)
 
     @classmethod
     def new(cls):
@@ -105,7 +103,7 @@ class Boardai:
                             if sid[0] == 'K':
                                 chess_piecesai[x][y] = piecesai.King(x, y, piecesai.Piece.BLACK, f, id="BlackKing")
                     file.close()
-                    return cls(chess_piecesai, False, False, cls.human, cls.alg)
+                    return cls(chess_piecesai, cls.human, cls.alg)
             except IOError: 
                 print("Error: File does not appear to exist.")
             except Exception as err:
