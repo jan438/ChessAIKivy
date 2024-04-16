@@ -483,9 +483,7 @@ class King(ChessPiece):
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
                     break
             if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                print("Diagonaal", self.id, True, piece.id)
                 return True
-        print("Diagonaal", self.id, False, piece.id)
         return False
     
     def straight(self, plc, piece):
@@ -510,9 +508,7 @@ class King(ChessPiece):
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
                     break
             if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                print("Straight", self.id, True, piece.id)
                 return True
-        print("Straight", self.id, False, piece.id)
         return False
        
 class ChessBoard(RelativeLayout):
