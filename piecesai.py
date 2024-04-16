@@ -202,10 +202,8 @@ class King(Piece):
             return 0
         if (piece_in_corner.color != self.color):
             return 0
-        #if (self.color == Piece.WHITE and boardai.white_king_moved):
-        #    return 0
-        #if (self.color == Piece.BLACK and boardai.black_king_moved):
-        #    return 0
+        if (self.f == False or piece_in_corner.f == False):
+            return 0
         if (boardai.get_piece(self.x+1, self.y) != 0 or boardai.get_piece(self.x+2, self.y) != 0):
             return 0
         return Move(self.x, self.y, self.x+2, self.y)
@@ -216,10 +214,8 @@ class King(Piece):
             return 0
         if (piece_in_corner.color != self.color):
             return 0
-        #if (self.color == Piece.WHITE and boardai.white_king_moved):
-        #    return 0
-        #if (self.color == Piece.BLACK and boardai.black_king_moved):
-        #    return 0
+        if (self.f == False or piece_in_corner.f == False):
+            return 0
         if (boardai.get_piece(self.x-1, self.y) != 0 or boardai.get_piece(self.x-2, self.y) != 0 or boardai.get_piece(self.x-3, self.y) != 0):
             return 0
         return Move(self.x, self.y, self.x-2, self.y)
