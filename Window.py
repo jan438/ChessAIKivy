@@ -453,48 +453,59 @@ class King(ChessPiece):
             if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
                return True
         if piecekind == "Bish":
-            deltax = abs(round(piece.grid_x) - plc[0])
-            deltay = abs(round(piece.grid_y) - plc[1])
-            if deltax == deltay:
-                if piece.grid_x < self.grid_x:
-                    stepx = +1
-                else:
-                    stepx = -1
-                if piece.grid_y < self.grid_y:
-                    stepy = +1
-                else:
-                    stepy = -1
-                for i in range(deltax):
-                    aiposx = round(piece.grid_x) + i * stepx + stepx
-                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
-                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        break
-                if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                    return True
+            if self.diagonal(plc, piece):
+                return True
+            return False
         if piecekind == "Rook":
-            deltax = abs(round(piece.grid_x) - plc[0])
-            deltay = abs(round(piece.grid_y) - plc[1])
-            if deltax == 0 or deltay == 0:
-                if piece.grid_x < self.grid_x:
-                    delta = deltax
-                    stepx = +1
-                else:
-                    delta = deltax
-                    stepx = -1
-                if piece.grid_y < self.grid_y:
-                    delta = deltay
-                    stepy = +1
-                else:
-                    delta = deltay
-                    stepy = -1
-                for i in range(delta):
-                    aiposx = round(piece.grid_x) + i * stepx + stepx
-                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
-                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        break
-                if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                    return True
-        return False    
+            if self.straight(plc, piece):
+                return True
+            return False
+        
+    def diagonal(self, plc, piece):
+        deltax = abs(round(piece.grid_x) - plc[0])
+        deltay = abs(round(piece.grid_y) - plc[1])
+        if deltax == deltay:
+            if piece.grid_x < self.grid_x:
+               stepx = +1
+            else:
+                stepx = -1
+            if piece.grid_y < self.grid_y:
+                stepy = +1
+            else:
+                stepy = -1
+            for i in range(deltax):
+                aiposx = round(piece.grid_x) + i * stepx + stepx
+                aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                    break
+            if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                return True
+        return False
+    
+    def straight(self, plc, piece):
+        deltax = abs(round(piece.grid_x) - plc[0])
+        deltay = abs(round(piece.grid_y) - plc[1])
+        if deltax == 0 or deltay == 0:
+            if piece.grid_x < self.grid_x:
+                delta = deltax
+                stepx = +1
+            else:
+                delta = deltax
+                stepx = -1
+            if piece.grid_y < self.grid_y:
+                delta = deltay
+                stepy = +1
+            else:
+                delta = deltay
+                stepy = -1
+            for i in range(delta):
+                aiposx = round(piece.grid_x) + i * stepx + stepx
+                aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                    break
+            if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                return True
+        return False
        
 class ChessBoard(RelativeLayout):
     piece_pressed = False
