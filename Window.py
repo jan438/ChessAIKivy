@@ -890,6 +890,7 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
         chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
         chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
+        print("Check resume", "White", chw, "Black", chb)
         return False
 
     def draw_moves(self):
