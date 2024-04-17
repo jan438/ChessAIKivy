@@ -823,7 +823,6 @@ class ChessBoard(RelativeLayout):
         if piecekind == "Rook":
             if self.check_straight(plc, piece):
                 return True
-        #print("Check place", plc, piece.id)
         return False
           
     def check_diagonal(self, plc, piece):
@@ -850,7 +849,6 @@ class ChessBoard(RelativeLayout):
     def check_straight(self, plc, piece):
         deltax = abs(round(piece.grid_x) - plc[0])
         deltay = abs(round(piece.grid_y) - plc[1])
-        print("Check straight", plc, piece.id, "Deltas", deltax, deltay)
         if deltax == 0 or deltay == 0:
             stepx = 0
             stepy = 0
@@ -870,7 +868,6 @@ class ChessBoard(RelativeLayout):
                 aiposx = round(piece.grid_x) + i * stepx + stepx
                 aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                    print("ai found piece", aiposx, aiposy, boardai.chesspiecesai[aiposx][aiposy].id)
                     break
             if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                 return True
@@ -893,7 +890,6 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
         chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
         chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        print("Check check", prm, "WhiteKing", chw, "BlackKing", chb)
         return False
 
     def draw_moves(self):
