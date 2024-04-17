@@ -819,8 +819,9 @@ class ChessBoard(RelativeLayout):
     def check_place(self, color, plc, pieces):
         for piece in pieces:
             if piece.id[:5] != color:
-                 self.attack_king(plc, piece)
-        return True
+                 if self.attack_king(plc, piece):
+                     return True
+        return False
 
     def check_check(self, prm):
         WHKing = None
@@ -830,9 +831,9 @@ class ChessBoard(RelativeLayout):
                 WHKing = piece_
             if piece_.id == "BlackKing":
                 BHKing = piece_
-        self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
-        self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        print("Check check", prm)
+        chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
+        chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
+        print("Check check", prm, "WhiteKing", chw, "BlackKing", chb)
         return False
 
     def draw_moves(self):
