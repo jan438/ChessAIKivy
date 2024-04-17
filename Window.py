@@ -850,24 +850,27 @@ class ChessBoard(RelativeLayout):
     def check_straight(self, plc, piece):
         deltax = abs(round(piece.grid_x) - plc[0])
         deltay = abs(round(piece.grid_y) - plc[1])
-        print("Check straight", plc, piece.id)
+        print("Check straight", plc, piece.id, "Deltas", deltax, deltay)
         if deltax == 0 or deltay == 0:
+            stepx = 0
+            stepy = 0
             if piece.grid_x < plc[0]:
                 delta = deltax
                 stepx = +1
-            else:
+            if piece.grid_x > plc[0]:
                 delta = deltax
                 stepx = -1
             if piece.grid_y < plc[1]:
                 delta = deltay
                 stepy = +1
-            else:
+            if piece.grid_y > plc[1]:
                 delta = deltay
                 stepy = -1
             for i in range(delta):
                 aiposx = round(piece.grid_x) + i * stepx + stepx
                 aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                    print("ai found piece", aiposx, aiposy, boardai.chesspiecesai[aiposx][aiposy].id)
                     break
             if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                 return True
