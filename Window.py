@@ -811,10 +811,14 @@ class ChessBoard(RelativeLayout):
     def turn(self):
         print(boardai.to_string())
         #boardai.listpieces()
-        
+    
+    def attack_king(self, plc, piece):
+        print("Check place", plc, piece.id)
+        return False
+       
     def check_place(self, plc, pieces):
         for piece in pieces:
-            print("Check place", piece.id)
+            self.attack_king(plc, piece)
         return True
 
     def check_check(self, prm):
