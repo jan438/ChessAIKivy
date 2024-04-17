@@ -818,9 +818,12 @@ class ChessBoard(RelativeLayout):
             if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
                 return True
         if piecekind == "Bish":
-             if self.check_diagonal(plc, piece):
-                 return True
-        print("Check place", plc, piece.id)
+            if self.check_diagonal(plc, piece):
+                return True
+        if piecekind == "Rook":
+            if self.check_straight(plc, piece):
+                return True
+        #print("Check place", plc, piece.id)
         return False
           
     def check_diagonal(self, plc, piece):
@@ -843,12 +846,38 @@ class ChessBoard(RelativeLayout):
             if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                 return True
         return False
+        
+    def check_straight(self, plc, piece):
+        deltax = abs(round(piece.grid_x) - plc[0])
+        deltay = abs(round(piece.grid_y) - plc[1])
+        print("Check straight", plc, piece.id)
+        if deltax == 0 or deltay == 0:
+            if piece.grid_x < plc[0]:
+                delta = deltax
+                stepx = +1
+            else:
+                delta = deltax
+                stepx = -1
+            if piece.grid_y < plc[1]:
+                delta = deltay
+                stepy = +1
+            else:
+                delta = deltay
+                stepy = -1
+            for i in range(delta):
+                aiposx = round(piece.grid_x) + i * stepx + stepx
+                aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                    break
+            if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                return True
+        return False
           
     def check_place(self, color, plc, pieces):
         for piece in pieces:
             if piece.id[:5] != color:
-                 if self.attack_king(plc, piece):
-                     return True
+                if self.attack_king(plc, piece):
+                    return True
         return False
 
     def check_check(self, prm):
