@@ -502,25 +502,29 @@ class King(ChessPiece):
         deltax = abs(round(piece.grid_x) - plc[0])
         deltay = abs(round(piece.grid_y) - plc[1])
         if deltax == 0 or deltay == 0:
-            if piece.grid_x < self.grid_x:
-                delta = deltax
-                stepx = +1
-            else:
-                delta = deltax
-                stepx = -1
-            if piece.grid_y < self.grid_y:
-                delta = deltay
-                stepy = +1
-            else:
-                delta = deltay
-                stepy = -1
-            for i in range(delta):
-                aiposx = round(piece.grid_x) + i * stepx + stepx
-                aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
-                if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                    break
-            if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                return True
+            if deltay == 0:
+                if piece.grid_x < self.grid_x:
+                    stepx = +1
+                if piece.grid_x > self.grid_x:
+                    stepx = -1
+                for i in range(deltax):
+                    aiposx = round(piece.grid_x) + i * stepx + stepx
+                    if boardai.chesspiecesai[aiposx][plc[1]] != 0:
+                        break
+                if boardai.chesspiecesai[aiposx][plc[1]] == 0 or boardai.chesspiecesai[aiposx][plc[1]].id[5:9] == "King":
+                    return True
+            if deltax == 0:
+                if piece.grid_y < self.grid_y:
+                    stepy = +1
+                if piece.grid_y > self.grid_y:
+                    stepy = -1
+                for i in range(deltay):
+                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                    if boardai.chesspiecesai[plc[0]][aiposy] != 0:
+                        break
+                print("Debug1 i", i, "plc", plc, "Piece", boardai.chesspiecesai[plc[0]][aiposy])
+                if boardai.chesspiecesai[plc[0]][aiposy] == 0 or boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King":
+                    return False
         return False
        
 class ChessBoard(RelativeLayout):
@@ -901,7 +905,7 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
         chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
         chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        print("Check resume", "White", chw, "Black", chb)
+        #print("Check resume", "White", chw, "Black", chb)
         return False
 
     def draw_moves(self):
