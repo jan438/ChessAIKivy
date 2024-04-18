@@ -850,27 +850,32 @@ class ChessBoard(RelativeLayout):
         deltax = abs(round(piece.grid_x) - plc[0])
         deltay = abs(round(piece.grid_y) - plc[1])
         if deltax == 0 or deltay == 0:
-            stepx = 0
-            stepy = 0
-            if piece.grid_x < plc[0]:
-                delta = deltax
-                stepx = +1
-            if piece.grid_x > plc[0]:
-                delta = deltax
-                stepx = -1
-            if piece.grid_y < plc[1]:
-                delta = deltay
-                stepy = +1
-            if piece.grid_y > plc[1]:
-                delta = deltay
-                stepy = -1
-            for i in range(delta):
-                aiposx = round(piece.grid_x) + i * stepx + stepx
-                aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
-                if boardai.chesspiecesai[aiposx][aiposy] != 0:
+            if deltax == 0:
+                if piece.grid_y < plc[1]:
+                    stepy = +1
+                if piece.grid_y > plc[1]:
+                    stepy = -1
+                for i in range(deltay):              
+                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                    print("debug1", aiposy)
+                    if boardai.chesspiecesai[plc[0]][aiposy] != 0:
+                        if boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King":
+                            print("debug2", aiposy)
+                            return True
                     break
-            if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                return True
+            return False
+            if deltay == 0:
+                if piece.grid_x < plc[0]:
+                    stepx = +1
+                if piece.grid_x > plc[0]:
+                    stepx = -1
+                for i in range(deltay):              
+                    aiposx = ai_to_hm_y(round(piece.grid_x) + i * stepx + stepx)
+                    if boardai.chesspiecesai[aiposx][plc[1]] != 0:
+                        if boardai.chesspiecesai[aiposx][plc[1]].id[5:9] == "King":
+                            return True
+                    break
+            return False
         return False
           
     def check_place(self, color, plc, pieces):
