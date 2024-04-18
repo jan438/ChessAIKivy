@@ -846,9 +846,9 @@ class ChessBoard(RelativeLayout):
                 aiposx = round(piece.grid_x) + i * stepx + stepx
                 aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                    if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                        return True
                     break
-            if boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                return True
         return False
         
     def check_straight(self, plc, piece):
