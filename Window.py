@@ -828,6 +828,9 @@ class ChessBoard(RelativeLayout):
                 return True
             if self.check_straight(plc, piece):
                 return True
+        if piecekind == "Pawn":
+            if (piece.grid_x + 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 1) == (plc[0],plc[1]):
+                return True
         return False
           
     def check_diagonal(self, plc, piece):
