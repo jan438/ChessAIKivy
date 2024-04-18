@@ -823,6 +823,11 @@ class ChessBoard(RelativeLayout):
         if piecekind == "Rook":
             if self.check_straight(plc, piece):
                 return True
+        if piecekind == "Quee":
+            if self.check_diagonal(plc, piece):
+                return True
+            if self.check_straight(plc, piece):
+                return True
         return False
           
     def check_diagonal(self, plc, piece):
