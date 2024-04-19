@@ -525,7 +525,7 @@ class King(ChessPiece):
                 if boardai.chesspiecesai[plc[0]][aiposy] != 0:
                      print("Debug1 i", i, "plc", plc, "aiy", aiposy, "P", boardai.chesspiecesai[plc[0]][aiposy].id[5:9])
                 if boardai.chesspiecesai[plc[0]][aiposy] == 0 or boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King":
-                    return False
+                    return True
         return False
        
 class ChessBoard(RelativeLayout):
