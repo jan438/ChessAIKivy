@@ -868,10 +868,11 @@ class ChessBoard(RelativeLayout):
                     stepy = +1
                 if piece.grid_y > plc[1]:
                     stepy = -1
-                for i in range(deltay):              
+                for i in range(deltay):
+                    aiposx = ai_to_hm_x(plc[0])
                     aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
-                    if boardai.chesspiecesai[plc[0]][aiposy] != 0:
-                        if boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King":
+                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                        if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                             return True
                         break
             return False
@@ -880,10 +881,11 @@ class ChessBoard(RelativeLayout):
                     stepx = +1
                 if piece.grid_x > plc[0]:
                     stepx = -1
-                for i in range(deltax):              
+                for i in range(deltax):
+                    aiposy = ai_to_hm_y(plc[1])              
                     aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
-                    if boardai.chesspiecesai[aiposx][plc[1]] != 0:
-                        if boardai.chesspiecesai[aiposx][plc[1]].id[5:9] == "King":
+                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                        if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
                             return True
                         break
             return False
