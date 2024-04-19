@@ -509,7 +509,7 @@ class King(ChessPiece):
                 if piece.grid_x > self.grid_x:
                     stepx = -1
                 for i in range(deltax):
-                    aiposx = round(piece.grid_x) + i * stepx + stepx
+                    aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
                         break
                 if aiposx == ai_to_hm_x(plc[0]) and (boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King"):
