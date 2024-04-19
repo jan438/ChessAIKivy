@@ -514,15 +514,16 @@ class King(ChessPiece):
                 if boardai.chesspiecesai[aiposx][plc[1]] == 0 or boardai.chesspiecesai[aiposx][plc[1]].id[5:9] == "King":
                     return True
             if deltax == 0:
+                aiposx = ai_to_hm_x(plc[0])
                 if piece.grid_y < self.grid_y:
                     stepy = +1
                 if piece.grid_y > self.grid_y:
                     stepy = -1
                 for i in range(deltay):
                     aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
-                    if boardai.chesspiecesai[plc[0]][aiposy] != 0:
+                    if boardai.chesspiecesai[aiposx][aiposy] != 0:
                         break
-                if aiposy == ai_to_hm_y(plc[1]) and (boardai.chesspiecesai[plc[0]][aiposy] == 0 or boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King"):
+                if aiposy == ai_to_hm_y(plc[1]) and (boardai.chesspiecesai[aiposx][aiposy] == 0 or boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King"):
                     return True
         return False
        
