@@ -522,8 +522,6 @@ class King(ChessPiece):
                     aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                     if boardai.chesspiecesai[plc[0]][aiposy] != 0:
                         break
-                if boardai.chesspiecesai[plc[0]][aiposy] != 0:
-                     print("Debug1 i", i, "plc", plc, "aiy", aiposy, "P", boardai.chesspiecesai[plc[0]][aiposy].id[5:9])
                 if boardai.chesspiecesai[plc[0]][aiposy] == 0 or boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King":
                     return True
         return False
