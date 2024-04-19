@@ -522,7 +522,7 @@ class King(ChessPiece):
                     aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                     if boardai.chesspiecesai[plc[0]][aiposy] != 0:
                         break
-                if boardai.chesspiecesai[plc[0]][aiposy] == 0 or boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King":
+                if aiposy == ai_to_hm_y(plc[1]) and (boardai.chesspiecesai[plc[0]][aiposy] == 0 or boardai.chesspiecesai[plc[0]][aiposy].id[5:9] == "King"):
                     return True
         return False
        
