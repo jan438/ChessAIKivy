@@ -490,7 +490,7 @@ class King(ChessPiece):
             else:
                 stepy = -1
             for i in range(deltax):
-                aiposx = round(piece.grid_x) + i * stepx + stepx
+                aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
                 aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
                     break
