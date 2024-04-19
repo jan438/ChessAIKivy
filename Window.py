@@ -851,7 +851,7 @@ class ChessBoard(RelativeLayout):
             else:
                 stepy = -1
             for i in range(deltax):
-                aiposx = round(piece.grid_x) + i * stepx + stepx
+                aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
                 aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
                     if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
@@ -881,7 +881,7 @@ class ChessBoard(RelativeLayout):
                 if piece.grid_x > plc[0]:
                     stepx = -1
                 for i in range(deltax):              
-                    aiposx = ai_to_hm_y(round(piece.grid_x) + i * stepx + stepx)
+                    aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
                     if boardai.chesspiecesai[aiposx][plc[1]] != 0:
                         if boardai.chesspiecesai[aiposx][plc[1]].id[5:9] == "King":
                             return True
@@ -906,7 +906,7 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
         chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
         chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        #print("Check resume", "White", chw, "Black", chb)
+        print("Check resume", "White", chw, "Black", chb)
         return False
 
     def draw_moves(self):
