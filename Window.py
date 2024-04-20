@@ -421,34 +421,28 @@ class King(ChessPiece):
             return []
             
     def safe_left(self, pieces):
-        safe = True
         if self.id == "WhiteKing":
             places = [[4,0],[3,0],[2,0],[1,0]]
             for plc in places:
-                safe = self.safe_place(plc, pieces)
-                if not safe:
+                if not self.safe_place(plc, pieces):
                     return False
         if self.id == "BlackKing":
             places = [[4,7],[3,7],[2,7],[1,7]]
             for plc in places:
-                safe = self.safe_place(plc, pieces)
-                if not safe:
+                if not self.safe_place(plc, pieces):
                     return False
         return True
         
     def safe_right(self, pieces):
-        safe = True
         if self.id == "WhiteKing":
             places = [[4,0],[5,0],[6,0]]
             for plc in places:
-                safe = self.safe_place(plc, pieces)
-                if not safe:
+                if not self.safe_place(plc, pieces):
                     return False
         if self.id == "BlackKing":
             places = [[4,7],[5,7],[6,7]]
             for plc in places:
-                safe = self.safe_place(plc, pieces)
-                if not safe:
+                if not self.safe_place(plc, pieces):
                     return False
         return True
         
