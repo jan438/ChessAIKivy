@@ -150,7 +150,7 @@ class Boardai:
                     promoqueen = "WhiteQueen"
                 else:
                     promoqueen = "BlackQueen"    
-                self.chesspiecesai[piece.x][piece.y] = piecesai.Queen(piece.x, piece.y, piece.color, promoqueen)
+                self.chesspiecesai[piece.x][piece.y] = piecesai.Queen(piece.x, piece.y, piece.color, False, promoqueen)
                 
         if (piece.piece_type == piecesai.King.PIECE_TYPE):            
             # Check if king-side castling
