@@ -311,7 +311,8 @@ class King(ChessPiece):
                 if piece.id[:5] != self.id[:5]:
                     available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
                     available_moves["pieces_to_capture"].append((piece.grid_x, piece.grid_y))
-                available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
+                else:
+                    available_moves["available_moves"].remove((piece.grid_x, piece.grid_y))
         if self.First_use:
             available_moves["castling"] = self.castling(pieces)
         return available_moves
