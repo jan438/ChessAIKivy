@@ -470,6 +470,9 @@ class King(ChessPiece):
         if piecekind == "Quee":
             if self.diagonal(plc, piece) or self.straight(plc, piece):
                 return True
+        if piecekind == "Pawn":
+            if (piece.grid_x + 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 1) == (plc[0],plc[1]):
+                return True
             return False
         
     def diagonal(self, plc, piece):
