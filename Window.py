@@ -745,6 +745,7 @@ class ChessBoard(RelativeLayout):
                                 break
                             else:
                                 print("Turn after capture", boardai.human)
+                                rc = self.twoplayer_turn()
                                 self.turn()                    
                                 break
                         elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x):
