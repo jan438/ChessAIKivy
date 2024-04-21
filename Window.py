@@ -384,7 +384,6 @@ class King(ChessPiece):
                      else:
                          if boardai.chesspiecesai[aiposx][aiposy].f == False:
                              return [] 
-            print("Coordinates", self.grid_x, self.grid_y, "left", no_piece_left, "right", no_piece_right)
             if no_piece_left and no_piece_right and self.id == "WhiteKing":
                 no_attack_left = self.safe_left(pieces)
                 no_attack_right = self.safe_right(pieces)
@@ -545,7 +544,6 @@ class ChessBoard(RelativeLayout):
         self._keyboard = None
         
     def check_ai_move(self):
-        print("Check ai move:", self.hmmove)
         move = get_user_move(self.hmmove)
         boardai.perform_move(move)
         anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
@@ -697,7 +695,6 @@ class ChessBoard(RelativeLayout):
                 break
             elif ChessBoard.piece_pressed and child.id == ChessBoard.id_piece_:
                 if (grid_x, grid_y) in ChessBoard.available_moves["available_moves"]:
-                    print("Normal zet", self.children[id].id, old_x, old_y, grid_x, grid_y)
                     anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_quad', duration=0.5)
                     anim.start(self.children[id])
                     self.children[id].grid_x = grid_x
@@ -722,7 +719,6 @@ class ChessBoard(RelativeLayout):
                     if self.check_check(1):
                        break
                     else:
-                       print("Turn after normal move", boardai.human)
                        self.turn()
                        break        
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
@@ -744,7 +740,6 @@ class ChessBoard(RelativeLayout):
                             if self.check_check(2):
                                 break
                             else:
-                                print("Turn after capture", boardai.human)
                                 rc = self.twoplayer_turn()
                                 self.turn()                    
                                 break
@@ -762,7 +757,6 @@ class ChessBoard(RelativeLayout):
                             enpassant = True
                     self.clear_en_passant(boardai.human) 
                     if enpassant:
-                        print("Turn after en passant", boardai.human)
                         rc = self.twoplayer_turn()
             else:
                 try:
@@ -801,11 +795,9 @@ class ChessBoard(RelativeLayout):
                          if self.check_check(3):
                              break
                          else:
-                              print("Turn3", boardai.human)
                               self.turn()
                               self.draw_moves()
                               break
-                         print("Turn after castling", boardai.human)
                          rc = self.twoplayer_turn()
                          self.turn() 
                          self.draw_moves()
@@ -905,7 +897,6 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
         chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
         chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        print("Check resume", "White", chw, "Black", chb)
         return False
 
     def draw_moves(self):
