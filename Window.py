@@ -670,7 +670,7 @@ class ChessBoard(RelativeLayout):
         if c == "White":
             boardai.wep = [False,False,False,False,False,False,False,False]
         elif c == "Black":
-            boardai.wep = [False,False,False,False,False,False,False,False]
+            boardai.bep = [False,False,False,False,False,False,False,False]
 
     def on_touch_down(self, touch):
         #boardai.listpieces()
