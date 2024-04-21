@@ -333,9 +333,7 @@ class King(ChessPiece):
         no_attack_left = True
         no_attack_right = True
         if self.First_use:              
-            if ChessBoard.piece_pressed:
-                print("Castling", self.id)
-            else:
+            if not ChessBoard.piece_pressed:
                 return
             no_piece_left = True
             no_piece_right = True
