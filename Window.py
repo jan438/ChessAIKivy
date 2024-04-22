@@ -794,14 +794,7 @@ class ChessBoard(RelativeLayout):
                          child.First_use = False
                          self.children[ChessBoard.piece_index].First_use = False
                          ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}             
-                         if self.check_check(3):
-                             break
-                         else:
-                              self.turn()
-                              self.draw_moves()
-                              break
-                         rc = self.twoplayer_turn()
-                         self.turn() 
+                         self.turn()
                          self.draw_moves()
                 except Exception as e:
                     print(repr(e))
