@@ -459,18 +459,16 @@ class King(ChessPiece):
         if piecekind == "Bish":
             if self.diagonal(plc, piece):
                 return True
-            return False
         if piecekind == "Rook":
             if self.straight(plc, piece):
                 return True
-            return False
         if piecekind == "Quee":
             if self.diagonal(plc, piece) or self.straight(plc, piece):
                 return True
         if piecekind == "Pawn":
             if (piece.grid_x + 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 1) == (plc[0],plc[1]):
                 return True
-            return False
+        return False
         
     def diagonal(self, plc, piece):
         deltax = abs(round(piece.grid_x) - plc[0])
