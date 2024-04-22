@@ -729,6 +729,12 @@ class ChessBoard(RelativeLayout):
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
+                            if grid_y == 7 and child.id[0:9] == "WhitePawn":
+                                self.remove_widget(child)
+                                self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=grid_x, grid_y=grid_y))
+                            if grid_y == 0 and child.id[0:9] == "BlackPawn":
+                                self.remove_widget(child)
+                                self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=grid_x, grid_y=grid_y))
                             ai_move = self.let_ai_move() 
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
