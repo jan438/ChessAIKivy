@@ -710,13 +710,10 @@ class ChessBoard(RelativeLayout):
                     else:
                         self.clear_en_passant(boardai.human) 
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
-                       child.First_use = False
+                        child.First_use = False
                     self.draw_moves()
-                    if self.check_check(1):
-                       break
-                    else:
-                       self.turn()
-                       break        
+                    self.turn()
+                    break        
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
                     enpassant = False
                     for enemy in self.children:
