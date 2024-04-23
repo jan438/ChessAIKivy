@@ -741,12 +741,12 @@ class ChessBoard(RelativeLayout):
                             self.draw_moves()     
                             self.turn()                    
                             break
-                        elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x):
+                        elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x) and child.grid_y == enemy.grid_y:
                             anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
                             anim.start(child)
-                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1 and enemy.id[:5] == "Black":
+                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y - 1 and enemy.grid_y == 4 and enemy.id[:5] == "Black":
                                 self.remove_widget(enemy)
-                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y + 1 and enemy.id[:5] == "White":
+                            if enemy.grid_x == grid_x and enemy.grid_y == grid_y + 1 and enemy.grid_y == 3 and enemy.id[:5] == "White":
                                 self.remove_widget(enemy)
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
