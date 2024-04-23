@@ -738,6 +738,7 @@ class ChessBoard(RelativeLayout):
                             ai_move = self.let_ai_move() 
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
+                            print("Debug1")
                             self.draw_moves()     
                             self.turn()                    
                             break
@@ -751,6 +752,7 @@ class ChessBoard(RelativeLayout):
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
+                            print("Debug2")
                             self.draw_moves()
                             enpassant = True
                     self.clear_en_passant(boardai.human) 
