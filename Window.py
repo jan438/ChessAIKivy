@@ -670,6 +670,8 @@ class ChessBoard(RelativeLayout):
         #boardai.listpieces()
         #self.listpieces()
         self.WhiteCapture()
+        rc = self.check_check()
+        print("Schaak", rc)
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
@@ -874,7 +876,7 @@ class ChessBoard(RelativeLayout):
                     return True
         return False
 
-    def check_check(self, prm):
+    def check_check(self):
         WHKing = None
         BHKing = None
         for piece_ in self.children:
@@ -884,7 +886,15 @@ class ChessBoard(RelativeLayout):
                 BHKing = piece_
         chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
         chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        return False
+        if chw or chb:
+            if chw and chb:
+                return 3
+            else:
+                if chw:
+                    return 1
+                else:
+                    return 2
+        return 0
 
     def draw_moves(self):
         grid_size_x = self.width / 8
