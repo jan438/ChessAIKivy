@@ -748,11 +748,10 @@ class ChessBoard(RelativeLayout):
                             ChessBoard.piece_pressed = False
                             ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
+                            ai_move = self.let_ai_move() 
                             self.draw_moves()
                             enpassant = True
                     self.clear_en_passant(boardai.human) 
-                    if enpassant:
-                        rc = self.twoplayer_turn()
             else:
                 try:
                     if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
