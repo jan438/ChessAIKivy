@@ -529,6 +529,8 @@ class ChessBoard(RelativeLayout):
     check = BooleanProperty(defaultvalue=False)
     hmmove = "C2 C3"
     index = 0
+    white_chess = False
+    black_chess = False
     
     def __init__(self, **kwargs):
         super(ChessBoard, self).__init__(**kwargs)
@@ -671,7 +673,28 @@ class ChessBoard(RelativeLayout):
         #self.listpieces()
         self.WhiteCapture()
         rc = self.check_check()
-        print("Schaak", rc)
+        if rc == 1:
+            if self.white_chess:
+                print("White schaakmat")
+            else:
+                self.white_chess = True
+        if rc == 2:
+             if self.black_chess:
+                print("Black schaakmat")
+             else:
+                self.black_chess = True
+        if rc == 3:
+            if self.white_chess:
+                print("White schaakmat")
+            else:
+                self.white_chess = True
+            if self.black_chess:
+                print("Black schaakmat")
+            else:
+                self.black_chess = True
+        if rc == 0:
+            self.white_chess = False
+            self.black_chess = False
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
