@@ -675,7 +675,7 @@ class ChessBoard(RelativeLayout):
         if boardai.human == "White":
             if self.check_white():
                 if self.white_chessmate:
-                    print("Schaakmat white")
+                    self.animate("White")
                 else:
                     self.white_chessmate = True
             else:   	
@@ -683,7 +683,7 @@ class ChessBoard(RelativeLayout):
         else:
             if self.check_black():
                 if self.black_chessmate:
-                    print("Schaakmat black")
+                    self.animate("Black")
                 else:
                     self.black_chessmate = True
             else:   	
@@ -808,6 +808,9 @@ class ChessBoard(RelativeLayout):
                          self.draw_moves()
                 except Exception as e:
                     print(repr(e))
+                    
+    def animate(self, color):
+        print("Animate", color)
 
     def turn(self):
         print(boardai.to_string())
