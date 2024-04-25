@@ -675,7 +675,7 @@ class ChessBoard(RelativeLayout):
         if boardai.human == "White":
             if self.check_white():
                 if self.white_chessmate:
-                    print("Schaakmat")
+                    print("Schaakmat white")
                 else:
                     self.white_chessmate = True
             else:   	
@@ -683,7 +683,7 @@ class ChessBoard(RelativeLayout):
         else:
             if self.check_black():
                 if self.black_chessmate:
-                    print("Schaakmat")
+                    print("Schaakmat black")
                 else:
                     self.black_chessmate = True
             else:   	
