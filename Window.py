@@ -529,8 +529,8 @@ class ChessBoard(RelativeLayout):
     check = BooleanProperty(defaultvalue=False)
     hmmove = "C2 C3"
     index = 0
-    white_chess = False
-    black_chess = False
+    white_chessmate = False
+    black_chessmate = False
     
     def __init__(self, **kwargs):
         super(ChessBoard, self).__init__(**kwargs)
@@ -672,29 +672,22 @@ class ChessBoard(RelativeLayout):
         #boardai.listpieces()
         #self.listpieces()
         self.WhiteCapture()
-        rc = self.check_check()
-        if rc == 1:
-            if self.white_chess:
-                print("White schaakmat")
-            else:
-                self.white_chess = True
-        if rc == 2:
-             if self.black_chess:
-                print("Black schaakmat")
-             else:
-                self.black_chess = True
-        if rc == 3:
-            if self.white_chess:
-                print("White schaakmat")
-            else:
-                self.white_chess = True
-            if self.black_chess:
-                print("Black schaakmat")
-            else:
-                self.black_chess = True
-        if rc == 0:
-            self.white_chess = False
-            self.black_chess = False
+        if boardai.human == "White":
+            if self.check_white():
+                if self.white_chessmate:
+                    print("Schaakmat")
+                else:
+                    self.white_chessmate = True
+            else:   	
+                self.white_chessmate = False				 
+        else:
+            if self.check_black():
+                if self.black_chessmate:
+                    print("Schaakmat")
+                else:
+                    self.black_chessmate = True
+            else:   	
+                self.black_chessmate = False	
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
@@ -899,25 +892,17 @@ class ChessBoard(RelativeLayout):
                     return True
         return False
 
-    def check_check(self):
-        WHKing = None
-        BHKing = None
+    def check_white(self):
         for piece_ in self.children:
             if piece_.id == "WhiteKing":
-                WHKing = piece_
+                return self.check_place("White", [round(piece_.grid_x), round(piece_.grid_y)], self.children)
+        return False
+        
+    def check_black(self):
+        for piece_ in self.children:
             if piece_.id == "BlackKing":
-                BHKing = piece_
-        chw = self.check_place("White", [round(WHKing.grid_x), round(WHKing.grid_y)], self.children)
-        chb = self.check_place("Black", [round(BHKing.grid_x), round(BHKing.grid_y)], self.children)
-        if chw or chb:
-            if chw and chb:
-                return 3
-            else:
-                if chw:
-                    return 1
-                else:
-                    return 2
-        return 0
+                return self.check_place("Black", [round(piece_.grid_x), round(piece_.grid_y)], self.children)
+        return False
 
     def draw_moves(self):
         grid_size_x = self.width / 8
