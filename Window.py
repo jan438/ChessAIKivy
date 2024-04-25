@@ -813,7 +813,8 @@ class ChessBoard(RelativeLayout):
         for piece_ in self.children:
             if piece_.id == color + "King":
                 break
-        print("Animate", piece_.id)
+        anim = Animation(grid_x=0, grid_y=0, t='in_out_expo', duration=10.0)        
+        anim.start(piece_)
 
     def turn(self):
         print(boardai.to_string())
