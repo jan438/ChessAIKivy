@@ -758,6 +758,7 @@ class ChessBoard(RelativeLayout):
                             ai_move = self.let_ai_move() 
                             self.draw_moves()
                             enpassant = True
+                            self.check_check()
                     self.clear_en_passant(boardai.human) 
             else:
                 try:
