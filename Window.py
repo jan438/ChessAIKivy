@@ -718,24 +718,25 @@ class ChessBoard(RelativeLayout):
                         child.First_use = False
                     self.draw_moves()
                     self.turn()
-                    if boardai.human == "White":
-                        if self.white_chess:
-                            if self.check_white():
-                                self.animate("White")
-                                self.chessmate = True
-                            else:
-                                self.white_chess = False
-                        if self.check_black():
-                            self.black_chess = True
-                    if boardai.human == "Black":
-                        if self.black_chess:
-                            if self.check_black():
-                                self.animate("Black")
-                                self.chessmate = True
-                            else:
-                                self.black_chess = False
-                        if self.check_white():
-                            self.white_chess = True
+                    self.check_check()
+                    #if boardai.human == "White":
+                        #if self.white_chess:
+                            #if self.check_white():
+                                #self.animate("White")
+                                #self.chessmate = True
+                            #else:
+                                #self.white_chess = False
+                        #if self.check_black():
+                            #self.black_chess = True
+                    #if boardai.human == "Black":
+                        #if self.black_chess:
+                            #if self.check_black():
+                                #self.animate("Black")
+                                #self.chessmate = True
+                            #else:
+                                #self.black_chess = False
+                        #if self.check_white():
+                            #self.white_chess = True
                     break      
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
                     enpassant = False
@@ -925,6 +926,26 @@ class ChessBoard(RelativeLayout):
             if piece_.id == "BlackKing":
                 return self.check_place("Black", [round(piece_.grid_x), round(piece_.grid_y)], self.children)
         return False
+        
+    def check_check(self):
+        if boardai.human == "White":
+            if self.white_chess:
+                if self.check_white():
+                    self.animate("White")
+                    self.chessmate = True
+                else:
+                    self.white_chess = False
+            if self.check_black():
+                self.black_chess = True
+        if boardai.human == "Black":
+            if self.black_chess:
+                if self.check_black():
+                    self.animate("Black")
+                    self.chessmate = True
+                else:
+                    self.black_chess = False
+            if self.check_white():
+                self.white_chess = True
 
     def draw_moves(self):
         grid_size_x = self.width / 8
