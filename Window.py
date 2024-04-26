@@ -675,26 +675,6 @@ class ChessBoard(RelativeLayout):
         #boardai.listpieces()
         #self.listpieces()
         self.WhiteCapture()
-#        if boardai.human == "White":
-#            if self.check_white():
-#                if self.white_chess:
-#                    self.animate("White")
-#                    self.chessmate = True
-#                    return
-#                else:
-#                    self.white_chess = True
-#            else:   	
-#                self.white_chess = False				 
-#        else:
-#            if self.check_black():
-#                if self.black_chess:
-#                    self.animate("Black")
-#                    self.chessmate = True
-#                    return
-#                else:
-#                    self.black_chess = True
-#            else:   	
-#                self.black_chess = False	
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
