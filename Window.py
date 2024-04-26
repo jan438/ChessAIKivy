@@ -719,24 +719,6 @@ class ChessBoard(RelativeLayout):
                     self.draw_moves()
                     self.turn()
                     self.check_check()
-                    #if boardai.human == "White":
-                        #if self.white_chess:
-                            #if self.check_white():
-                                #self.animate("White")
-                                #self.chessmate = True
-                            #else:
-                                #self.white_chess = False
-                        #if self.check_black():
-                            #self.black_chess = True
-                    #if boardai.human == "Black":
-                        #if self.black_chess:
-                            #if self.check_black():
-                                #self.animate("Black")
-                                #self.chessmate = True
-                            #else:
-                                #self.black_chess = False
-                        #if self.check_white():
-                            #self.white_chess = True
                     break      
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
                     enpassant = False
