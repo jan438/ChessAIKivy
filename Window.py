@@ -529,8 +529,9 @@ class ChessBoard(RelativeLayout):
     check = BooleanProperty(defaultvalue=False)
     hmmove = "C2 C3"
     index = 0
-    white_chessmate = False
-    black_chessmate = False
+    white_chess = False
+    black_chess = False
+    chessmate = False
     
     def __init__(self, **kwargs):
         super(ChessBoard, self).__init__(**kwargs)
@@ -669,25 +670,31 @@ class ChessBoard(RelativeLayout):
             boardai.bep = [False,False,False,False,False,False,False,False]
 
     def on_touch_down(self, touch):
+        if self.chessmate:
+            return
         #boardai.listpieces()
         #self.listpieces()
         self.WhiteCapture()
         if boardai.human == "White":
             if self.check_white():
-                if self.white_chessmate:
+                if self.white_chess:
                     self.animate("White")
+                    self.chessmate = True
+                    return
                 else:
-                    self.white_chessmate = True
+                    self.white_chess = True
             else:   	
-                self.white_chessmate = False				 
+                self.white_chess = False				 
         else:
             if self.check_black():
-                if self.black_chessmate:
+                if self.black_chess:
                     self.animate("Black")
+                    self.chessmate = True
+                    return
                 else:
-                    self.black_chessmate = True
+                    self.black_chess = True
             else:   	
-                self.black_chessmate = False	
+                self.black_chess = False	
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
