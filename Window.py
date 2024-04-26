@@ -742,7 +742,8 @@ class ChessBoard(RelativeLayout):
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
                             self.draw_moves()     
-                            self.turn()                    
+                            self.turn()
+                            self.check_check()                  
                             break
                         elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x) and child.grid_y == enemy.grid_y and child.id[:5] != enemy.id[:5]:
                             anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
