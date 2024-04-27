@@ -664,6 +664,8 @@ class ChessBoard(RelativeLayout):
             boardai.bep = [False,False,False,False,False,False,False,False]
 
     def on_touch_down(self, touch):
+        if self.chessmate:
+            return
         #boardai.listpieces()
         #self.listpieces()
         self.WhiteCapture()
