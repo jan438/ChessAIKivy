@@ -805,7 +805,8 @@ class ChessBoard(RelativeLayout):
             ypos = ypos - 3
         else:
             ypos = ypos + 3
-        anim = Animation(grid_x=xpos, grid_y=ypos, t='in_out_expo', duration=10.0)        
+        anim = Animation(grid_x=xpos, grid_y=ypos, t='out_bounce', duration=5.0) 
+        anim += Animation(grid_x=xpos + 1, grid_y=ypos + 1, t='out_bounce', duration=5.0)               
         anim.start(piece_)
 
     def turn(self):
