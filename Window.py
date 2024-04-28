@@ -26,7 +26,6 @@ import sysconfig
 import csv
 import time
 
-indent = '    '
 Width, Height = 800, 800
 Window.size = (Width, Height)
 
