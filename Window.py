@@ -666,8 +666,6 @@ class ChessBoard(RelativeLayout):
     def on_touch_down(self, touch):
         if self.chessmate:
             return
-        #boardai.listpieces()
-        #self.listpieces()
         self.WhiteCapture()
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
@@ -711,7 +709,7 @@ class ChessBoard(RelativeLayout):
                     if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                         child.First_use = False
                     self.draw_moves()
-                    self.turn()
+                    print(boardai.to_string())
                     self.check_check()
                     break      
                 elif (grid_x, grid_y) in ChessBoard.available_moves["pieces_to_capture"]:
@@ -735,8 +733,8 @@ class ChessBoard(RelativeLayout):
                             ai_move = self.let_ai_move() 
                             if (child.id[5:9] == "Pawn" or child.id[5:9] == "Rook" or child.id[5:9] == "King") and child.First_use:
                                 child.First_use = False
-                            self.draw_moves()     
-                            self.turn()
+                            self.draw_moves() 
+                            print(boardai.to_string())
                             self.check_check()                  
                             break
                         elif child.id[5:9] == "Pawn" and enemy.id[5:9] == "Pawn" and (child.grid_x - 1 == enemy.grid_x or child.grid_x + 1 == enemy.grid_x) and child.grid_y == enemy.grid_y and child.id[:5] != enemy.id[:5]:
@@ -787,8 +785,8 @@ class ChessBoard(RelativeLayout):
                          ChessBoard.piece_pressed = False
                          child.First_use = False
                          self.children[ChessBoard.piece_index].First_use = False
-                         ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}             
-                         self.turn()
+                         ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                         print(boardai.to_string())
                          self.draw_moves()
                 except Exception as e:
                     print(repr(e))
@@ -811,10 +809,6 @@ class ChessBoard(RelativeLayout):
         anim += Animation(grid_x=xpos + 1, grid_y=ypos + 1, t='out_bounce', duration=5.0)               
         anim.start(piece_)
 
-    def turn(self):
-        print(boardai.to_string())
-        #boardai.listpieces()
-    
     def attack_king(self, plc, piece):
         piecekind = piece.id[5:9]
         if piecekind == "Knig":
