@@ -594,7 +594,10 @@ class ChessBoard(RelativeLayout):
             return 0
         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
         if type(ai_move) is int:
-            print("Check mate 0 returned by ai")
+            color = "Black"
+            if aicolor == 'W':
+                color = "White"
+            print("Check mate 0 returned by ai", aicolor, color)
             time.sleep(10)
             self.close_application()
             time.sleep(60)
