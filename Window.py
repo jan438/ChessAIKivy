@@ -795,6 +795,13 @@ class ChessBoard(RelativeLayout):
         for piece_ in self.children:
             if piece_.id == color + "King":
                 break
+        xpos = piece_.grid_x
+        ypos = piece_.grid_y
+        self.remove_widget(piece_)
+        self.add_widget(King(id="DeadKing",source="Assets/PNG/" + color + "Dead.png",grid_x=xpos, grid_y=ypos,First_use=True))
+        for piece_ in self.children:
+            if piece_.id == "DeadKing":
+                break
         while True:
             xpos = random.randint(0, 7)
             ypos = random.randint(0, 7)
