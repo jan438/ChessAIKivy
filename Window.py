@@ -599,13 +599,16 @@ class ChessBoard(RelativeLayout):
             if aicolor == 'W':
                 color = "White"
             piece = self.findpiece(color + "King")
+            xpos = piece.grid_x
+            ypos = piece.grid_y
             self.remove_widget(piece)
+            self.add_widget(King(id="Dead",source="Assets/PNG/" + color + "Dead.png", grid_x=xpos, grid_y=ypos))
             return 0
         boardai.perform_move(ai_move)
         propawn = self.piece_at_board(ai_move.xfrom, ai_to_hm_y(ai_move.yfrom))
         if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen" and propawn.id[:9] == "BlackPawn":
             self.remove_widget(propawn)
-            self.add_widget(Queen(id="BlackQueen",source="Assets/PNG/BlackQueen.png", grid_x=ai_move.xto, grid_y=0))
+            self.add_widget(Queen(id="",source="Assets/PNG/BlackQueen.png", grid_x=ai_move.xto, grid_y=0))
         elif ai_move.yfrom == 1 and ai_move.yto == 0 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "WhiteQueen" and propawn.id[:9] == "WhitePawn":
             self.remove_widget(propawn)
             self.add_widget(Queen(id="WhiteQueen",source="Assets/PNG/WhiteQueen.png", grid_x=ai_move.xto, grid_y=7))
