@@ -594,14 +594,13 @@ class ChessBoard(RelativeLayout):
             return 0
         ai_move = ai.AI.get_ai_move(boardai, [], aicolor, hmcolor, alg)
         if type(ai_move) is int:
+            self.chessmate = True
             color = "Black"
             if aicolor == 'W':
                 color = "White"
             piece = self.findpiece(color + "King")
-            print("Check mate 0 returned by ai", piece.id)
-            time.sleep(10)
-            self.close_application()
-            time.sleep(60)
+            self.remove_widget(piece)
+            return 0
         boardai.perform_move(ai_move)
         propawn = self.piece_at_board(ai_move.xfrom, ai_to_hm_y(ai_move.yfrom))
         if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen" and propawn.id[:9] == "BlackPawn":
