@@ -597,7 +597,8 @@ class ChessBoard(RelativeLayout):
             color = "Black"
             if aicolor == 'W':
                 color = "White"
-            print("Check mate 0 returned by ai", aicolor, color)
+            piece = self.findpiece(color + "King")
+            print("Check mate 0 returned by ai", piece.id)
             time.sleep(10)
             self.close_application()
             time.sleep(60)
