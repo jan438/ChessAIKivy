@@ -603,15 +603,7 @@ class ChessBoard(RelativeLayout):
             ypos = piece.grid_y
             self.remove_widget(piece)
             self.add_widget(King(id=color + "King",source="Assets/PNG/" + color + "Dead.png", grid_x=xpos, grid_y=ypos))
-            piece = self.findpiece(color + "King")
-            while True:
-                xpos = random.randint(0, 7)
-                ypos = random.randint(0, 7)
-                if boardai.chesspiecesai[ai_to_hm_x(xpos)][ai_to_hm_y(ypos)] == 0:
-                    break
-            anim = Animation(grid_x=xpos, grid_y=ypos, t='out_bounce', duration=5.0)
-            anim += Animation(grid_x=xpos, grid_y=ypos, t='out_bounce', duration=5.0)
-            anim.start(piece)
+            self.animate(color)
             return 0
         boardai.perform_move(ai_move)
         propawn = self.piece_at_board(ai_move.xfrom, ai_to_hm_y(ai_move.yfrom))
