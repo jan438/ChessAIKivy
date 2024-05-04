@@ -945,6 +945,7 @@ class ChessBoard(RelativeLayout):
                     self.black_chess = False
             if self.check_white():
                 self.white_chess = True
+        print("Chch", "Whie ch", self.white_chess, "Black ch", self.black_chess,  "Mate", self.chessmate)
 
     def draw_moves(self):
         grid_size_x = self.width / 8
