@@ -58,19 +58,19 @@ class Heuristics:
     ])
 
     @staticmethod
-    def evaluate(boardai):
-        material = Heuristics.get_material_score(boardai)
+    def evaluate(boardai, hmcolor):
+        material = Heuristics.get_material_score(boardai, hmcolor)
 
-        pawns = Heuristics.get_piece_position_score(boardai, piecesai.Pawn.PIECE_TYPE, Heuristics.PAWN_TABLE)
-        knights = Heuristics.get_piece_position_score(boardai, piecesai.Knight.PIECE_TYPE, Heuristics.KNIGHT_TABLE)
-        bishops = Heuristics.get_piece_position_score(boardai, piecesai.Bishop.PIECE_TYPE, Heuristics.BISHOP_TABLE)
-        rooks = Heuristics.get_piece_position_score(boardai, piecesai.Rook.PIECE_TYPE, Heuristics.ROOK_TABLE)
-        queens = Heuristics.get_piece_position_score(boardai, piecesai.Queen.PIECE_TYPE, Heuristics.QUEEN_TABLE)
+        pawns = Heuristics.get_piece_position_score(boardai, piecesai.Pawn.PIECE_TYPE, Heuristics.PAWN_TABLE, hmcolor)
+        knights = Heuristics.get_piece_position_score(boardai, piecesai.Knight.PIECE_TYPE, Heuristics.KNIGHT_TABLE, hmcolor)
+        bishops = Heuristics.get_piece_position_score(boardai, piecesai.Bishop.PIECE_TYPE, Heuristics.BISHOP_TABLE, hmcolor)
+        rooks = Heuristics.get_piece_position_score(boardai, piecesai.Rook.PIECE_TYPE, Heuristics.ROOK_TABLE, hmcolor)
+        queens = Heuristics.get_piece_position_score(boardai, piecesai.Queen.PIECE_TYPE, Heuristics.QUEEN_TABLE, hmcolor)
 
         return material + pawns + knights + bishops + rooks + queens
         
     @staticmethod    
-    def get_piece_position_score(boardai, piece_type, table):
+    def get_piece_position_score(boardai, piece_type, table, hmcolor):
         white = 0
         black = 0
         for x in range(8):
@@ -78,7 +78,7 @@ class Heuristics:
                 piece = boardai.chesspiecesai[x][y]
                 if (piece != 0):
                     if (piece.piece_type == piece_type):
-                        if (piece.color == piecesai.Piece.WHITE):
+                        if (piece.color == hmcolor):
                             white += table[x][y]
                         else:
                             black += table[7 - x][y]
@@ -86,14 +86,14 @@ class Heuristics:
         return white - black
 
     @staticmethod
-    def get_material_score(boardai):
+    def get_material_score(boardai, hmcolor):
         white = 0
         black = 0
         for x in range(8):
             for y in range(8):
                 piece = boardai.chesspiecesai[x][y]
                 if (piece != 0):
-                    if (piece.color == piecesai.Piece.WHITE):
+                    if (piece.color == hmcolor):
                         white += piece.value
                     else:
                         black += piece.value
@@ -146,7 +146,7 @@ class AI:
     @staticmethod
     def minimax(chessboardai, depth, maximizing, aicolor, hmcolor):
         if (depth == 0):
-            return Heuristics.evaluate(chessboardai)
+            return Heuristics.evaluate(chessboardai, hmcolor)
 
         if (maximizing):
             best_score = -AI.INFINITE
@@ -172,7 +172,7 @@ class AI:
     @staticmethod
     def alphabeta(chessboardai, depth, a, b, maximizing, aicolor, hmcolor):
         if (depth == 0):
-            return Heuristics.evaluate(chessboardai)
+            return Heuristics.evaluate(chessboardai, hmcolor)
 
         if (maximizing):
             best_score = -AI.INFINITE
