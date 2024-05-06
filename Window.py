@@ -606,7 +606,7 @@ class ChessBoard(RelativeLayout):
             self.animate(color)
             return 0
         boardai.perform_move(ai_move)
-        if boardai.pos_king(hmcolor) == 0:
+        if type(boardai.pos_king(hmcolor)) is int:
             self.chessmate = True
             color = "Black"
             if aicolor == 'B':
