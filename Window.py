@@ -617,7 +617,6 @@ class ChessBoard(RelativeLayout):
             self.remove_widget(piece)
             self.add_widget(King(id=color + "King",source="Assets/PNG/" + color + "Dead.png", grid_x=xpos, grid_y=ypos))
             self.animate(color)
-            print("AI checkmate")
         propawn = self.piece_at_board(ai_move.xfrom, ai_to_hm_y(ai_move.yfrom))
         if ai_move.yfrom == 6 and ai_move.yto == 7 and ai_move.xfrom == ai_move.xto and boardai.chesspiecesai[ai_move.xto][ai_move.yto].id == "BlackQueen" and propawn.id[:9] == "BlackPawn":
             self.remove_widget(propawn)
