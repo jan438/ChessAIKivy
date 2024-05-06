@@ -169,7 +169,17 @@ class Boardai:
 
         self.chesspiecesai[xto][yto] = piece
 
-
+    def pos_king(self, color):
+        king_found = False
+        for x in range(Boardai.WIDTH):
+            for y in range(Boardai.HEIGHT):
+                piece = self.chesspiecesai[x][y]
+                if (piece != 0):
+                    if (piece.color == color and piece.piece_type == piecesai.King.PIECE_TYPE):
+                        king_found = True
+        #if not king_found:
+        print("No king found") 
+    
     # Returns if the given color is checked.
     def is_check(self, color):
         other_color = piecesai.Piece.WHITE
