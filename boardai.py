@@ -177,8 +177,9 @@ class Boardai:
                 if (piece != 0):
                     if (piece.color == color and piece.piece_type == piecesai.King.PIECE_TYPE):
                         king_found = True
-        #if not king_found:
-        print("No king found") 
+                        return [x,y]
+        if not king_found:
+            return 0
     
     # Returns if the given color is checked.
     def is_check(self, color):
