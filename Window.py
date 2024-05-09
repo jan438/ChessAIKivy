@@ -820,7 +820,7 @@ class ChessBoard(RelativeLayout):
                          print(boardai.to_string())
                          self.draw_moves()
                 except Exception as e:
-                    print(repr(e))
+                    print("Rep",repr(e), "Typ", type(e))
                     
     def animate(self, color):
         id = color + "King"
