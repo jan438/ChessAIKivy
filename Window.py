@@ -318,7 +318,7 @@ class King(ChessPiece):
         return available_moves
 
     def create_moves(self):
-        available_moves = {"available_moves":[], "pieces_to_capture":[]}
+        available_moves = {"available_moves":[], "pieces_to_capture":[], "castling": []}
         available_moves["available_moves"].append((self.grid_x, self.grid_y+1))
         available_moves["available_moves"].append((self.grid_x-1, self.grid_y+1))
         available_moves["available_moves"].append((self.grid_x+1, self.grid_y+1))
@@ -524,7 +524,7 @@ class King(ChessPiece):
 class ChessBoard(RelativeLayout):
     piece_pressed = False
     id_piece_ = None
-    available_moves = {"available_moves":(), "pieces_to_capture":[]}
+    available_moves = {"available_moves":(), "pieces_to_capture":[], "castling": []}
     piece_index = None
     check = BooleanProperty(defaultvalue=False)
     hmmove = "C2 C3"
