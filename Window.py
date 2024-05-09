@@ -782,7 +782,8 @@ class ChessBoard(RelativeLayout):
                     self.clear_en_passant(boardai.human) 
             else:
                 try:
-                    print("DB1")
+                    if ChessBoard.id_piece_[5:] == "King":
+                        print("DB len", len(ChessBoard.available_moves["castling"]), ChessBoard.available_moves["castling"])
                     if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
                          print("DB2")
                          anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
