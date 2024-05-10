@@ -98,7 +98,7 @@ class Pawn(ChessPiece):
 
     def available_moves(self, pieces):
         if self.id[:5] == "White":
-            available_moves = {"available_moves":(), "pieces_to_capture":[]}
+            available_moves = {"available_moves":[], "pieces_to_capture":[]}
             if self.First_use:
                 available_moves["available_moves"] = {(self.grid_x, self.grid_y+1), (self.grid_x, self.grid_y+2)}
             else:
@@ -524,7 +524,7 @@ class King(ChessPiece):
 class ChessBoard(RelativeLayout):
     piece_pressed = False
     id_piece_ = None
-    available_moves = {"available_moves":(), "pieces_to_capture":[], "castling": []}
+    available_moves = {"available_moves":[], "pieces_to_capture":[], "castling": []}
     piece_index = None
     check = BooleanProperty(defaultvalue=False)
     hmmove = "C2 C3"
@@ -721,7 +721,7 @@ class ChessBoard(RelativeLayout):
                     self.children[id].grid_x = grid_x
                     self.children[id].grid_y = grid_y
                     ChessBoard.piece_pressed = False
-                    ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                    ChessBoard.available_moves = {"available_moves":[], "pieces_to_capture":[]}
                     self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                     if grid_y == 7 and child.id[0:9] == "WhitePawn":
                         self.remove_widget(child)
@@ -750,7 +750,7 @@ class ChessBoard(RelativeLayout):
                             self.children[id].grid_y = grid_y
                             self.remove_widget(enemy)
                             ChessBoard.piece_pressed = False
-                            ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                            ChessBoard.available_moves = {"available_moves":[], "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             if grid_y == 7 and child.id[0:9] == "WhitePawn":
                                 self.remove_widget(child)
@@ -773,7 +773,7 @@ class ChessBoard(RelativeLayout):
                             if enemy.grid_x == grid_x and enemy.grid_y == grid_y + 1 and enemy.grid_y == 3 and enemy.id[:5] == "White":
                                 self.remove_widget(enemy)
                             ChessBoard.piece_pressed = False
-                            ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                            ChessBoard.available_moves = {"available_moves":[], "pieces_to_capture":[]}
                             self.perform_ai_move(round(old_x), round(old_y), grid_x, grid_y)
                             ai_move = self.let_ai_move() 
                             self.draw_moves()
@@ -816,7 +816,7 @@ class ChessBoard(RelativeLayout):
                          ChessBoard.piece_pressed = False
                          child.First_use = False
                          self.children[ChessBoard.piece_index].First_use = False
-                         ChessBoard.available_moves = {"available_moves":(), "pieces_to_capture":[]}
+                         ChessBoard.available_moves = {"available_moves":[], "pieces_to_capture":[]}
                          print(boardai.to_string())
                          self.draw_moves()
                 except Exception as e:
