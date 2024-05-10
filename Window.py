@@ -781,43 +781,40 @@ class ChessBoard(RelativeLayout):
                             self.check_check()
                     self.clear_en_passant(boardai.human) 
             else:
-                try:
-                    if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
-                         anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
-                         anim.start(self.children[ChessBoard.piece_index])
-                         if grid_x == 2 and grid_y == 0:
-                             piece = self.findpiece("WhiteRook_0")
-                             anim = Animation(grid_x=grid_x+1, grid_y=grid_y, t='in_out_expo', duration=0.5)
-                             anim.start(piece)
-                             piece.First_use = False
-                             self.perform_ai_move(4, 0, 2, 0)
-                         if grid_x == 6 and grid_y == 0:
-                             piece = self.findpiece("WhiteRook_1")
-                             anim = Animation(grid_x=grid_x-1, grid_y=grid_y, t='in_out_expo', duration=0.5)
-                             anim.start(piece)
-                             piece.First_use = False
-                             self.perform_ai_move(4, 0, 6, 0)
-                         if grid_x == 2 and grid_y == 7:
-                             piece = self.findpiece("BlackRook_0")
-                             anim = Animation(grid_x=grid_x+1, grid_y=grid_y, t='in_out_expo', duration=0.5)
-                             anim.start(piece)
-                             piece.First_use = False
-                             self.perform_ai_move(4, 7, 2, 7)
-                         if grid_x == 6 and grid_y == 7:
-                             piece = self.findpiece("BlackRook_1")
-                             anim = Animation(grid_x=grid_x-1, grid_y=grid_y, t='in_out_expo', duration=0.5)
-                             anim.start(piece)
-                             piece.First_use = False
-                             self.perform_ai_move(4, 7, 6, 7)
-                         ai_move = self.let_ai_move() 
-                         ChessBoard.piece_pressed = False
-                         child.First_use = False
-                         self.children[ChessBoard.piece_index].First_use = False
-                         ChessBoard.available_moves = {"available_moves":[], "pieces_to_capture":[]}
-                         print(boardai.to_string())
-                         self.draw_moves()
-                except Exception as e:
-                    print("Rep",repr(e), "Typ", type(e))
+               if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
+                    anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                    anim.start(self.children[ChessBoard.piece_index])
+                    if grid_x == 2 and grid_y == 0:
+                        piece = self.findpiece("WhiteRook_0")
+                        anim = Animation(grid_x=grid_x+1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                        anim.start(piece)
+                        piece.First_use = False
+                        self.perform_ai_move(4, 0, 2, 0)
+                    if grid_x == 6 and grid_y == 0:
+                        piece = self.findpiece("WhiteRook_1")
+                        anim = Animation(grid_x=grid_x-1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                        anim.start(piece)
+                        piece.First_use = False
+                        self.perform_ai_move(4, 0, 6, 0)
+                    if grid_x == 2 and grid_y == 7:
+                        piece = self.findpiece("BlackRook_0")
+                        anim = Animation(grid_x=grid_x+1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                        anim.start(piece)
+                        piece.First_use = False
+                        self.perform_ai_move(4, 7, 2, 7)
+                    if grid_x == 6 and grid_y == 7:
+                        piece = self.findpiece("BlackRook_1")
+                        anim = Animation(grid_x=grid_x-1, grid_y=grid_y, t='in_out_expo', duration=0.5)
+                        anim.start(piece)
+                        piece.First_use = False
+                        self.perform_ai_move(4, 7, 6, 7)
+                    ai_move = self.let_ai_move() 
+                    ChessBoard.piece_pressed = False
+                    child.First_use = False
+                    self.children[ChessBoard.piece_index].First_use = False
+                    ChessBoard.available_moves = {"available_moves":[], "pieces_to_capture":[]}
+                    print(boardai.to_string())
+                    self.draw_moves()
                     
     def animate(self, color):
         id = color + "King"
