@@ -573,6 +573,7 @@ class ChessBoard(RelativeLayout):
                 self.hmmove = self.hmmove[: self.index] + ' ' + self.hmmove[self.index + 1:]
                 self.index = 3
         elif l == '.':
+            print("Move:" + self.hmmove + " Index:" + str(self.index))
             self.check_ai_move()
             self.hmmove = "     "
             self.index = 0
