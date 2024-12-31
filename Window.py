@@ -561,7 +561,9 @@ class ChessBoard(RelativeLayout):
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
-        if l == 'm':
+        if l == 'q':
+            self.close_application()   
+        elif l == 'm':
             self.hmmove = "     "
             self.index = 0
         elif (l >= 'a' and l <= 'h') or (l >= '1' and l <= '8'):
