@@ -226,7 +226,6 @@ class Knight(ChessPiece):
         for move in moves:
             if move[0] <= 7 and move[1] <= 7 and move[0] >= 0 and move[1] >= 0:
                 good_moves.append((move))
-
         return good_moves
 
 class Bishop(ChessPiece):
