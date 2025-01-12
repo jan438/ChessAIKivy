@@ -782,8 +782,7 @@ class ChessBoard(RelativeLayout):
                             enpassant = True
                             self.check_check()
                     self.clear_en_passant(boardai.human) 
-            else:
-                if ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
+            elif ChessBoard.piece_pressed and ChessBoard.id_piece_[5:] == "King" and (grid_x, grid_y) in ChessBoard.available_moves["castling"]:
                     anim = Animation(grid_x=grid_x, grid_y=grid_y, t='in_out_expo', duration=0.5)
                     anim.start(self.children[ChessBoard.piece_index])
                     if grid_x == 2 and grid_y == 0:
