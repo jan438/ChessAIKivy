@@ -919,16 +919,14 @@ class ChessBoard(RelativeLayout):
             for i in range(8):
                  if boardai.chesspiecesai[i][j] != 0 and str(boardai.chesspiecesai[i][j].piece_type) == "K" and str(boardai.chesspiecesai[i][j].color) == "W":
                      print("white king found", "col", i, "row", j)
-        #for piece_ in self.children:
-            #if piece_.id == "WhiteKing":
-                #return self.check_place("White", [round(piece_.grid_x), round(piece_.grid_y)], self.children)
         return False
         
     def check_black(self):
         print("chechblack")
-        for piece_ in self.children:
-            if piece_.id == "BlackKing":
-                return self.check_place("Black", [round(piece_.grid_x), round(piece_.grid_y)], self.children)
+        for j in range(8):
+            for i in range(8):
+                 if boardai.chesspiecesai[i][j] != 0 and str(boardai.chesspiecesai[i][j].piece_type) == "K" and str(boardai.chesspiecesai[i][j].color) == "B":
+                     print("black king found", "col", i, "row", j)
         return False
         
     def check_check(self):
