@@ -835,7 +835,6 @@ class ChessBoard(RelativeLayout):
         anim.start(piece)
 
     def attack_king(self, plc, piece, col, row):
-        print("Attack king", plc[0], plc[1], piece, col, row)
         #piecekind = piece.id[5:9]
         #if piecekind == "King":
             #if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
@@ -908,14 +907,13 @@ class ChessBoard(RelativeLayout):
         return False
           
     def check_place(self, color, plc):
-        print("Check_place", color, plc[0], plc[1])
         for x in range(8):
             for y in range(8):
                 if boardai.chesspiecesai[x][y] != 0 and str(boardai.chesspiecesai[x][y].color) != color:
                     piecestr = str(boardai.chesspiecesai[x][y].piece_type)
                     col = x
                     row = 7 - y
-                    print(piecestr, str(boardai.chesspiecesai[x][y].color), [col, row])
+                    print("King", color, plc[0], plc[1], piecestr, str(boardai.chesspiecesai[x][y].color), [col, row])
                     if self.attack_king(plc, piecestr, col, row):
                         return True
         return False
