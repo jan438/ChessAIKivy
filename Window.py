@@ -906,11 +906,8 @@ class ChessBoard(RelativeLayout):
             return False
         return False
           
-    def check_place(self, color, plc, pieces):
-        for piece in pieces:
-            if piece.id[:5] != color:
-                if self.attack_king(plc, piece):
-                    return True
+    def check_place(self, color, plc):
+        print(color, plc[0], plc[1])
         return False
 
     def check_white(self):
@@ -918,7 +915,7 @@ class ChessBoard(RelativeLayout):
         for j in range(8):
             for i in range(8):
                  if boardai.chesspiecesai[i][j] != 0 and str(boardai.chesspiecesai[i][j].piece_type) == "K" and str(boardai.chesspiecesai[i][j].color) == "W":
-                     print("white king found", "col", i, "row", j)
+                     return self.check_place("White", [i, 7 - j])
         return False
         
     def check_black(self):
@@ -926,7 +923,7 @@ class ChessBoard(RelativeLayout):
         for j in range(8):
             for i in range(8):
                  if boardai.chesspiecesai[i][j] != 0 and str(boardai.chesspiecesai[i][j].piece_type) == "K" and str(boardai.chesspiecesai[i][j].color) == "B":
-                     print("black king found", "col", i, "row", j)
+                     return self.check_place("Black", [i, 7 - j])
         return False
         
     def check_check(self):
