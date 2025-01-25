@@ -908,20 +908,24 @@ class ChessBoard(RelativeLayout):
           
     def check_place(self, color, plc):
         print("Check_place", color, plc[0], plc[1])
+        for x in range(8):
+            for y in range(8):
+                 if boardai.chesspiecesai[x][y] != 0 and str(boardai.chesspiecesai[x][y].color) != color:
+                     print(str(boardai.chesspiecesai[x][y].piece_type), str(boardai.chesspiecesai[x][y].color), [x, 7 - y])
         return False
 
     def check_white(self):
         for j in range(8):
             for i in range(8):
                  if boardai.chesspiecesai[i][j] != 0 and str(boardai.chesspiecesai[i][j].piece_type) == "K" and str(boardai.chesspiecesai[i][j].color) == "W":
-                     return self.check_place("White", [i, 7 - j])
+                     return self.check_place("W", [i, 7 - j])
         return False
         
     def check_black(self):
         for j in range(8):
             for i in range(8):
                  if boardai.chesspiecesai[i][j] != 0 and str(boardai.chesspiecesai[i][j].piece_type) == "K" and str(boardai.chesspiecesai[i][j].color) == "B":
-                     return self.check_place("Black", [i, 7 - j])
+                     return self.check_place("B", [i, 7 - j])
         return False
         
     def check_check(self):
