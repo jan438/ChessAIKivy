@@ -834,23 +834,24 @@ class ChessBoard(RelativeLayout):
         anim += Animation(grid_x=xpos, grid_y=ypos, t='out_bounce', duration=5.0)
         anim.start(piece)
 
-    def attack_king(self, plc, piece):
-        piecekind = piece.id[5:9]
-        if piecekind == "King":
-            if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
-                return True
-        if piecekind == "Bish":
-            if self.check_diagonal(plc, piece):
-                return True
-        if piecekind == "Rook":
-            if self.check_straight(plc, piece):
-                return True
-        if piecekind == "Quee":
-            if self.check_diagonal(plc, piece) or self.check_straight(plc, piece):
-                return True
-        if piecekind == "Pawn":
-            if (piece.grid_x + 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 1) == (plc[0],plc[1]):
-                return True
+    def attack_king(self, plc, piece, col, row):
+        print("Attack king", plc[0], plc[1], piece, col, row)
+        #piecekind = piece.id[5:9]
+        #if piecekind == "King":
+            #if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
+                #return True
+        #if piecekind == "Bish":
+            #if self.check_diagonal(plc, piece):
+                #return True
+        #if piecekind == "Rook":
+            #if self.check_straight(plc, piece):
+                #return True
+        #if piecekind == "Quee":
+            #if self.check_diagonal(plc, piece) or self.check_straight(plc, piece):
+                #return True
+        #if piecekind == "Pawn":
+            #if (piece.grid_x + 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 1) == (plc[0],plc[1]):
+                #return True
         return False
           
     def check_diagonal(self, plc, piece):
@@ -910,8 +911,13 @@ class ChessBoard(RelativeLayout):
         print("Check_place", color, plc[0], plc[1])
         for x in range(8):
             for y in range(8):
-                 if boardai.chesspiecesai[x][y] != 0 and str(boardai.chesspiecesai[x][y].color) != color:
-                     print(str(boardai.chesspiecesai[x][y].piece_type), str(boardai.chesspiecesai[x][y].color), [x, 7 - y])
+                if boardai.chesspiecesai[x][y] != 0 and str(boardai.chesspiecesai[x][y].color) != color:
+                    piecestr = str(boardai.chesspiecesai[x][y].piece_type)
+                    col = x
+                    row = 7 - y
+                    print(piecestr, str(boardai.chesspiecesai[x][y].color), [col, row])
+                    if self.attack_king(plc, piecestr, col, row):
+                        return True
         return False
 
     def check_white(self):
