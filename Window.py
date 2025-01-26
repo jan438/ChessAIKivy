@@ -840,15 +840,14 @@ class ChessBoard(RelativeLayout):
             #if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
                 #return True
         if piece == "B":
-            print("Attack king", plc[0], plc[1], piece, col, row)
             if self.check_diagonal(plc, col, row):
                 return True
-        #if piecekind == "Rook":
-            #if self.check_straight(plc, piece):
-                #return True
-        #if piecekind == "Quee":
-            #if self.check_diagonal(plc, piece) or self.check_straight(plc, piece):
-                #return True
+        if piece == "R":
+            if self.check_straight(plc, col, row):
+                return True
+        if piece == "Q":
+            if self.check_diagonal(plc, col, row) or self.check_straight(plc, col, row):
+                return True
         #if piecekind == "Pawn":
             #if (piece.grid_x + 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 1) == (plc[0],plc[1]):
                 #return True
@@ -876,35 +875,37 @@ class ChessBoard(RelativeLayout):
                     #break
         return False
         
-    def check_straight(self, plc, piece):
-        deltax = abs(round(piece.grid_x) - plc[0])
-        deltay = abs(round(piece.grid_y) - plc[1])
+    def check_straight(self, plc, col, row):
+        deltax = abs(col - plc[0])
+        deltay = abs(row - plc[1])
         if deltax == 0 or deltay == 0:
             if deltax == 0:
-                if piece.grid_y < plc[1]:
+                if row < plc[1]:
                     stepy = +1
-                if piece.grid_y > plc[1]:
+                if row > plc[1]:
                     stepy = -1
                 aiposx = ai_to_hm_x(plc[0])
                 for i in range(deltay):
-                    aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                    aiposy = ai_to_hm_y(row + i * stepy + stepy)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                            return True
-                        break
+                        print("piece found straight", str(boardai.chesspiecesai[aiposx][aiposy].piece_type), aiposx, aiposy)
+                        #if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                            #return True
+                        #break
             return False
             if deltay == 0:
-                if piece.grid_x < plc[0]:
+                if col < plc[0]:
                     stepx = +1
-                if piece.grid_x > plc[0]:
+                if col > plc[0]:
                     stepx = -1
                 aiposy = ai_to_hm_y(plc[1])              
                 for i in range(deltax):
-                    aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
+                    aiposx = ai_to_hm_x(col + i * stepx + stepx)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                            return True
-                        break
+                        print("piece found straight", str(boardai.chesspiecesai[aiposx][aiposy].piece_type), aiposx, aiposy)
+                        #if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                            #return True
+                        #break
             return False
         return False
           
