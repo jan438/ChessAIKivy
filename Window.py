@@ -841,8 +841,8 @@ class ChessBoard(RelativeLayout):
                 #return True
         if piece == "B":
             print("Attack king", plc[0], plc[1], piece, col, row)
-            #if self.check_diagonal(plc, piece):
-                #return True
+            if self.check_diagonal(plc, col, row):
+                return True
         #if piecekind == "Rook":
             #if self.check_straight(plc, piece):
                 #return True
@@ -854,25 +854,26 @@ class ChessBoard(RelativeLayout):
                 #return True
         return False
           
-    def check_diagonal(self, plc, piece):
-        deltax = abs(round(piece.grid_x) - plc[0])
-        deltay = abs(round(piece.grid_y) - plc[1])
+    def check_diagonal(self, plc, col, row):
+        deltax = abs(col - plc[0])
+        deltay = abs(row - plc[1])
         if deltax == deltay:
-            if piece.grid_x < plc[0]:
+            if col < plc[0]:
                stepx = +1
             else:
                 stepx = -1
-            if piece.grid_y < plc[1]:
+            if row < plc[1]:
                 stepy = +1
             else:
                 stepy = -1
             for i in range(deltax):
-                aiposx = ai_to_hm_x(round(piece.grid_x) + i * stepx + stepx)
-                aiposy = ai_to_hm_y(round(piece.grid_y) + i * stepy + stepy)
+                aiposx = col + i * stepx + stepx
+                aiposy = row + i * stepy + stepy
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                    if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                        return True
-                    break
+                    print("piece found diagonal", str(boardai.chesspiecesai[aiposx][aiposy].piece_type), aiposx, aiposy)
+                    #if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
+                        #return True
+                    #break
         return False
         
     def check_straight(self, plc, piece):
