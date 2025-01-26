@@ -866,8 +866,8 @@ class ChessBoard(RelativeLayout):
             else:
                 stepy = -1
             for i in range(deltax):
-                aiposx = col + i * stepx + stepx
-                aiposy = row + i * stepy + stepy
+                aiposx = ai_to_hm_x(col + i * stepx + stepx)
+                aiposy = ai_to_hm_y(row + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
                     piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
                     if piecestr == "K":
