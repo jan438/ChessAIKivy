@@ -939,19 +939,33 @@ class ChessBoard(RelativeLayout):
                 if self.check_white():
                     self.animate("White")
                     self.chessmate = True
+                    return
                 else:
                     self.white_chess = False
+                    return
             if self.check_black():
                 self.black_chess = True
+                return
+            if self.check_white():
+                self.animate("White")
+                self.chessmate = True
+                return
         if boardai.human == "White":
             if self.black_chess:
                 if self.check_black():
                     self.animate("Black")
                     self.chessmate = True
+                    return
                 else:
                     self.black_chess = False
+                    return
             if self.check_white():
                 self.white_chess = True
+                return
+            if self.check_black():
+                self.animate("Black")
+                self.chessmate = True
+                return
 
     def draw_moves(self):
         grid_size_x = self.width / 8
