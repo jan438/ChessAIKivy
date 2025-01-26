@@ -839,7 +839,8 @@ class ChessBoard(RelativeLayout):
         #if piecekind == "King":
             #if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
                 #return True
-        #if piecekind == "Bish":
+        if piece == "B":
+            print("Attack king", plc[0], plc[1], piece, col, row)
             #if self.check_diagonal(plc, piece):
                 #return True
         #if piecekind == "Rook":
@@ -913,7 +914,6 @@ class ChessBoard(RelativeLayout):
                     piecestr = str(boardai.chesspiecesai[x][y].piece_type)
                     col = ai_to_hm_x(x)
                     row = ai_to_hm_y(y)
-                    print("King", color, plc[0], plc[1], piecestr, str(boardai.chesspiecesai[x][y].color), [col, row])
                     if self.attack_king(plc, piecestr, col, row):
                         return True
         return False
