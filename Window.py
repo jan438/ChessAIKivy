@@ -869,10 +869,10 @@ class ChessBoard(RelativeLayout):
                 aiposx = col + i * stepx + stepx
                 aiposy = row + i * stepy + stepy
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                    print("piece found diagonal", str(boardai.chesspiecesai[aiposx][aiposy].piece_type), aiposx, aiposy)
-                    #if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                        #return True
-                    #break
+                    piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
+                    if piecestr == "K":
+                        return True
+                    break
         return False
         
     def check_straight(self, plc, col, row):
@@ -888,10 +888,10 @@ class ChessBoard(RelativeLayout):
                 for i in range(deltay):
                     aiposy = ai_to_hm_y(row + i * stepy + stepy)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        print("piece found straight", str(boardai.chesspiecesai[aiposx][aiposy].piece_type), aiposx, aiposy)
-                        #if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                            #return True
-                        #break
+                        piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
+                        if piecestr == "K":
+                            return True
+                        break
             return False
             if deltay == 0:
                 if col < plc[0]:
@@ -902,10 +902,10 @@ class ChessBoard(RelativeLayout):
                 for i in range(deltax):
                     aiposx = ai_to_hm_x(col + i * stepx + stepx)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        print("piece found straight", str(boardai.chesspiecesai[aiposx][aiposy].piece_type), aiposx, aiposy)
-                        #if boardai.chesspiecesai[aiposx][aiposy].id[5:9] == "King":
-                            #return True
-                        #break
+                        piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
+                        if piecestr == "K":
+                            return True
+                        break
             return False
         return False
           
