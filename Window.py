@@ -835,10 +835,9 @@ class ChessBoard(RelativeLayout):
         anim.start(piece)
 
     def attack_king(self, plc, piece, col, row):
-        #piecekind = piece.id[5:9]
-        #if piecekind == "King":
-            #if (piece.grid_x + 2, piece.grid_y + 1) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x - 2, piece.grid_y + 1) == (plc[0],plc[1]) or  (piece.grid_x - 1, piece.grid_y + 2) == (plc[0],plc[1]) or (piece.grid_x + 1, piece.grid_y - 2) == (plc[0],plc[1]) or (piece.grid_x + 2, piece.grid_y - 1) == (plc[0],plc[1]) or  (piece.grid_x - 2, piece.grid_y - 1) == (plc[0],plc[1]) or (piece.grid_x - 1, piece.grid_y - 2) == (plc[0],plc[1]):
-                #return True
+        if piece == "N":
+            if (col + 2, row + 1) == (plc[0], plc[1]) or (col + 1, row + 2) == (plc[0], plc[1]) or (col - 2, row + 1) == (plc[0], plc[1]) or (col - 1, row + 2) == (plc[0], plc[1]) or (col + 1, row - 2) == (plc[0], plc[1]) or (col + 2, row - 1) == (plc[0], plc[1]) or (col - 2, row - 1) == (plc[0], plc[1]) or (col - 1, row - 2) == (plc[0], plc[1]):
+                return True
         if piece == "B":
             if self.check_diagonal(plc, col, row):
                 return True
