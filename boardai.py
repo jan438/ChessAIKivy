@@ -142,8 +142,6 @@ class Boardai:
         piece.f = False
         
         if (piece.piece_type == piecesai.Pawn.PIECE_TYPE):
-        
-            # If a pawn reaches the end, upgrade it to a queen.
             if (piece.y == 0 or piece.y == Boardai.HEIGHT-1):
                 if piece.color == piecesai.Piece.WHITE:
                     promoqueen = "WhiteQueen"
