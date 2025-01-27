@@ -631,40 +631,6 @@ class ChessBoard(RelativeLayout):
         for child in self.children:
             if child.id == id:
                 return child
-                
-    def WhiteCapture(self):
-        capture = False
-        hmsyn = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
-        for child in self.children:
-            hm_x_grid = round(child.grid_x)
-            hm_y_grid = round(child.grid_y)
-            hmsyn[hm_x_grid][hm_y_grid] += 1
-            if hmsyn[hm_x_grid][hm_y_grid] > 1:
-                capture = True
-                break
-        if capture:
-            for child in self.children:
-                if child.id[0:5] == "White":
-                    if [round(child.grid_x),round(child.grid_y)] == [hm_x_grid,hm_y_grid]:
-                        piece = self.findpiece(child.id)
-                        self.remove_widget(piece)
-                        
-    def BlackCapture(self):
-        capture = False
-        hmsyn = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
-        for child in self.children:
-            hm_x_grid = round(child.grid_x)
-            hm_y_grid = round(child.grid_y)
-            hmsyn[hm_x_grid][hm_y_grid] += 1
-            if hmsyn[hm_x_grid][hm_y_grid] > 1:
-                capture = True
-                break
-        if capture:
-            for child in self.children:
-                if child.id[0:5] == "Black":
-                    if [round(child.grid_x),round(child.grid_y)] == [hm_x_grid,hm_y_grid]:
-                        piece = self.findpiece(child.id)
-                        self.remove_widget(piece)
             
     def pieceindex_at_board(self,xpos,ypos):
         ypos = ai_to_hm_y(ypos)
@@ -697,10 +663,7 @@ class ChessBoard(RelativeLayout):
     def on_touch_down(self, touch):
         if self.chessmate:
             return
-        if hmcolor == piecesai.Piece.WHITE:
-            self.WhiteCapture()
-        if hmcolor == piecesai.Piece.BLACK:
-            self.BlackCapture()
+
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
