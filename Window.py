@@ -16,6 +16,8 @@ from kivy.graphics.instructions import InstructionGroup
 from kivy.graphics import Rectangle, Color, Ellipse
 from kivy.lang.builder import Builder
 from kivy.utils import get_hex_from_color, get_color_from_hex
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
 from pathlib import Path
 import boardai, piecesai, ai
 from move import Move
