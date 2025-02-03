@@ -527,7 +527,7 @@ class ChessBoard(RelativeLayout):
     available_moves = {"available_moves":[], "pieces_to_capture":[], "castling": []}
     piece_index = None
     check = BooleanProperty(defaultvalue=False)
-    hmmove = "C2 C3"
+    hmmove = "C2C3"
     index = 0
     white_chess = False
     black_chess = False
@@ -559,7 +559,7 @@ class ChessBoard(RelativeLayout):
             print(boardai.to_string())
             
     def perform_ai_move(self, xfrom, yfrom, xto, yto):
-        hmmove = ""+xpos_to_letter(xfrom)+ypos_to_digit(yfrom)+xpos_to_letter(xto)+ypos_to_digit(yto)
+        hmmove = "" + xpos_to_letter(xfrom) + ypos_to_digit(yfrom) + xpos_to_letter(xto) + ypos_to_digit(yto)
         move = get_user_move(hmmove)
         boardai.perform_move(move)
         
