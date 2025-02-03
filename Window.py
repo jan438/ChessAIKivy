@@ -575,11 +575,34 @@ class ChessBoard(RelativeLayout):
                 self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
                 self.index += 1
         elif l == '.':
-            print("Move:" + self.hmmove + " Index:" + str(self.index))
-            self.check_ai_move()
-            self.hmmove = "    "
-            self.index = 0
+            if boardai.human == "White":
+                labelcolor = [1, 1, 1, 1] 
+            else:
+                labelcolor = [0, 0, 0, 1] 
+            layout = BoxLayout(orientation='vertical')
+            message = Label(text = "Correct? " + self.hmmove, color = labelcolor, font_size='50sp')
+            layout.add_widget(message)
+            button_layout = BoxLayout(size_hint_y=0.3)
+            yes_button = Button(text = 'Yes')
+            yes_button.bind(on_release=self.on_yes)
+            button_layout.add_widget(yes_button)
+            no_button = Button(text = 'No')
+            no_button.bind(on_release=self.on_no)
+            button_layout.add_widget(no_button)
+            layout.add_widget(button_layout)
+            self.pp = Popup(title = "AIPGN", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
+            self.pp.open()
         return True
+        
+    def on_yes(self, instance):
+        print("Move:" + self.hmmove + " Index:" + str(self.index))
+        self.check_ai_move()
+        self.hmmove = "    "
+        self.index = 0
+        self.pp.dismiss()
+    
+    def on_no(self, instance):
+        self.pp.dismiss()
 
     def close_application(self): 
         App.get_running_app().stop() 
