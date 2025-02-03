@@ -34,16 +34,14 @@ Width, Height = 800, 800
 Window.size = (Width, Height)
 
 def get_user_move(movestr):
-    move_str = movestr
-    move_str = move_str.replace(" ", "")
     try:
-        xfrom = letter_to_xpos(move_str[0:1])
-        yfrom = 8 - int(move_str[1:2])
-        xto = letter_to_xpos(move_str[2:3])
-        yto = 8 - int(move_str[3:4])
+        xfrom = letter_to_xpos(movestr[0:1])
+        yfrom = 8 - int(movestr[1:2])
+        xto = letter_to_xpos(movestr[2:3])
+        yto = 8 - int(movestr[3:4])
         return Move(xfrom, yfrom, xto, yto)
     except ValueError:
-        print("Invalid format. Example: A2 A4")
+        print("Invalid format. Example: A2A4")
         return get_user_move()
         
 def letter_to_xpos(letter):
@@ -570,19 +568,16 @@ class ChessBoard(RelativeLayout):
         if l == 'q':
             self.close_application()   
         elif l == 'm':
-            self.hmmove = "     "
+            self.hmmove = "    "
             self.index = 0
         elif (l >= 'a' and l <= 'h') or (l >= '1' and l <= '8'):
-            if self.index < 5:
+            if self.index < 4:
                 self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
                 self.index += 1
-            if self.index == 2:
-                self.hmmove = self.hmmove[: self.index] + ' ' + self.hmmove[self.index + 1:]
-                self.index = 3
         elif l == '.':
             print("Move:" + self.hmmove + " Index:" + str(self.index))
             self.check_ai_move()
-            self.hmmove = "     "
+            self.hmmove = "    "
             self.index = 0
         return True
 
