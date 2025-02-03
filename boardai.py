@@ -202,7 +202,6 @@ class Boardai:
 
         return False
 
-    # Returns piece at given position or 0 if: No piece or out of bounds.
     def get_piece(self, x, y):
         if (not self.in_bounds(x, y)):
             return 0
