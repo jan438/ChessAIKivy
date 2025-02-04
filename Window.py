@@ -25,6 +25,7 @@ import boardai, piecesai, ai
 from move import Move
 import os
 import sys
+import io
 import platform
 import sysconfig
 import csv
@@ -33,6 +34,14 @@ import random
 
 Width, Height = 800, 800
 Window.size = (Width, Height)
+
+def play_sound(sorf):
+    if sorf:
+        sound = SoundLoader.load('WAV/success.wav')
+    else:
+        sound = SoundLoader.load('WAV/failure.wav')
+    if sound: 
+        sound.play()
 
 def get_user_move(movestr):
     try:
@@ -598,11 +607,13 @@ class ChessBoard(RelativeLayout):
     def on_yes(self, instance):
         print("Move:" + self.hmmove + " Index:" + str(self.index))
         self.check_ai_move()
+        play_sound(True)
         self.hmmove = "    "
         self.index = 0
         self.pp.dismiss()
     
     def on_no(self, instance):
+        play_sound(False)
         self.pp.dismiss()
 
     def close_application(self): 
