@@ -585,9 +585,8 @@ class ChessBoard(RelativeLayout):
                 self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
                 self.index += 1
         elif l == '.':
-            yfrom = int(self.hmmove[1:2]) - 1
             aiposx = ai_to_hm_x(letter_to_xpos(self.hmmove[0:1]))
-            aiposy = ai_to_hm_y(yfrom)
+            aiposy = ai_to_hm_y(int(self.hmmove[1:2]) - 1)
             if boardai.human == "White":
                 labelcolor = [1, 1, 1, 1] 
             else:
