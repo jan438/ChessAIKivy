@@ -585,6 +585,13 @@ class ChessBoard(RelativeLayout):
                 self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
                 self.index += 1
         elif l == '.':
+            xfrom = letter_to_xpos(self.hmmove[0:1])
+            yfrom = int(self.hmmove[1:2]) - 1
+            child = self.piece_at_board(xfrom, yfrom)
+            if child != None:
+                print("From", xfrom, yfrom, child.id)
+            else:
+                print("No piece")
             if boardai.human == "White":
                 labelcolor = [1, 1, 1, 1] 
             else:
@@ -665,7 +672,7 @@ class ChessBoard(RelativeLayout):
             if child.id == id:
                 return child
             
-    def pieceindex_at_board(self,xpos,ypos):
+    def pieceindex_at_board(self, xpos, ypos):
         ypos = ai_to_hm_y(ypos)
         index = -1
         for child in self.children:
@@ -674,12 +681,12 @@ class ChessBoard(RelativeLayout):
                 return index
         return -1
                 
-    def piece_at_board(self,xpos,ypos):
+    def piece_at_board(self, xpos, ypos):
         for child in self.children:
             if child.grid_x == xpos and child.grid_y == ypos:
                 return child
         print("No piece_at_board Piece 0 oordinaten", xpos, ypos)
-        return 0
+        return None
                     
     def mark_en_passant(self, c, x):
         if c == "White":
