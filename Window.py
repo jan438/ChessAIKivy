@@ -590,8 +590,6 @@ class ChessBoard(RelativeLayout):
             child = self.piece_at_board(xfrom, yfrom)
             if child != None:
                 print("From", xfrom, yfrom, child.id)
-            else:
-                print("No piece")
             if boardai.human == "White":
                 labelcolor = [1, 1, 1, 1] 
             else:
