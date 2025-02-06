@@ -587,15 +587,18 @@ class ChessBoard(RelativeLayout):
         elif l == '.':
             xfrom = letter_to_xpos(self.hmmove[0:1])
             yfrom = int(self.hmmove[1:2]) - 1
-            child = self.piece_at_board(xfrom, yfrom)
-            if child != None:
-                print("From", xfrom, yfrom, child.id)
+            aiposx = ai_to_hm_x(xfrom)
+            aiposy = ai_to_hm_y(yfrom)
             if boardai.human == "White":
                 labelcolor = [1, 1, 1, 1] 
             else:
                 labelcolor = [0, 0, 0, 1] 
+            if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
+                message = Label(text = "Correct? " + self.hmmove + piecestr, color = labelcolor, font_size='50sp')
+            else:
+                message = Label(text = "Correct? " + self.hmmove + "None", color = labelcolor, font_size='50sp')
             layout = BoxLayout(orientation='vertical')
-            message = Label(text = "Correct? " + self.hmmove, color = labelcolor, font_size='50sp')
             layout.add_widget(message)
             button_layout = BoxLayout(size_hint_y=0.3)
             yes_button = Button(text = 'Yes')
