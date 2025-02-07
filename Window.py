@@ -611,7 +611,6 @@ class ChessBoard(RelativeLayout):
         return True
         
     def on_yes(self, instance):
-        print("Move:" + self.hmmove + " Index:" + str(self.index))
         self.check_ai_move()
         play_sound(True)
         self.hmmove = "    "
