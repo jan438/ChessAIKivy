@@ -555,7 +555,7 @@ class ChessBoard(RelativeLayout):
     def check_ai_move(self):
         move = get_user_move(self.hmmove)
         boardai.perform_move(move)
-        ChessBoard.piece_index  = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
+        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
         if ChessBoard.piece_index  > -1:
              child = self.children[ChessBoard.piece_index]
              self.remove_widget(child)
