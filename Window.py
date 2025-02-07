@@ -556,7 +556,7 @@ class ChessBoard(RelativeLayout):
         move = get_user_move(self.hmmove)
         boardai.perform_move(move)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
-        if ChessBoard.piece_index  > -1:
+        if ChessBoard.piece_index > -1:
              child = self.children[ChessBoard.piece_index]
              self.remove_widget(child)
         anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
@@ -570,7 +570,11 @@ class ChessBoard(RelativeLayout):
             if child.id[5:9] == "King" and child.First_use:
                 if move.xfrom - move.xto == 2:
                     if move.yto == 7:
-                        print("Check to white queen side castling")
+                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 0, 7)
+                        if ChessBoard.piece_index > -1:
+                            rook = self.children[ChessBoard.piece_index]
+                            if rook.id[5:9] == "Rook":
+                                print("Check to white queen side castling")
                     if move.yto == 0:
                         print("Check to black queen side castling")
                 if move.xfrom - move.xto == -2:
