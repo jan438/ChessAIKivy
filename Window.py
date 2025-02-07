@@ -702,7 +702,6 @@ class ChessBoard(RelativeLayout):
     def on_touch_down(self, touch):
         if self.chessmate:
             return
-
         rows, cols = 8,8
         grid_x = int(touch.pos[0] / self.width * rows)
         grid_y = int(touch.pos[1] / self.height * cols)
@@ -978,11 +977,9 @@ class ChessBoard(RelativeLayout):
         grid_size_y = self.height / 8
         Blue = (0, 0, 1)
         Green = (0, 1, 0)
-
         with self.canvas:
             self.canvas.remove_group("moves")
             size = (0.2*grid_size_x, 0.2*grid_size_y)
-
             for idx, moves in enumerate(ChessBoard.available_moves.values()):
                 if idx == 0:
                     Color(rgb=Blue)
