@@ -589,7 +589,11 @@ class ChessBoard(RelativeLayout):
                             if rook.id[5:9] == "Rook":
                                 print("Check to white king side castling")
                     if move.yto == 0:
-                        print("Check to black king side castling")
+                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 7, 0)
+                        if ChessBoard.piece_index > -1:
+                            rook = self.children[ChessBoard.piece_index]
+                            if rook.id[5:9] == "Rook":
+                                print("Check to black king side castling")
             
     def perform_ai_move(self, xfrom, yfrom, xto, yto):
         self.hmmove = "" + xpos_to_letter(xfrom) + ypos_to_digit(yfrom) + xpos_to_letter(xto) + ypos_to_digit(yto)
