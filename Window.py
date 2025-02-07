@@ -568,9 +568,9 @@ class ChessBoard(RelativeLayout):
                 ai_move = self.let_ai_move()
             print(boardai.to_string())
             if child.id[5:9] == "King" and child.First_use:
-                if move.xfrom - move.xto == 2 :
+                if move.xfrom - move.xto == 2:
                     print("Check to queen side castling")
-                if move.xfrom - move.xto == -2 :
+                if move.xfrom - move.xto == -2:
                     print("Check to king side castling")
             
     def perform_ai_move(self, xfrom, yfrom, xto, yto):
