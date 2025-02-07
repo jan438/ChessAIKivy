@@ -569,8 +569,8 @@ class ChessBoard(RelativeLayout):
             print(boardai.to_string())
             
     def perform_ai_move(self, xfrom, yfrom, xto, yto):
-        hmmove = "" + xpos_to_letter(xfrom) + ypos_to_digit(yfrom) + xpos_to_letter(xto) + ypos_to_digit(yto)
-        move = get_user_move(hmmove)
+        self.hmmove = "" + xpos_to_letter(xfrom) + ypos_to_digit(yfrom) + xpos_to_letter(xto) + ypos_to_digit(yto)
+        move = get_user_move(self.hmmove)
         boardai.perform_move(move)
         
     def make_ai_move(self, keyboard, keycode, text, modifiers):
