@@ -589,7 +589,8 @@ class ChessBoard(RelativeLayout):
                         if ChessBoard.piece_index > -1:
                             rook = self.children[ChessBoard.piece_index]
                             if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 5, 7) == -1 and ChessBoard.pieceindex_at_board(self, 6, 7) == -1:
-                                print("Check to white king side castling")
+                                anim = Animation(grid_x = 5, grid_y = 0, t='in_out_expo', duration=0.5)
+                                anim.start(rook)
                     if move.yto == 0:
                         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 7, 0)
                         if ChessBoard.piece_index > -1:
