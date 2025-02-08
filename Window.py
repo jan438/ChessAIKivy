@@ -570,6 +570,9 @@ class ChessBoard(RelativeLayout):
             if child.id[5:9] == "Pawn" and abs(move.xfrom - move.xto) == 1 and abs(move.yfrom - move.yto) == 1 and move.yto == 2:
                 anim = Animation(grid_x = move.xto, grid_y = 5, t='in_out_expo', duration=0.5)
                 anim.start(child)
+            if child.id[5:9] == "Pawn" and abs(move.xfrom - move.xto) == 1 and abs(move.yfrom - move.yto) == 1 and move.yto == 5:
+                anim = Animation(grid_x = move.xto, grid_y = 2, t='in_out_expo', duration=0.5)
+                anim.start(child)
             if child.id[5:9] == "King" and child.First_use:
                 if move.xfrom - move.xto == 2:
                     if move.yto == 7:
