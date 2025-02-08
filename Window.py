@@ -568,7 +568,8 @@ class ChessBoard(RelativeLayout):
                 ai_move = self.let_ai_move()
             print(boardai.to_string())
             if child.id[5:9] == "Pawn" and abs(move.xfrom - move.xto) == 1 and abs(move.yfrom - move.yto) == 1 and move.yto == 2:
-                print("Pawn", child.id, "From", move.xfrom, move.yfrom, "To", move.xto, move.yto)
+                anim = Animation(grid_x = move.xto, grid_y = 5, t='in_out_expo', duration=0.5)
+                anim.start(child)
             if child.id[5:9] == "King" and child.First_use:
                 if move.xfrom - move.xto == 2:
                     if move.yto == 7:
