@@ -575,6 +575,10 @@ class ChessBoard(RelativeLayout):
                 self.add_widget(Queen(id="BlackQueen2",source="Assets/PNG/BlackQueen.png", grid_x = move.xto, grid_y = 0))
             if child.id[5:9] == "Pawn" and move.yto == 0 and abs(move.xfrom - move.xto) == 1:
                 self.remove_widget(child)
+                ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, 0)
+                if ChessBoard.piece_index > -1:
+                    child = self.children[ChessBoard.piece_index]
+                    self.remove_widget(child)
                 self.add_widget(Queen(id="WhiteQueen2",source="Assets/PNG/WhiteQueen.png", grid_x = move.xto, grid_y = 7))
             if child.id[5:9] == "Pawn" and move.yto == 7 and abs(move.xfrom - move.xto) == 1:
                 self.remove_widget(child)
