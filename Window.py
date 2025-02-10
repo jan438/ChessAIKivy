@@ -552,8 +552,13 @@ class ChessBoard(RelativeLayout):
         self._keyboard.unbind(on_key_down = self.make_ai_move)
         self._keyboard = None
         
+    def validation(self, move):
+        return True
+        
     def check_ai_move(self):
         move = get_user_move(self.hmmove)
+        if not self.validation(move):
+            return False
         boardai.perform_move(move)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
         if ChessBoard.piece_index > -1:
@@ -624,6 +629,7 @@ class ChessBoard(RelativeLayout):
                             if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 5, 0) == -1 and ChessBoard.pieceindex_at_board(self, 6, 0) == -1:
                                 anim = Animation(grid_x = 5, grid_y = 7, t='in_out_expo', duration=0.5)
                                 anim.start(rook)
+        return True
             
     def perform_ai_move(self, xfrom, yfrom, xto, yto):
         self.hmmove = "" + xpos_to_letter(xfrom) + ypos_to_digit(yfrom) + xpos_to_letter(xto) + ypos_to_digit(yto)
@@ -668,8 +674,7 @@ class ChessBoard(RelativeLayout):
         return True
         
     def on_yes(self, instance):
-        self.check_ai_move()
-        play_sound(True)
+        play_sound(self.check_ai_move())
         self.hmmove = "    "
         self.index = 0
         self.pp.dismiss()
