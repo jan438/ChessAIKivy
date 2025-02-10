@@ -552,12 +552,13 @@ class ChessBoard(RelativeLayout):
         self._keyboard.unbind(on_key_down = self.make_ai_move)
         self._keyboard = None
         
-    def validation(self, move):
+    def validation(self, move, piece_type):
+        print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
         return True
         
     def check_ai_move(self):
         move = get_user_move(self.hmmove)
-        if not self.validation(move):
+        if not self.validation(move, "Bishop"):
             return False
         boardai.perform_move(move)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
