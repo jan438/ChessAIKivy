@@ -558,6 +558,22 @@ class ChessBoard(RelativeLayout):
         deltay = abs(move.yfrom - move.yto)
         if deltax == 0 or deltay == 0 or deltax != deltay:
             return False
+        if move.xfrom < move.xto:
+            stepx = +1
+        else:
+            stepx = -1
+        if move.yfrom < move.yto:
+            stepy = +1
+        else:
+            stepy = -1
+        for i in range(deltax - 1):
+            aiposx = ai_to_hm_x(move.xfrom + i * stepx + stepx)
+            aiposy = ai_to_hm_y(move.yfrom + i * stepy + stepy)
+            if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
+                print("Found piece", piecestr, "At", aiposx, aiposy)
+                return False
+            print("No piece At", aiposx, aiposy)
         return True  
                 
     def valid_knight(self, move):
