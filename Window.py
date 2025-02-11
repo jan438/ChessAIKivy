@@ -598,38 +598,37 @@ class ChessBoard(RelativeLayout):
             if ChessBoard.piece_index > -1:
                 child = self.children[ChessBoard.piece_index]
                 self.remove_widget(child)
-        if True:           
-            if child.id[5:9] == "King" and child.First_use:
-                if move.xfrom - move.xto == 2:
-                    if move.yto == 7:
-                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 0, 7)
-                        if ChessBoard.piece_index > -1:
-                            rook = self.children[ChessBoard.piece_index]
-                            if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 3, 7) == -1 and ChessBoard.pieceindex_at_board(self, 2, 7) == -1 and ChessBoard.pieceindex_at_board(self, 1, 7) == -1:
-                                anim = Animation(grid_x = 3, grid_y = 0, t='in_out_expo', duration=0.5)
-                                anim.start(rook)
-                    if move.yto == 0:
-                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 0, 0)
-                        if ChessBoard.piece_index > -1:
-                            rook = self.children[ChessBoard.piece_index]
-                            if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 3, 0) == -1 and ChessBoard.pieceindex_at_board(self, 2, 0) == -1 and ChessBoard.pieceindex_at_board(self, 1, 0) == -1:
-                                anim = Animation(grid_x = 3, grid_y = 7, t='in_out_expo', duration=0.5)
-                                anim.start(rook)
-                if move.xfrom - move.xto == -2:
-                    if move.yto == 7:
-                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 7, 7)
-                        if ChessBoard.piece_index > -1:
-                            rook = self.children[ChessBoard.piece_index]
-                            if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 5, 7) == -1 and ChessBoard.pieceindex_at_board(self, 6, 7) == -1:
-                                anim = Animation(grid_x = 5, grid_y = 0, t='in_out_expo', duration=0.5)
-                                anim.start(rook)
-                    if move.yto == 0:
-                        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 7, 0)
-                        if ChessBoard.piece_index > -1:
-                            rook = self.children[ChessBoard.piece_index]
-                            if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 5, 0) == -1 and ChessBoard.pieceindex_at_board(self, 6, 0) == -1:
-                                anim = Animation(grid_x = 5, grid_y = 7, t='in_out_expo', duration=0.5)
-                                anim.start(rook)
+        if child.id[5:9] == "King" and child.First_use:
+            if move.xfrom - move.xto == 2:
+                if move.yto == 7:
+                    ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 0, 7)
+                    if ChessBoard.piece_index > -1:
+                        rook = self.children[ChessBoard.piece_index]
+                        if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 3, 7) == -1 and ChessBoard.pieceindex_at_board(self, 2, 7) == -1 and ChessBoard.pieceindex_at_board(self, 1, 7) == -1:
+                            anim = Animation(grid_x = 3, grid_y = 0, t='in_out_expo', duration=0.5)
+                            anim.start(rook)
+                if move.yto == 0:
+                    ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 0, 0)
+                    if ChessBoard.piece_index > -1:
+                        rook = self.children[ChessBoard.piece_index]
+                        if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 3, 0) == -1 and ChessBoard.pieceindex_at_board(self, 2, 0) == -1 and ChessBoard.pieceindex_at_board(self, 1, 0) == -1:
+                            anim = Animation(grid_x = 3, grid_y = 7, t='in_out_expo', duration=0.5)
+                            anim.start(rook)
+            if move.xfrom - move.xto == -2:
+                if move.yto == 7:
+                    ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 7, 7)
+                    if ChessBoard.piece_index > -1:
+                        rook = self.children[ChessBoard.piece_index]
+                        if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 5, 7) == -1 and ChessBoard.pieceindex_at_board(self, 6, 7) == -1:
+                            anim = Animation(grid_x = 5, grid_y = 0, t='in_out_expo', duration=0.5)
+                            anim.start(rook)
+                if move.yto == 0:
+                    ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, 7, 0)
+                    if ChessBoard.piece_index > -1:
+                        rook = self.children[ChessBoard.piece_index]
+                        if rook.id[5:9] == "Rook" and rook.First_use and ChessBoard.pieceindex_at_board(self, 5, 0) == -1 and ChessBoard.pieceindex_at_board(self, 6, 0) == -1:
+                            anim = Animation(grid_x = 5, grid_y = 7, t='in_out_expo', duration=0.5)
+                            anim.start(rook)
         return True
             
     def perform_ai_move(self, xfrom, yfrom, xto, yto):
