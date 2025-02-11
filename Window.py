@@ -552,8 +552,14 @@ class ChessBoard(RelativeLayout):
         self._keyboard.unbind(on_key_down = self.make_ai_move)
         self._keyboard = None
         
+    def valid_bishop(self, move):
+        print("Bishop Move", move.xfrom, move.yfrom, move.xto, move.yto)
+        return True
+        
     def validation(self, move, piece_type):
         print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
+        if piece_type == "Bish":
+            return self.valid_bishop(move)
         return True
         
     def check_ai_move(self):
