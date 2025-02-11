@@ -567,8 +567,8 @@ class ChessBoard(RelativeLayout):
         else:
             stepy = -1
         for i in range(deltax - 1):
-            aiposx = ai_to_hm_x(move.xfrom + i * stepx + stepx)
-            aiposy = ai_to_hm_y(move.yfrom + i * stepy + stepy)
+            aiposx = move.xfrom + i * stepx + stepx
+            aiposy = move.yfrom + i * stepy + stepy
             if boardai.chesspiecesai[aiposx][aiposy] != 0:
                 piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
                 print("Found piece", piecestr, "At", aiposx, aiposy)
