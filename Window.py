@@ -553,7 +553,6 @@ class ChessBoard(RelativeLayout):
         self._keyboard = None
         
     def valid_bishop(self, move):
-        print("Bishop Move", move.xfrom, move.yfrom, move.xto, move.yto)
         deltax = abs(move.xfrom - move.xto)
         deltay = abs(move.yfrom - move.yto)
         if deltax == 0 or deltay == 0 or deltax != deltay:
@@ -570,10 +569,7 @@ class ChessBoard(RelativeLayout):
             aiposx = move.xfrom + i * stepx + stepx
             aiposy = move.yfrom + i * stepy + stepy
             if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
-                print("Found piece", piecestr, "At", aiposx, aiposy)
                 return False
-            print("No piece At", aiposx, aiposy)
         return True  
                 
     def valid_knight(self, move):
