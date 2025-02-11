@@ -558,17 +558,17 @@ class ChessBoard(RelativeLayout):
         
     def check_ai_move(self):
         move = get_user_move(self.hmmove)
+        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
+        if ChessBoard.piece_index > -1:
+            child = self.children[ChessBoard.piece_index]
         if not self.validation(move, "Bishop"):
             return False
         boardai.perform_move(move)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
         if ChessBoard.piece_index > -1:
-             child = self.children[ChessBoard.piece_index]
-             self.remove_widget(child)
+             self.remove_widget(self.children[ChessBoard.piece_index])
         anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
-        ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
-        if ChessBoard.piece_index > -1:
-            child = self.children[ChessBoard.piece_index]
+        if True:
             anim.start(child)
             if (child.id[0:5] == boardai.human):
                 ai_move = self.let_ai_move()
