@@ -554,6 +554,10 @@ class ChessBoard(RelativeLayout):
         
     def valid_bishop(self, move):
         print("Bishop Move", move.xfrom, move.yfrom, move.xto, move.yto)
+        deltax = abs(move.xfrom - move.xto)
+        deltay = abs(move.yfrom - move.yto)
+        if deltax == 0 or deltay == 0 or deltax != deltay:
+            return False
         return True  
                 
     def valid_knight(self, move):
