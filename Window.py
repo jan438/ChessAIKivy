@@ -559,6 +559,10 @@ class ChessBoard(RelativeLayout):
     def valid_knight(self, move):
         print("Knight Move", move.xfrom, move.yfrom, move.xto, move.yto)
         return True
+                          
+    def valid_rook(self, move):
+        print("Rook Move", move.xfrom, move.yfrom, move.xto, move.yto)
+        return True
         
     def validation(self, move, piece_type):
         print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
@@ -566,6 +570,8 @@ class ChessBoard(RelativeLayout):
             return self.valid_bishop(move)
         if piece_type == "Knig":
             return self.valid_knight(move)
+        if piece_type == "Rook":
+            return self.valid_rook(move)
         return True
         
     def check_ai_move(self):
