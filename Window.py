@@ -568,23 +568,23 @@ class ChessBoard(RelativeLayout):
         if ChessBoard.piece_index > -1:
              self.remove_widget(self.children[ChessBoard.piece_index])
         anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
-        if True:
-            anim.start(child)
-            if (child.id[0:5] == boardai.human):
-                ai_move = self.let_ai_move()
-            print(boardai.to_string())
-            if child.id[5:9] == "Pawn" and move.yto == 0 and (move.xfrom - move.xto) == 0:
-                self.remove_widget(child)
-                self.add_widget(Queen(id="WhiteQueen2",source="Assets/PNG/WhiteQueen.png", grid_x = move.xto, grid_y = 7))
-            if child.id[5:9] == "Pawn" and move.yto == 7 and (move.xfrom - move.xto) == 0:
-                self.remove_widget(child)
-                self.add_widget(Queen(id="BlackQueen2",source="Assets/PNG/BlackQueen.png", grid_x = move.xto, grid_y = 0))
-            if child.id[5:9] == "Pawn" and move.yto == 0 and abs(move.xfrom - move.xto) == 1:
-                self.remove_widget(child)
-                self.add_widget(Queen(id="WhiteQueen2",source="Assets/PNG/WhiteQueen.png", grid_x = move.xto, grid_y = 7))
-            if child.id[5:9] == "Pawn" and move.yto == 7 and abs(move.xfrom - move.xto) == 1:
-                self.remove_widget(child)
-                self.add_widget(Queen(id="BlackQueen2",source="Assets/PNG/BlackQueen.png", grid_x = move.xto, grid_y = 0))
+        anim.start(child)
+        if (child.id[0:5] == boardai.human):
+            ai_move = self.let_ai_move()
+        print(boardai.to_string())
+        if child.id[5:9] == "Pawn" and move.yto == 0 and (move.xfrom - move.xto) == 0:
+            self.remove_widget(child)
+            self.add_widget(Queen(id="WhiteQueen2",source="Assets/PNG/WhiteQueen.png", grid_x = move.xto, grid_y = 7))
+        if child.id[5:9] == "Pawn" and move.yto == 7 and (move.xfrom - move.xto) == 0:
+            self.remove_widget(child)
+            self.add_widget(Queen(id="BlackQueen2",source="Assets/PNG/BlackQueen.png", grid_x = move.xto, grid_y = 0))
+        if child.id[5:9] == "Pawn" and move.yto == 0 and abs(move.xfrom - move.xto) == 1:
+            self.remove_widget(child)
+            self.add_widget(Queen(id="WhiteQueen2",source="Assets/PNG/WhiteQueen.png", grid_x = move.xto, grid_y = 7))
+        if child.id[5:9] == "Pawn" and move.yto == 7 and abs(move.xfrom - move.xto) == 1:
+            self.remove_widget(child)
+            self.add_widget(Queen(id="BlackQueen2",source="Assets/PNG/BlackQueen.png", grid_x = move.xto, grid_y = 0))
+        if True:        
             if child.id[5:9] == "Pawn" and abs(move.xfrom - move.xto) == 1 and abs(move.yfrom - move.yto) == 1 and move.yto == 2:
                 anim = Animation(grid_x = move.xto, grid_y = 5, t='in_out_expo', duration=0.5)
                 anim.start(child)
