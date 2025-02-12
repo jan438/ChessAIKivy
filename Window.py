@@ -601,6 +601,8 @@ class ChessBoard(RelativeLayout):
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
         if ChessBoard.piece_index > -1:
             child = self.children[ChessBoard.piece_index]
+        if boardai.human != child.id[0:5]:
+            return False
         if not self.validation(move, child.id[5:9]):
             return False
         boardai.perform_move(move)
