@@ -179,7 +179,6 @@ class Boardai:
         if not king_found:
             return 0
     
-    # Returns if the given color is checked.
     def is_check(self, color):
         other_color = piecesai.Piece.WHITE
         if (color == piecesai.Piece.WHITE):
