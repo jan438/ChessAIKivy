@@ -577,7 +577,12 @@ class ChessBoard(RelativeLayout):
         return True
                           
     def valid_rook(self, move):
-        print("Rook Move", move.xfrom, move.yfrom, move.xto, move.yto)
+        deltax = abs(move.xfrom - move.xto)
+        deltay = abs(move.yfrom - move.yto)
+        if deltax == 0 and deltay > 0:
+            print("Rook hotizantal", move.xfrom, move.yfrom, move.xto, move.yto)
+        if deltax > 0 and deltay == 0:
+            print("Rook vertical", move.xfrom, move.yfrom, move.xto, move.yto)
         return True
 
     def valid_queen(self, move):
