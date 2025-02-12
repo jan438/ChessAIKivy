@@ -573,8 +573,11 @@ class ChessBoard(RelativeLayout):
         return True  
                 
     def valid_knight(self, move):
-        print("Knight Move", move.xfrom, move.yfrom, move.xto, move.yto)
-        return True
+        deltax = abs(move.xfrom - move.xto)
+        deltay = abs(move.yfrom - move.yto)
+        if (deltax == 2 and deltay == 1) or (deltax == 1 and deltay == 2):
+             return True
+        return False
                           
     def valid_rook(self, move):
         deltax = abs(move.xfrom - move.xto)
