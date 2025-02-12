@@ -605,8 +605,13 @@ class ChessBoard(RelativeLayout):
         return True
 
     def valid_queen(self, move):
-        print("Queen Move", move.xfrom, move.yfrom, move.xto, move.yto)
-        return True       
+        deltax = abs(move.xfrom - move.xto)
+        deltay = abs(move.yfrom - move.yto)
+        if deltax == 0 or deltay == 0:
+            return self.valid_rook(move)
+        if deltax == deltay:
+            return self.valid_bishop(move)    
+        return False      
         
     def validation(self, move, piece_type):
         print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
