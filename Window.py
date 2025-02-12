@@ -724,7 +724,7 @@ class ChessBoard(RelativeLayout):
                 piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
                 message = Label(text = "Correct? " + self.hmmove + piecestr, color = labelcolor, font_size='50sp')
             else:
-                message = Label(text = "Correct? " + self.hmmove + "None", color = labelcolor, font_size='50sp')
+                message = Label(text = "Correct? " + self.hmmove + "-", color = labelcolor, font_size='50sp')
             layout = BoxLayout(orientation='vertical')
             layout.add_widget(message)
             button_layout = BoxLayout(size_hint_y=0.3)
