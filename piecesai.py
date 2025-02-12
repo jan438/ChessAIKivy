@@ -117,7 +117,6 @@ class Rook(Piece):
     def clone(self):
         return Rook(self.x, self.y, self.color, self.f, id)
 
-
 class Knight(Piece):
 
     PIECE_TYPE = "N"
@@ -141,7 +140,6 @@ class Knight(Piece):
     def clone(self):
         return Knight(self.x, self.y, self.color, self.f, id)
 
-
 class Bishop(Piece):
 
     PIECE_TYPE = "B"
@@ -155,7 +153,6 @@ class Bishop(Piece):
 
     def clone(self):
         return Bishop(self.x, self.y, self.color, self.f, id)
-
 
 class Queen(Piece):
 
@@ -172,7 +169,6 @@ class Queen(Piece):
 
     def clone(self):
         return Queen(self.x, self.y, self.color, self.f, id)
-
 
 class King(Piece):
 
@@ -220,10 +216,8 @@ class King(Piece):
             return 0
         return Move(self.x, self.y, self.x-2, self.y)
 
-
     def clone(self):
         return King(self.x, self.y, self.color, self.f, id)
-
 
 class Pawn(Piece):
 
@@ -242,20 +236,16 @@ class Pawn(Piece):
     def get_possible_moves(self, boardai):
         moves = []
 
-        # Direction the pawn can move in.
         direction = -1
         if (self.color == Piece.BLACK):
             direction = 1
 
-        # The general 1 step forward move.
         if (boardai.get_piece(self.x, self.y+direction) == 0):
             moves.append(self.get_move(boardai, self.x, self.y + direction))
 
-        # The Pawn can take 2 steps as the first move.
         if (self.is_starting_position() and boardai.get_piece(self.x, self.y+ direction) == 0 and boardai.get_piece(self.x, self.y + direction*2) == 0):
             moves.append(self.get_move(boardai, self.x, self.y + direction * 2))
 
-        # Eating pieces.
         piece = boardai.get_piece(self.x + 1, self.y + direction)
         if (piece != 0):
             moves.append(self.get_move(boardai, self.x + 1, self.y + direction))
