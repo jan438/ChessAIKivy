@@ -611,7 +611,10 @@ class ChessBoard(RelativeLayout):
             return self.valid_rook(move)
         if deltax == deltay:
             return self.valid_bishop(move)    
-        return False      
+        return False
+        
+    def valid_pawn(self, move):
+        print("Valid pawn", move.xfrom, move.yfrom, move.xto, move.yto)   
         
     def validation(self, move, piece_type):
         print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
@@ -622,7 +625,9 @@ class ChessBoard(RelativeLayout):
         if piece_type == "Rook":
             return self.valid_rook(move)
         if piece_type == "Quee":
-            return self.valid_queen(move)           
+            return self.valid_queen(move)
+        if piece_type == "Pawn":
+            return self.valid_pawn(move)          
         return True
         
     def check_ai_move(self):
