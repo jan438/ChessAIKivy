@@ -579,7 +579,7 @@ class ChessBoard(RelativeLayout):
              return True
         return False
                           
-    def valid_rook(self, move):
+    def valid_rook(self, move, color):
         deltax = abs(move.xfrom - move.xto)
         deltay = abs(move.yfrom - move.yto)
         if deltax == 0 and deltay > 0:
@@ -613,21 +613,21 @@ class ChessBoard(RelativeLayout):
             return self.valid_bishop(move)    
         return False
         
-    def valid_pawn(self, move):
-        print("Valid pawn", move.xfrom, move.yfrom, move.xto, move.yto)   
+    def valid_pawn(self, move, color):
+        print("Valid pawn", color, move.xfrom, move.yfrom, move.xto, move.yto)   
         
-    def validation(self, move, piece_type):
+    def validation(self, move, piece_type, color):
         print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
         if piece_type == "Bish":
             return self.valid_bishop(move)
         if piece_type == "Knig":
             return self.valid_knight(move)
         if piece_type == "Rook":
-            return self.valid_rook(move)
+            return self.valid_rook(move, color)
         if piece_type == "Quee":
             return self.valid_queen(move)
         if piece_type == "Pawn":
-            return self.valid_pawn(move)          
+            return self.valid_pawn(move, color)          
         return True
         
     def check_ai_move(self):
@@ -637,7 +637,7 @@ class ChessBoard(RelativeLayout):
             child = self.children[ChessBoard.piece_index]
         if boardai.human != child.id[0:5]:
             return False
-        if not self.validation(move, child.id[5:9]):
+        if not self.validation(move, child.id[5:9], boardai.human):
             return False
         boardai.perform_move(move)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
