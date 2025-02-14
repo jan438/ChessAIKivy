@@ -614,11 +614,20 @@ class ChessBoard(RelativeLayout):
         return False
         
     def valid_pawn(self, move, color):
-        deltax = abs(move.xfrom - move.xto)
-        deltay = abs(move.yfrom - move.yto)
-        if deltax == 0 and deltay == 2 and color == "White" and move.yfrom == 6:
+        deltax = move.xfrom - move.xto
+        deltay = move.yfrom - move.yto
+        aiposx = move.xfrom
+        aiposy = move.yfrom
+        if deltax == 0 and deltay == 2 and color == "White" and move.yfrom == 6 and boardai.chesspiecesai[aiposx][aiposy - 1] == 0:
             return True
-        print("Valid pawn", color, move.xfrom, move.yfrom, move.xto, move.yto)   
+        if deltax == 0 and deltay == 1 and color == "White":
+            return True
+        if deltax == 0 and deltay == -2 and color == "Black" and move.yfrom == 1 and boardai.chesspiecesai[aiposx][aiposy + 1] == 0:
+            return True
+        if deltax == 0 and deltay == -1 and color == "Black":
+            return True
+        print("Valid pawn", color, move.xfrom, move.yfrom, move.xto, move.yto)
+        return False
         
     def validation(self, move, piece_type, color):
         print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
