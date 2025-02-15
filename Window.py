@@ -616,6 +616,7 @@ class ChessBoard(RelativeLayout):
     def valid_pawn(self, move, color):
         deltax = move.xfrom - move.xto
         deltay = move.yfrom - move.yto
+        print("Pawn delta", deltax, deltay, "from", move.xfrom, move.yfrom, "to", move.xto, move.yto)
         if deltax == 0 and deltay == 2 and color == "White" and move.yfrom == 6 and boardai.chesspiecesai[move.xfrom][move.yfrom - 1] == 0 and boardai.chesspiecesai[move.xfrom][move.yfrom - 2] == 0:
             return True
         if deltax == 0 and deltay == 1 and color == "White" and boardai.chesspiecesai[move.xfrom][move.yfrom - 1] == 0:
@@ -633,13 +634,6 @@ class ChessBoard(RelativeLayout):
         if move.yto == 0 and (move.xfrom - move.xto) == 0 and color == "White" and boardai.chesspiecesai[move.xto][move.yto] == 0:
             return True
         if move.yto == 7 and (move.xfrom - move.xto) == 0 and color == "Black" and boardai.chesspiecesai[move.xto][move.yto] == 0:
-            return True
-        if move.yto == 0 and abs(move.xfrom - move.xto) == 1 and color == "White" and boardai.chesspiecesai[move.xto][move.yto] != 0:
-            if str(boardai.chesspiecesai[move.xto][move.yto].color) == "W":
-                return False
-            else:
-                return True
-        if move.yto == 7 and abs(move.xfrom - move.xto) == 1 and color == "Black" and boardai.chesspiecesai[move.xto][move.yto] != 0:
             return True
         return False
         
