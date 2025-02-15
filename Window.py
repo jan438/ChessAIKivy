@@ -622,9 +622,9 @@ class ChessBoard(RelativeLayout):
             return True
         if deltax == 0 and deltay == 1 and color == "White" and boardai.chesspiecesai[aiposx][aiposy - 1] == 0:
             return True
-        if deltax == 0 and deltay == -2 and color == "Black" and move.yfrom == 1 and boardai.chesspiecesai[aiposx][aiposy + 1] == 0:
+        if deltax == 0 and deltay == -2 and color == "Black" and move.yfrom == 1 and boardai.chesspiecesai[aiposx][aiposy + 1] == 0 and boardai.chesspiecesai[aiposx][aiposy + 2] == 0:
             return True
-        if deltax == 0 and deltay == -1 and color == "Black":
+        if deltax == 0 and deltay == -1 and color == "Black" and boardai.chesspiecesai[aiposx][aiposy + 1] == 0:
             return True
         print("Valid pawn", color, move.xfrom, move.yfrom, move.xto, move.yto)
         return False
