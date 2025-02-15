@@ -630,6 +630,8 @@ class ChessBoard(RelativeLayout):
         if (deltax == 1 or deltax == -1) and deltay == -1 and color == "Black":
             if boardai.chesspiecesai[move.xto][move.yto] != 0:
                 return True
+        if move.yto == 0 and (move.xfrom - move.xto) == 0 and color == "White" and boardai.chesspiecesai[move.xto][move.yto] == 0:
+            return True 
         return False
         
     def valid_king(self, move, color):
