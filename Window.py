@@ -626,6 +626,9 @@ class ChessBoard(RelativeLayout):
             return True
         return False
         
+    def valid_king(self, move, color):
+        return False
+        
     def validation(self, move, piece_type, color):
         if piece_type == "Bish":
             return self.valid_bishop(move)
@@ -636,7 +639,9 @@ class ChessBoard(RelativeLayout):
         if piece_type == "Quee":
             return self.valid_queen(move)
         if piece_type == "Pawn":
-            return self.valid_pawn(move, color)          
+            return self.valid_pawn(move, color)
+        if piece_type == "King":
+            return self.valid_king(move, color)          
         return True
         
     def check_ai_move(self):
