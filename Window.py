@@ -627,7 +627,6 @@ class ChessBoard(RelativeLayout):
         return False
         
     def validation(self, move, piece_type, color):
-        print("Move", move.xfrom, move.yfrom, move.xto, move.yto, "Type", piece_type)
         if piece_type == "Bish":
             return self.valid_bishop(move)
         if piece_type == "Knig":
