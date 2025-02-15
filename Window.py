@@ -631,7 +631,9 @@ class ChessBoard(RelativeLayout):
             if boardai.chesspiecesai[move.xto][move.yto] != 0:
                 return True
         if move.yto == 0 and (move.xfrom - move.xto) == 0 and color == "White" and boardai.chesspiecesai[move.xto][move.yto] == 0:
-            return True 
+            return True
+        if move.yto == 7 and (move.xfrom - move.xto) == 0 and color == "Black" and boardai.chesspiecesai[move.xto][move.yto] == 0:
+            return True
         return False
         
     def valid_king(self, move, color):
