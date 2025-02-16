@@ -620,21 +620,27 @@ class ChessBoard(RelativeLayout):
             self.mark_en_passant(color, move.xto)
             return True
         if deltax == 0 and deltay == 1 and color == "White" and boardai.chesspiecesai[move.xfrom][move.yfrom - 1] == 0:
+            self.clear_en_passant(color)
             return True
         if deltax == 0 and deltay == -2 and color == "Black" and move.yfrom == 1 and boardai.chesspiecesai[move.xfrom][move.yfrom + 1] == 0 and boardai.chesspiecesai[move.xfrom][move.yfrom + 2] == 0:
             self.mark_en_passant(color, move.xto)
             return True
         if deltax == 0 and deltay == -1 and color == "Black" and boardai.chesspiecesai[move.xfrom][move.yfrom + 1] == 0:
+            self.clear_en_passant(color)
             return True
         if (deltax == 1 or deltax == -1) and deltay == 1 and color == "White":
             if boardai.chesspiecesai[move.xto][move.yto] != 0:
+                self.clear_en_passant(color)
                 return True
         if (deltax == 1 or deltax == -1) and deltay == -1 and color == "Black":
             if boardai.chesspiecesai[move.xto][move.yto] != 0:
+                self.clear_en_passant(color)
                 return True
         if move.yto == 0 and (move.xfrom - move.xto) == 0 and color == "White" and boardai.chesspiecesai[move.xto][move.yto] == 0:
+            self.clear_en_passant(color)
             return True
         if move.yto == 7 and (move.xfrom - move.xto) == 0 and color == "Black" and boardai.chesspiecesai[move.xto][move.yto] == 0:
+            self.clear_en_passant(color)
             return True
         return False
         
