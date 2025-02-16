@@ -658,8 +658,6 @@ class ChessBoard(RelativeLayout):
     def check_ai_move(self):
         move = get_user_move(self.hmmove)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
-        if ChessBoard.piece_index == -1:
-            return
         child = self.children[ChessBoard.piece_index]
         if boardai.human != child.id[0:5]:
             return False
