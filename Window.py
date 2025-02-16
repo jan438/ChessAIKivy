@@ -757,7 +757,11 @@ class ChessBoard(RelativeLayout):
             if boardai.chesspiecesai[childposx][childposy] != 0:
                 childtype = str(boardai.chesspiecesai[childposx][childposy].piece_type)
                 childcolor = str(boardai.chesspiecesai[childposx][childposy].color)
-                print("Childcolor", childcolor)
+                captureposx = ai_to_hm_x(letter_to_xpos(self.hmmove[2:3]))
+                captureposy = ai_to_hm_y(int(self.hmmove[3:4]) - 1)
+                if boardai.chesspiecesai[captureposx][captureposy] != 0:
+                    capture = boardai.chesspiecesai[captureposx][captureposy]
+                    print("capture", str(capture.piece_type), str(capture.color))
                 message = Label(text = "Correct? " + self.hmmove + childtype, color = labelcolor, font_size='50sp')
             else:
                 message = Label(text = "No piece", color = labelcolor, font_size='50sp')
