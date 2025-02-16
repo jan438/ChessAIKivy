@@ -758,6 +758,19 @@ class ChessBoard(RelativeLayout):
                 piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
                 message = Label(text = "Correct? " + self.hmmove + piecestr, color = labelcolor, font_size='50sp')
             else:
+                message = Label(text = "No piece", color = labelcolor, font_size='50sp')
+                layout = BoxLayout(orientation = 'vertical')
+                layout.add_widget(message)
+                button_layout = BoxLayout(size_hint_y = 0.3)
+                yes_button = Button(text = 'OK')
+                yes_button.bind(on_release=self.on_ok)
+                button_layout.add_widget(yes_button)
+                no_button = Button(text = 'No')
+                no_button.bind(on_release=self.on_no)
+                button_layout.add_widget(no_button)
+                layout.add_widget(button_layout)
+                self.pp = Popup(title = "AI", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
+                self.pp.open()
                 return False
             layout = BoxLayout(orientation='vertical')
             layout.add_widget(message)
@@ -781,6 +794,9 @@ class ChessBoard(RelativeLayout):
     
     def on_no(self, instance):
         play_sound(False)
+        self.pp.dismiss()
+        
+    def on_ok(self, instance):
         self.pp.dismiss()
 
     def close_application(self): 
