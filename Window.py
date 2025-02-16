@@ -734,6 +734,18 @@ class ChessBoard(RelativeLayout):
         move = get_user_move(self.hmmove)
         boardai.perform_move(move)
         
+    def show_warning(self, msg, lcolor):
+        message = Label(text = msg, color = lcolor, font_size='50sp')
+        layout = BoxLayout(orientation = 'vertical')
+        layout.add_widget(message)
+        button_layout = BoxLayout(size_hint_y = 0.3)
+        yes_button = Button(text = 'OK')
+        yes_button.bind(on_release = self.on_no)
+        button_layout.add_widget(yes_button)
+        layout.add_widget(button_layout)
+        self.pp = Popup(title = "AI", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
+        self.pp.open()
+        
     def make_ai_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
         if l == 'q':
@@ -756,16 +768,7 @@ class ChessBoard(RelativeLayout):
                 childtype = str(boardai.chesspiecesai[childposx][childposy].piece_type)
                 childcolor = str(boardai.chesspiecesai[childposx][childposy].color)
                 if boardai.human[0:1] != str(childcolor):
-                    message = Label(text = "Not in turn", color = labelcolor, font_size='50sp')
-                    layout = BoxLayout(orientation = 'vertical')
-                    layout.add_widget(message)
-                    button_layout = BoxLayout(size_hint_y = 0.3)
-                    yes_button = Button(text = 'OK')
-                    yes_button.bind(on_release=self.on_no)
-                    button_layout.add_widget(yes_button)
-                    layout.add_widget(button_layout)
-                    self.pp = Popup(title = "AI", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
-                    self.pp.open()
+                    self.show_warning("Not in turn", labelcolor)
                     return False
                 captureposx = ai_to_hm_x(letter_to_xpos(self.hmmove[2:3]))
                 captureposy = ai_to_hm_y(int(self.hmmove[3:4]) - 1)
