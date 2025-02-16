@@ -748,15 +748,17 @@ class ChessBoard(RelativeLayout):
                 self.hmmove = self.hmmove[: self.index] + l + self.hmmove[self.index + 1:]
                 self.index += 1
         elif l == '.':
-            aiposx = ai_to_hm_x(letter_to_xpos(self.hmmove[0:1]))
-            aiposy = ai_to_hm_y(int(self.hmmove[1:2]) - 1)
+            childposx = ai_to_hm_x(letter_to_xpos(self.hmmove[0:1]))
+            childposy = ai_to_hm_y(int(self.hmmove[1:2]) - 1)
             if boardai.human == "White":
                 labelcolor = [1, 1, 1, 1] 
             else:
                 labelcolor = [0, 0, 0, 1] 
-            if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
-                message = Label(text = "Correct? " + self.hmmove + piecestr, color = labelcolor, font_size='50sp')
+            if boardai.chesspiecesai[childposx][childposy] != 0:
+                childtype = str(boardai.chesspiecesai[childposx][childposy].piece_type)
+                childcolor = str(boardai.chesspiecesai[childposx][childposy].color)
+                print("Childcolor", childcolor)
+                message = Label(text = "Correct? " + self.hmmove + childtype, color = labelcolor, font_size='50sp')
             else:
                 message = Label(text = "No piece", color = labelcolor, font_size='50sp')
                 layout = BoxLayout(orientation = 'vertical')
@@ -773,10 +775,10 @@ class ChessBoard(RelativeLayout):
             layout.add_widget(message)
             button_layout = BoxLayout(size_hint_y = 0.3)
             yes_button = Button(text = 'Yes')
-            yes_button.bind(on_release=self.on_yes)
+            yes_button.bind(on_release = self.on_yes)
             button_layout.add_widget(yes_button)
             no_button = Button(text = 'No')
-            no_button.bind(on_release=self.on_no)
+            no_button.bind(on_release = self.on_no)
             button_layout.add_widget(no_button)
             layout.add_widget(button_layout)
             self.pp = Popup(title = "AI", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
