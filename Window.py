@@ -616,12 +616,13 @@ class ChessBoard(RelativeLayout):
     def valid_pawn(self, move, color):
         deltax = move.xfrom - move.xto
         deltay = move.yfrom - move.yto
-        print("Pawn delta", deltax, deltay, "from", move.xfrom, move.yfrom, "to", move.xto, move.yto)
         if deltax == 0 and deltay == 2 and color == "White" and move.yfrom == 6 and boardai.chesspiecesai[move.xfrom][move.yfrom - 1] == 0 and boardai.chesspiecesai[move.xfrom][move.yfrom - 2] == 0:
+            self.mark_en_passant(color, move.xto)
             return True
         if deltax == 0 and deltay == 1 and color == "White" and boardai.chesspiecesai[move.xfrom][move.yfrom - 1] == 0:
             return True
         if deltax == 0 and deltay == -2 and color == "Black" and move.yfrom == 1 and boardai.chesspiecesai[move.xfrom][move.yfrom + 1] == 0 and boardai.chesspiecesai[move.xfrom][move.yfrom + 2] == 0:
+            self.mark_en_passant(color, move.xto)
             return True
         if deltax == 0 and deltay == -1 and color == "Black" and boardai.chesspiecesai[move.xfrom][move.yfrom + 1] == 0:
             return True
