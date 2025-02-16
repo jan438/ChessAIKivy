@@ -659,8 +659,6 @@ class ChessBoard(RelativeLayout):
         move = get_user_move(self.hmmove)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
         child = self.children[ChessBoard.piece_index]
-        if boardai.human != child.id[0:5]:
-            return False
         if not self.validation(move, child.id[5:9], boardai.human):
             return False
         boardai.perform_move(move)
@@ -757,6 +755,18 @@ class ChessBoard(RelativeLayout):
             if boardai.chesspiecesai[childposx][childposy] != 0:
                 childtype = str(boardai.chesspiecesai[childposx][childposy].piece_type)
                 childcolor = str(boardai.chesspiecesai[childposx][childposy].color)
+                if boardai.human[0:1] != str(childcolor):
+                    message = Label(text = "Not in turn", color = labelcolor, font_size='50sp')
+                    layout = BoxLayout(orientation = 'vertical')
+                    layout.add_widget(message)
+                    button_layout = BoxLayout(size_hint_y = 0.3)
+                    yes_button = Button(text = 'OK')
+                    yes_button.bind(on_release=self.on_no)
+                    button_layout.add_widget(yes_button)
+                    layout.add_widget(button_layout)
+                    self.pp = Popup(title = "AI", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
+                    self.pp.open()
+                    return False
                 captureposx = ai_to_hm_x(letter_to_xpos(self.hmmove[2:3]))
                 captureposy = ai_to_hm_y(int(self.hmmove[3:4]) - 1)
                 if boardai.chesspiecesai[captureposx][captureposy] != 0:
