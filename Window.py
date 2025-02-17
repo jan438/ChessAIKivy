@@ -661,6 +661,9 @@ class ChessBoard(RelativeLayout):
             return True
         if deltay == 0 and deltax == 1:
             return True
+        if deltax == 2:
+            if move.yto == 7 or move.yto == 0:
+                return True
         return False
         
     def validation(self, move, piece_type, color):
