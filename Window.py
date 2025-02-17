@@ -681,7 +681,7 @@ class ChessBoard(RelativeLayout):
             return self.valid_king(move, color)          
         return True
         
-    def check_ai_move(self):
+    def check_keyed_move(self):
         move = get_user_move(self.hmmove)
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xfrom, move.yfrom)
         child = self.children[ChessBoard.piece_index]
@@ -822,7 +822,7 @@ class ChessBoard(RelativeLayout):
         return True
         
     def on_yes(self, instance):
-        play_sound(self.check_ai_move())
+        play_sound(self.check_keyed_move())
         self.hmmove = "    "
         self.index = 0
         self.pp.dismiss()
