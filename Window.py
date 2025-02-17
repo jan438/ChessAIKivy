@@ -653,6 +653,14 @@ class ChessBoard(RelativeLayout):
         return False
         
     def valid_king(self, move, color):
+        deltax = abs(move.xfrom - move.xto)
+        deltay = abs(move.yfrom - move.yto)
+        if deltax == 1 and deltay == 1:
+            return True
+        if deltax == 0 and deltay == 1:
+            return True
+        if deltay == 0 and deltax == 1:
+            return True
         return False
         
     def validation(self, move, piece_type, color):
