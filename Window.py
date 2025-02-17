@@ -566,9 +566,7 @@ class ChessBoard(RelativeLayout):
         else:
             stepy = -1
         for i in range(deltax - 1):
-            aiposx = move.xfrom + i * stepx + stepx
-            aiposy = move.yfrom + i * stepy + stepy
-            if boardai.chesspiecesai[aiposx][aiposy] != 0:
+            if boardai.chesspiecesai[move.xfrom + i * stepx + stepx][move.yfrom + i * stepy + stepy] != 0:
                 return False
         return True  
                 
@@ -588,9 +586,7 @@ class ChessBoard(RelativeLayout):
             else:
                 stepy = -1
             for i in range(deltay - 1):
-                aiposx = move.xfrom
-                aiposy = move.yfrom + i * stepy + stepy
-                if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                if boardai.chesspiecesai[move.xfrom][move.yfrom + i * stepy + stepy] != 0:
                     return False
         if deltax > 0 and deltay == 0:
             if move.xfrom < move.xto:
@@ -598,9 +594,7 @@ class ChessBoard(RelativeLayout):
             else:
                 stepx = -1
             for i in range(deltax - 1):
-                aiposx = move.xfrom + i * stepx + stepx
-                aiposy = move.yfrom
-                if boardai.chesspiecesai[aiposx][aiposy] != 0:
+                if boardai.chesspiecesai[move.xfrom + i * stepx + stepx][move.yfrom] != 0:
                     return False
         return True
 
