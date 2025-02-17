@@ -353,44 +353,38 @@ class King(ChessPiece):
                 elif piece.grid_y == self.grid_y and piece.grid_x < self.grid_x and (piece.id[5:9] != "Rook" or self.id[:5] != piece.id[:5]):
                     no_piece_left = False
             if no_piece_right:
-                aiposx = 7
                 if self.id == "WhiteKing":
-                     aiposy = 7
-                     if boardai.chesspiecesai[aiposx][aiposy] == 0:
+                     if boardai.chesspiecesai[7][7] == 0:
                          return []
-                     if boardai.chesspiecesai[aiposx][aiposy].id[:9] != "WhiteRook":
+                     if boardai.chesspiecesai[7][7].id[:9] != "WhiteRook":
                          return []
                      else:
-                         if boardai.chesspiecesai[aiposx][aiposy].f == False:
+                         if boardai.chesspiecesai[7][7].f == False:
                              return [] 
                 if self.id == "BlackKing":
-                     aiposy = 0
-                     if boardai.chesspiecesai[aiposx][aiposy] == 0:
+                     if boardai.chesspiecesai[7][0] == 0:
                          return []
-                     if boardai.chesspiecesai[aiposx][aiposy].id[:9] != "BlackRook":
+                     if boardai.chesspiecesai[7][0].id[:9] != "BlackRook":
                          return []
                      else:
-                         if boardai.chesspiecesai[aiposx][aiposy].f == False:
+                         if boardai.chesspiecesai[7][0].f == False:
                              return [] 
             if no_piece_left:
-                aiposx = 0
                 if self.id == "WhiteKing":
-                     aiposy = 7
-                     if boardai.chesspiecesai[aiposx][aiposy] == 0:
+                     if boardai.chesspiecesai[0][7] == 0:
                          return []
-                     if boardai.chesspiecesai[aiposx][aiposy].id[:9] != "WhiteRook":
+                     if boardai.chesspiecesai[0][7].id[:9] != "WhiteRook":
                          return []
                      else:
-                         if boardai.chesspiecesai[aiposx][aiposy].f == False:
+                         if boardai.chesspiecesai[0][7].f == False:
                              return [] 
                 if self.id == "BlackKing":
-                     aiposy = 0
-                     if boardai.chesspiecesai[aiposx][aiposy] == 0:
+                     if boardai.chesspiecesai[0][0] == 0:
                          return []
-                     if boardai.chesspiecesai[aiposx][aiposy].id[:9] != "BlackRook":
+                     if boardai.chesspiecesai[0][0].id[:9] != "BlackRook":
                          return []
                      else:
-                         if boardai.chesspiecesai[aiposx][aiposy].f == False:
+                         if boardai.chesspiecesai[0][0].f == False:
                              return [] 
             if no_piece_left and no_piece_right and self.id == "WhiteKing":
                 no_attack_left = self.safe_left(pieces)
