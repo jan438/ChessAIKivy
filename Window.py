@@ -1118,9 +1118,7 @@ class ChessBoard(RelativeLayout):
             for y in range(8):
                 if boardai.chesspiecesai[x][y] != 0 and str(boardai.chesspiecesai[x][y].color) != color:
                     piecestr = str(boardai.chesspiecesai[x][y].piece_type)
-                    col = ai_to_hm_x(x)
-                    row = ai_to_hm_y(y)
-                    if self.attack_king(plc, piecestr, col, row):
+                    if self.attack_king(plc, piecestr, ai_to_hm_x(x), ai_to_hm_y(y)):
                         return True
         return False
 
