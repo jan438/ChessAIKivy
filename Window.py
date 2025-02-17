@@ -663,6 +663,7 @@ class ChessBoard(RelativeLayout):
             return True
         if deltax == 2:
             if move.yto == 7 or move.yto == 0:
+            # only First_use
                 return True
         return False
         
