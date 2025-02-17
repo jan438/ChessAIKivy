@@ -1082,8 +1082,7 @@ class ChessBoard(RelativeLayout):
                 aiposx = ai_to_hm_x(col + i * stepx + stepx)
                 aiposy = ai_to_hm_y(row + i * stepy + stepy)
                 if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                    piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
-                    if piecestr == "K":
+                    if str(boardai.chesspiecesai[aiposx][aiposy].piece_type) == "K":
                         return True
                     break
         return False
@@ -1101,8 +1100,7 @@ class ChessBoard(RelativeLayout):
                 for i in range(deltay):
                     aiposy = ai_to_hm_y(row + i * stepy + stepy)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
-                        if piecestr == "K":
+                        if str(boardai.chesspiecesai[aiposx][aiposy].piece_type) == "K":
                             return True
                         break
             return False
@@ -1115,8 +1113,7 @@ class ChessBoard(RelativeLayout):
                 for i in range(deltax):
                     aiposx = ai_to_hm_x(col + i * stepx + stepx)
                     if boardai.chesspiecesai[aiposx][aiposy] != 0:
-                        piecestr = str(boardai.chesspiecesai[aiposx][aiposy].piece_type)
-                        if piecestr == "K":
+                        if str(boardai.chesspiecesai[aiposx][aiposy].piece_type) == "K":
                             return True
                         break
             return False
