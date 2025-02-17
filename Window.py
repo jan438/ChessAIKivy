@@ -634,7 +634,7 @@ class ChessBoard(RelativeLayout):
                 return True
             else:
                 if move.yto == 2 and boardai.bep[move.xto]:
-                    self.clear_en_passant(color)
+                    self.clear_en_passant("Black")
                     return True
         if (deltax == 1 or deltax == -1) and deltay == -1 and color == "Black":
             if boardai.chesspiecesai[move.xto][move.yto] != 0:
