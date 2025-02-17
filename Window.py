@@ -546,10 +546,10 @@ class ChessBoard(RelativeLayout):
     def __init__(self, **kwargs):
         super(ChessBoard, self).__init__(**kwargs)
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
-        self._keyboard.bind(on_key_down = self.make_ai_move)
+        self._keyboard.bind(on_key_down = self.make_keyed_move)
         
     def _keyboard_closed(self):
-        self._keyboard.unbind(on_key_down = self.make_ai_move)
+        self._keyboard.unbind(on_key_down = self.make_keyed_move)
         self._keyboard = None
         
     def valid_bishop(self, move):
@@ -772,7 +772,7 @@ class ChessBoard(RelativeLayout):
         self.pp = Popup(title = "AI", title_size = 50, content = layout, size_hint = (0.5, 0.5), background_color = [4,.4,.2, 1])
         self.pp.open()
         
-    def make_ai_move(self, keyboard, keycode, text, modifiers):
+    def make_keyed_move(self, keyboard, keycode, text, modifiers):
         l = keycode[1]
         if l == 'q':
             self.close_application()   
