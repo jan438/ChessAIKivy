@@ -640,6 +640,10 @@ class ChessBoard(RelativeLayout):
             if boardai.chesspiecesai[move.xto][move.yto] != 0:
                 self.clear_en_passant(color)
                 return True
+            else:
+                if move.yto == 5 and boardai.wep[move.xto]:
+                    self.clear_en_passant("White")
+                    return True  
         if move.yto == 0 and (move.xfrom - move.xto) == 0 and color == "White" and boardai.chesspiecesai[move.xto][move.yto] == 0:
             self.clear_en_passant(color)
             return True
