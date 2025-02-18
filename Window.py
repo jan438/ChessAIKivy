@@ -680,7 +680,14 @@ class ChessBoard(RelativeLayout):
             for y in range(8):
                 if boardai.chesspiecesai[y][x] != 0 and str(boardai.chesspiecesai[y][x].color) != color:
                     piecestr = str(boardai.chesspiecesai[y][x].piece_type)
-                    print("Safeplcs", places, color, "piece", piecestr, y, x)
+                    if piecestr == "B":
+                        for plc in places:
+                            if not self.safe_diagonal(y, x, plc):
+                                return False
+        return True
+        
+    def safe_diagonal(self, col, row, plc):
+        print("diag", col, row, plc[0], plc[1])
         return True
         
     def validation(self, move, piece_type, color):
