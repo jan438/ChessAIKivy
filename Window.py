@@ -651,7 +651,9 @@ class ChessBoard(RelativeLayout):
             return True
         if (move.xfrom - move.xto) == 2:
             if move.yto == 7:
-                return boardai.chesspiecesai[move.xfrom][move.yfrom].f
+                print("Witte rokkade queen side")
+                places = [[3,7],[2,7],[1,7]]
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(places))
             if move.yto == 0:
                 return boardai.chesspiecesai[move.xfrom][move.yfrom].f
         if (move.xfrom - move.xto) == -2:
@@ -660,6 +662,12 @@ class ChessBoard(RelativeLayout):
             if move.yto == 0:
                 return boardai.chesspiecesai[move.xfrom][move.yfrom].f
         return False
+        
+    def empty_places(self, places):
+        for plc in places:
+            if boardai.chesspiecesai[plc[0]][plc[1]] != 0:
+                return False
+        return True
         
     def validation(self, move, piece_type, color):
         if piece_type == "Bish":
