@@ -650,15 +650,17 @@ class ChessBoard(RelativeLayout):
         if deltay == 0 and deltax == 1:
             return True
         if (move.xfrom - move.xto) == 2:
-            eplcs = [[3,7],[2,7],[1,7]]
-            splcs = [[4,7],[3,7],[2,7],[1,7]]
             if move.yto == 7:
+                eplcs = [[3,7],[2,7],[1,7]]
+                splcs = [[4,7],[3,7],[2,7],[1,7]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
             if move.yto == 0:
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
+                eplcs = [[3,0],[2,0],[1,0]]
+                splcs = [[4,0],[3,0],[2,0],[1,0]]
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "W"))
         if (move.xfrom - move.xto) == -2:
-            eplcs = [[5,7],[6,7]]
             if move.yto == 7:
+                eplcs = [[5,7],[6,7]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
             if move.yto == 0:
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
