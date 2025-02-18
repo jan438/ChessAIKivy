@@ -676,7 +676,11 @@ class ChessBoard(RelativeLayout):
         return True
         
     def safe_places(self, places, color):
-        print("Safe places", places, color)
+        for x in range(8):
+            for y in range(8):
+                if boardai.chesspiecesai[y][x] != 0 and str(boardai.chesspiecesai[y][x].color) != color:
+                    piecestr = str(boardai.chesspiecesai[y][x].piece_type)
+                    print("Safeplcs", places, color, "piece", piecestr, y, x)
         return True
         
     def validation(self, move, piece_type, color):
