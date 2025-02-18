@@ -651,10 +651,10 @@ class ChessBoard(RelativeLayout):
             return True
         if (move.xfrom - move.xto) == 2:
             if move.yto == 7:
-                print("Witte rokkade queen side")
                 places = [[3,7],[2,7],[1,7]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(places))
             if move.yto == 0:
+                places = [[3,7],[2,7],[1,7]]
                 return boardai.chesspiecesai[move.xfrom][move.yfrom].f
         if (move.xfrom - move.xto) == -2:
             if move.yto == 7:
