@@ -661,9 +661,12 @@ class ChessBoard(RelativeLayout):
         if (move.xfrom - move.xto) == -2:
             if move.yto == 7:
                 eplcs = [[5,7],[6,7]]
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
+                splcs = [[4,7],[5,7],[6,7]]
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
             if move.yto == 0:
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
+                eplcs = [[5,0],[6,0]]
+                splcs = [[4,0],[5,0],[6,0]]
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "W"))
         return False
         
     def empty_places(self, places):
