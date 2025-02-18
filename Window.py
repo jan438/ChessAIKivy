@@ -650,19 +650,17 @@ class ChessBoard(RelativeLayout):
         if deltay == 0 and deltax == 1:
             return True
         if (move.xfrom - move.xto) == 2:
+            eplcs = [[3,7],[2,7],[1,7]]
+            splcs = [[4,7],[3,7],[2,7],[1,7]]
             if move.yto == 7:
-                eplcs = [[3,7],[2,7],[1,7]]
-                splcs = [[4,7],[3,7],[2,7],[1,7]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
             if move.yto == 0:
-                eplcs = [[3,7],[2,7],[1,7]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
         if (move.xfrom - move.xto) == -2:
+            eplcs = [[5,7],[6,7]]
             if move.yto == 7:
-                eplcs = [[5,7],[6,7]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
             if move.yto == 0:
-                eplcs = [[5,0],[6,0]]
                 return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs))
         return False
         
@@ -673,6 +671,7 @@ class ChessBoard(RelativeLayout):
         return True
         
     def safe_places(self, places, color):
+        print("Safe places", places, color)
         return True
         
     def validation(self, move, piece_type, color):
