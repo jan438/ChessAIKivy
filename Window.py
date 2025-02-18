@@ -653,20 +653,20 @@ class ChessBoard(RelativeLayout):
             if move.yto == 7:
                 eplcs = [[3,7],[2,7],[1,7]]
                 splcs = [[4,7],[3,7],[2,7],[1,7]]
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "W"))
             if move.yto == 0:
                 eplcs = [[3,0],[2,0],[1,0]]
                 splcs = [[4,0],[3,0],[2,0],[1,0]]
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "W"))
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
         if (move.xfrom - move.xto) == -2:
             if move.yto == 7:
                 eplcs = [[5,7],[6,7]]
                 splcs = [[4,7],[5,7],[6,7]]
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "W"))
             if move.yto == 0:
                 eplcs = [[5,0],[6,0]]
                 splcs = [[4,0],[5,0],[6,0]]
-                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "W"))
+                return (boardai.chesspiecesai[move.xfrom][move.yfrom].f and self.empty_places(eplcs) and self.safe_places(splcs, "B"))
         return False
         
     def empty_places(self, places):
@@ -676,6 +676,7 @@ class ChessBoard(RelativeLayout):
         return True
         
     def safe_places(self, places, color):
+        print("safe places for ", color)
         for x in range(8):
             for y in range(8):
                 if boardai.chesspiecesai[y][x] != 0 and str(boardai.chesspiecesai[y][x].color) != color:
@@ -687,7 +688,10 @@ class ChessBoard(RelativeLayout):
         return True
         
     def safe_diagonal(self, col, row, plc):
-        print("diag", col, row, plc[0], plc[1])
+        deltax = col - plc[0]
+        deltay = row - plc[1]
+        if abs(deltax) == abs(deltay):
+             print("diag", " col", col, "row", row, plc[0], plc[1])
         return True
         
     def validation(self, move, piece_type, color):
