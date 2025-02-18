@@ -649,8 +649,15 @@ class ChessBoard(RelativeLayout):
             return True
         if deltay == 0 and deltax == 1:
             return True
-        if deltax == 2:
-            if move.yto == 7 or move.yto == 0:
+        if (move.xfrom - move.xto) == 2:
+            if move.yto == 7:
+                return boardai.chesspiecesai[move.xfrom][move.yfrom].f
+            if move.yto == 0:
+                return boardai.chesspiecesai[move.xfrom][move.yfrom].f
+        if (move.xfrom - move.xto) == -2:
+            if move.yto == 7:
+                return boardai.chesspiecesai[move.xfrom][move.yfrom].f
+            if move.yto == 0:
                 return boardai.chesspiecesai[move.xfrom][move.yfrom].f
         return False
         
