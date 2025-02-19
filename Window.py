@@ -686,6 +686,10 @@ class ChessBoard(RelativeLayout):
                         for plc in places:
                             if not self.safe_diagonal(y, x, plc):
                                 return False
+                    if piecestr == "R":
+                        for plc in places:
+                            if not self.safe_straight(y, x, plc):
+                                return False
         return True
         
     def safe_diagonal(self, col, row, plc):
@@ -707,6 +711,34 @@ class ChessBoard(RelativeLayout):
                      if col == plc[0]:
                          return False
                      break 
+        return True
+        
+    def safe_straight(self, col, row, plc):
+        deltax = col - plc[0]
+        deltay = row - plc[1]
+        stepx = 0
+        stepy = 0
+        if deltax == 0:
+            stepx = 0
+            if deltay > 0:
+                stepy = -1
+            if deltay < 0:
+                 stepy = 1
+        if deltay == 0:
+            stepy = 0
+            if deltax > 0:
+                stepx = -1
+            if deltax < 0:
+                stepx = 1
+        if deltax == 0 or deltay == 0:
+            print("Straight col", col, "row", row, "plc", plc[0], plc[1])
+            while True:
+                col = col + stepx
+                row = row + stepy        
+                if boardai.chesspiecesai[col][row] != 0 or col == plc[0] or row == plc[1]:
+                    if col == plc[0] and row == plc[1]:
+                        return False
+                    break  
         return True
         
     def validation(self, move, piece_type, color):
