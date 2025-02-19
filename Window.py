@@ -526,6 +526,7 @@ class King(ChessPiece):
         return False
        
 class ChessBoard(RelativeLayout):
+
     piece_pressed = False
     id_piece_ = None
     available_moves = {"available_moves":[], "pieces_to_capture":[], "castling": []}
@@ -691,7 +692,20 @@ class ChessBoard(RelativeLayout):
         deltax = col - plc[0]
         deltay = row - plc[1]
         if abs(deltax) == abs(deltay):
-             print("diag", " col", col, "row", row, plc[0], plc[1])
+             if deltax > 0:
+                 stepx = -1
+             if deltax < 0:
+                 stepx = 1
+             if deltay > 0:
+                 stepy = -1
+             if deltay < 0:
+                 stepy = 1
+             while True:
+                 col = col + stepx
+                 row = row + stepy        
+                 print("diag", " col", col, "row", row, plc[0], plc[1])
+                 if boardai.chesspiecesai[col][row] != 0 or col == plc[0]:
+                     break 
         return True
         
     def validation(self, move, piece_type, color):
