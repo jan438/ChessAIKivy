@@ -731,7 +731,6 @@ class ChessBoard(RelativeLayout):
             if deltax < 0:
                 stepx = 1
         if deltax == 0 or deltay == 0:
-            print("Straight col", col, "row", row, "plc", plc[0], plc[1])
             while True:
                 col = col + stepx
                 row = row + stepy        
