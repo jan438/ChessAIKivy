@@ -735,7 +735,7 @@ class ChessBoard(RelativeLayout):
             while True:
                 col = col + stepx
                 row = row + stepy        
-                if boardai.chesspiecesai[col][row] != 0 or col == plc[0] or row == plc[1]:
+                if boardai.chesspiecesai[col][row] != 0 or (col == plc[0] and row == plc[1]):
                     if col == plc[0] and row == plc[1]:
                         return False
                     break  
