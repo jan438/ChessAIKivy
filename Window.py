@@ -696,6 +696,15 @@ class ChessBoard(RelativeLayout):
                                 return False
                             if not self.safe_straight(y, x, plc):
                                 return False
+                    if piecestr == "N":
+                        for plc in places:
+                            if plc[1] == 7:
+                                if (plc[0] == y - 1 and plc[1] - 2 == x) or (plc[0] == y + 1 and plc[1] - 2 == x) or (plc[0] == y - 2 and plc[1] - 1 == x) or (plc[0] == y + 2 and plc[1] - 1 == x):
+                                    return False
+                            if plc[1] == 0:
+                                if (plc[0] == y - 1 and plc[1] + 2 == x) or (plc[0] == y + 1 and plc[1] + 2 == x) or (plc[0] == y - 2 and plc[1] + 1 == x) or (plc[0] == y + 2 and plc[1] + 1 == x):
+                                    return False
+                            
         return True
         
     def safe_diagonal(self, col, row, plc):
