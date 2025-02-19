@@ -705,6 +705,8 @@ class ChessBoard(RelativeLayout):
                  row = row + stepy        
                  print("diag", " col", col, "row", row, plc[0], plc[1])
                  if boardai.chesspiecesai[col][row] != 0 or col == plc[0]:
+                     if col == plc[0]:
+                         return False
                      break 
         return True
         
