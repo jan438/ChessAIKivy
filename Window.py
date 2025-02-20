@@ -1311,6 +1311,7 @@ class ChessBoard(RelativeLayout):
                 is_white = not is_white
 
 class ChessApp(App):
+
     def build(self):
         board = ChessBoard()
         if sys.platform[0] == 'l':
