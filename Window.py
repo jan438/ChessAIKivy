@@ -780,6 +780,7 @@ class ChessBoard(RelativeLayout):
         ChessBoard.piece_index = ChessBoard.pieceindex_at_board(self, move.xto, move.yto)
         if ChessBoard.piece_index > -1:
              self.remove_widget(self.children[ChessBoard.piece_index])
+        child.First_use = False
         anim = Animation(grid_x = move.xto, grid_y = ai_to_hm_y(move.yto), t='in_out_expo', duration=0.5)
         anim.start(child)
         if (child.id[0:5] == boardai.human):
